@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from .models import Kunde, KundeHatSoftware, Software
+from django.http import JsonResponse
 
 
 def home(request):
@@ -10,3 +11,12 @@ def home(request):
 
     }
     return render(request, "base.html", context)
+
+def getUser(request):
+    kdNr = request.GET.get('kdNr', None)
+    data = {
+        'kdNr': KundeHatSoftware.objects.filter(kdNr__iexact=kdNr).exists()
+    }
+    return JsonResponse(data)
+
+

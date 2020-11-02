@@ -78,6 +78,79 @@
                 margin-left: 20%;
             }
 
+            #hamburger{
+                position: absolute;
+                top: 18px;
+                right: 30px;
+                width: 40px;
+                1height: 50px;
+                display: none;
+                cursor: pointer;
+            }
+
+            #hamburger > span{
+                margin: 6px 0;
+                display: block;
+                width 100%;
+                border-radius: 100px;
+                height: 2px;
+                background: #29588C;
+            }
+            #first,#second,#third{
+                transition-duration: 200ms;
+            }
+            .firstChange{
+                transform: rotate(45deg) translate(5px,5px);
+            }
+            .secondChange{
+                opacity: 0;
+                transform: translateX(-15px);
+            }
+            .thirdChange{
+                transform: rotate(-45deg) translate(5px,-5px);
+            }
+
+            #menu{
+                position: fixed;
+                width: 0;
+                right: 0;
+                height: 100%;
+                background: white;
+                z-index: 9;
+                padding: 100px 0 0;
+                box-shadow: 0 0 20px 0 rgb(20,20,20);
+                transition-duration: 200ms;
+            }
+
+            #menu ul{
+                display: block;
+                width: 90%;
+                margin: 0 auto;
+                padding: 0;
+            }
+            #menu li{
+                display: block;
+            }
+            #menu li a{
+                display: block;
+                text-decoration: none;
+                padding: 10px;
+                color: #29588C;
+            }
+            #menu li a:hover{
+                background: #f0f0f0;
+            }
+            #menu .login-btn{
+                margin-top: 50px;
+                text-align: center;
+                border-radius: 6px;
+            }
+
+            .hamOpen{
+                display: block;
+            }
+
+
             main{
                 padding: 200px 10% 0;
             }
@@ -178,6 +251,14 @@
                 text-transform: uppercase;
                 transition-duration: 240ms;
             }
+            #search{
+                padding: 7px 20px;
+                background: #29588C;
+                color: white;
+            }
+            #search:hover{
+                background: #2968BC;
+            }
             button:hover{
                 background: #29588C;
                 color: white;
@@ -191,8 +272,8 @@
             .pakete{
                 display: flex;
                 margin: 100px 0;
-
             }
+
             .pakete > div{
                 flex: 1;
                 position: relative;
@@ -246,6 +327,29 @@
                 transition-duration: 400ms;
             }
 
+
+
+
+            @media only screen and (max-width: 1100px){
+                .pakete{
+                    flex-direction: column;
+                }
+                main{
+                    padding: 200px 2% 0;
+                }
+                .mainNav{
+                    display: none;
+                }
+                #hamburger{
+                    display: block;
+                }
+                nav img{
+                    width: 100px;
+                    margin-left: 10%;
+                }
+            }
+
+
         </style>
     </head>
     <body>
@@ -254,13 +358,13 @@
         <main>
             <h1>Lizenzrollout und Updater</h1>
 
-
+            <h2>Übersicht</h2>
             {% include "extends.html" %}
 
 
 
             <table>
-                <tr><td>Kundennummer</td><td><input type="text" name="kdNr"/></td></tr>
+                <tr><td>Kundennummer</td><td><input type="text" name="kdNr" id="kdNr"/></td><td><button id="search">Suchen</button></td></tr>
                 <tr><td>Mandant</td><td>Mercverkauf GmbH</td></tr>
                 <tr><td>Land</td><td>Deutschland</td></tr>
                 <tr><td>Stadt</td><td>Stuttgart</td></tr>
@@ -308,8 +412,12 @@
         var lizenzArr = Array.prototype.slice.call(lizenz);
         var notify = document.getElementsByClassName("notify");
         var notifyArr = Array.prototype.slice.call(notify);
-        //var more = document.getElementsByClassName("more");
-        //var moreArr = Array.prototype.slice.call(more);
+
+        var kdNr = document.getElementById("kdNr");
+        var menu = $("#menu");
+        var hamFirst = $("#first");
+        var hamSecond = $("#second");
+        var hamThird = $("#third");
 
         $(".more").click(function(){
             if($(this).prev().css("height") == "0px"){
@@ -338,6 +446,36 @@
         });
 
 
+
+        function hamToggle(e){
+            console.log(menu.css("width"));
+            if(menu.css("width") == "0px"){
+                menu.css("width","90%");
+            }else{
+                menu.css("width","0%");
+            }
+            hamFirst.toggleClass("firstChange");
+            hamSecond.toggleClass("secondChange");
+            hamThird.toggleClass("thirdChange");
+            console.log(document.getElementById("menu"));
+
+        }
+
+        $('#search').click(function(){
+            var input = kdNr.value;
+            alert(input);
+            $.ajax({
+                type:"GET",
+                url: "/getUser/",
+                data:{
+                    kdNr: input
+                },
+                dataType: 'json',
+                success: function(data){
+                    alert(data);
+                }
+            })
+        });
 
     </script>
     </body>
