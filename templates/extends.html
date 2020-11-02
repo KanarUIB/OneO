@@ -1,0 +1,15 @@
+
+<div class="pakete">
+
+    {% for x in software %}
+                <div>
+                    <h4>{{ x }}</h4>
+                    <span class="notify">aktuell</span>
+                    <p>Version {{ x.version }}</p>
+                    <button class="details">Details anzeigen</button>
+                    <button class="update">Update durchführen</button>
+                    <div class="beschreibung"><p>{{ x.beschreibung }}</p></div>
+                    <span class="more">&#9001;</span>
+                </div>
+    {% endfor %}
+            </div>
