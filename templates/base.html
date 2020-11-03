@@ -185,6 +185,9 @@
             input:focus{
                 borer: 1px solid rgb(660,120,170);
             }
+            .searchChange{
+                border: 1ßx solid rgb(255,50,70);
+            }
             select{
                 cursor: pointer;
                 padding: 8px 10px;
@@ -396,9 +399,9 @@
 
         lizenzArr.forEach(function(e){
             if(e.innerText == "INAKTIV"){
-                e.style.background = "rgb(250,30,80)";
+                e.style.color = "rgb(250,30,80)";
             }else{
-                e.style.background = "rgb(90,255,120)";
+                e.style.color = "rgb(30,200,70)";
             }
         });
 
@@ -428,16 +431,27 @@
 
         $('#search').click(function(){
             var input = kdNr.value;
-            alert(input);
             $.ajax({
                 type:"GET",
-                url: "/getUser/",
+                url: "getUser",
                 data:{
                     kdNr: input
                 },
                 dataType: 'json',
                 success: function(data){
-                    alert(data);
+                    if(!data){
+                        $("#error").css("opacity","1");
+                        $("#kdNr").addClass("searchChange");
+                        alert("Hallo");
+                    }else{
+                        alert(data);
+                        $("#error").css("opacity","0");
+                        $("#kdNr").addClass("searchChange");
+                    }
+                },
+                error: function(XMLHttpRequest, textStatus, errorThrown) {
+                    $("#error").css("opacity","1");
+                    $("#kdNr").addClass("searchChange");
                 }
             })
         });
