@@ -38,20 +38,23 @@
                     <tr><td>Land</td><td>Deutschland</td></tr>
                     <tr><td>Stadt</td><td>Stuttgart</td></tr>
                 </table>
-                <table class="checker">
-                    <tr><th>Softwarepaket</th><th>Lizenz</th><th>Version</th><th>Ablaufdatum</th></tr>
+
+
+
+
+                <div class="checker">
+                    <div class="header" style="background: rgb(30,90,150); color: white; height: 50px;text-transform: uppercase"><div>Softwarepaket</div><div>Lizenz</div><div>Version</div><div>Ablaufdatum</div><div></div></div>
                     {% for x in khs %}
                         {% if x.kdNr|equals:"Mercedesverkauf GmbH" %}
-                            <tr>
-                                <td>{{ x.swId }}</td>
-                                <td class="lizenz">{% if x.lizenz == False %} INAKTIV {% else %} AKTIV {% endif %}</td>
-                                <td>{{ x.swId.version }}</td>
-                                <td>20.07.2025</td>
-                                <td>{% if x.lizenz == False %}<button>Update</button>{% endif %}</td>
-                            </tr>
+                            <div>
+                                <div>{{ x.swId }}</div>
+                                <div class="lizenz">{% if x.lizenz == False %} INAKTIV {% else %} AKTIV {% endif %}</div>
+                                <div>{{ x.swId.version }}</div>
+                                <div>20.07.2025</div>
+                                <div>{% if x.lizenz == False %}<button>Update</button>{% endif %}</div>
+                            </div>
                         {% endif %}
                     {% endfor %}
-                </table>
-            </div>
+                </div>
 
 {% endblock dashboardtabelle %}
