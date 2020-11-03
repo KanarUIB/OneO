@@ -439,12 +439,12 @@
                 },
                 dataType: 'json',
                 success: function(data){
-                    if(!data){
+                    if(!data.kunde){
                         $("#error").css("opacity","1");
                         $("#kdNr").addClass("searchChange");
                         alert("Hallo");
                     }else{
-                        alert(data);
+                        alert(data.kunde.length);
                         $("#error").css("opacity","0");
                         $("#kdNr").addClass("searchChange");
                     }

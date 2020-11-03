@@ -8,15 +8,11 @@
             {{ form }}
         </fieldset>
         <div class="form-group">
-            <button class="btn btn-outline-info" type="submit">
-               Anmelden
-            </button>
+            <button class="btn btn-outline-info" type="submit">Anmelden</button>
         </div>
     </form>
     <div class="border-top pt-3">
-        <small class="text-muted">
-            Need An Account? <a class="ml-2" href="{% url 'register' %}">Sign Up Now!</a>
-        </small>
+        <small class="text-muted">Benötigst du einen Account? <a class="ml-2" href="{% url 'register' %}">Registriere dich hier!</a></small>
     </div>
 </div>
 {% endblock content %}
