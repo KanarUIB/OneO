@@ -10,7 +10,7 @@ def home(request):
         "khs": KundeHatSoftware.objects.all()
 
     }
-    return render(request, "base.html", context)
+    return render(request, "extends.html", context)
 
 def getUser(request):
     kdNr = request.GET.get('kdNr', None)

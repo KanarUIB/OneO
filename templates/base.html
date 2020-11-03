@@ -16,6 +16,7 @@
             html, body{
                 margin: 0;
                 padding: 0;
+                position: relative;
                 font-family: sans-serif;
             }
             ::selection{
@@ -152,13 +153,13 @@
 
 
             main{
-                padding: 200px 10% 0;
+                padding: 200px 10%;
             }
 
             .panel{
                 border-radius: 10px;
                 padding: 40px;
-                margin: 80px 0 100px;
+                margin: 80px 0 0px;
             }
             .panel h2{
                 text-align: left;
@@ -227,6 +228,9 @@
 
             footer{
                 background: #d5d9d8;
+                position: absolute;
+                left: 0;
+                right: 0;
                 bottom: 0;
             }
             footer p{
@@ -357,52 +361,12 @@
 
         <main>
             {% block content %}{% endblock %}
-            <h1>Lizenzrollout und Updater</h1>
-
-            <h2>Übersicht</h2>
-            {% include "extends.html" %}
 
 
-
-            <table>
-                <tr><td>Kundennummer</td><td><input type="text" name="kdNr" id="kdNr"/></td><td><button id="search">Suchen</button></td></tr>
-                <tr><td>Mandant</td><td>Mercverkauf GmbH</td></tr>
-                <tr><td>Land</td><td>Deutschland</td></tr>
-                <tr><td>Stadt</td><td>Stuttgart</td></tr>
-            </table>
-            <div class="panel software">
-
-            <!--    <label>Softwarepaket</label>
-                <select name="software">
-                    <option value="">---</option>
-                    <option value="">Aureb</option>
-                    <option value="">Office 365</option>
-                    <option value="">Automotive 56</option>
-                </select>
+            {% block ubersicht %}{% endblock ubersicht %}
 
 
-
-                <h2>Softwarepakete</h2>-->
-
-                {% load pages_extras %}
-
-
-                <table class="checker">
-                    <tr><th>Softwarepaket</th><th>Lizenz</th><th>Version</th><th>Ablaufdatum</th></tr>
-                {% for x in khs %}
-                {% if x.kdNr|equals:"Mercedesverkauf GmbH" %}
-                    <tr>
-                        <td>{{ x.swId }}</td>
-                        <td class="lizenz">{% if x.lizenz == False %} INAKTIV {% else %} AKTIV {% endif %}</td>
-                        <td>{{ x.swId.version }}</td>
-                        <td>20.07.2025</td>
-                        <td>{% if x.lizenz == False %}<button>Update</button>{% endif %}</td>
-                    </tr>
-                {% endif %}
-                {% endfor %}
-                </table>
-
-            </div>
+            {% block dashboardtabelle %}{% endblock dashboardtabelle %}
 
         </main>
 
