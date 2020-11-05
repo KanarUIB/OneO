@@ -222,8 +222,8 @@
                 flex: 1;
             }
             .checker button{
-                display: block;
-                margin 0 auto;
+                display: inline-block;
+                1margin 0 auto;
             }
             footer{
                 background: #d5d9d8;
@@ -433,9 +433,22 @@
                 data:{
                     kdNr: input
                 },
-                dataType: 'json',
+                //dataType: 'json',
                 success: function(data){
-                    if(!data.kunde){
+
+                alert(data.length);
+                    for(var x = 0; x < 2; x++){
+                        $(".checker").append($("<h1>{{ data }}</h1>"));
+                    }
+                           /* <div>
+                                <div>{{ x.swId }}</div>
+                                <div class="lizenz">{% if x.lizenz == False %} INAKTIV {% else %} AKTIV {% endif %}</div>
+                                <div>{{ x.swId.version }}</div>
+                                <div>20.07.2025</div>
+                                <div>{% if x.lizenz == False %}<button>Lizenzupdate</button>{% endif %}</div>
+                            </div>*/
+                    alert(data)
+                   /* if(!data.kunde){
                         $("#error").css("opacity","1");
                         $("#kdNr").addClass("searchChange");
                         alert("Hallo");
@@ -443,12 +456,12 @@
                         alert(data.kunde.length);
                         $("#error").css("opacity","0");
                         $("#kdNr").addClass("searchChange");
-                    }
-                },
+                    }*/
+                },/*
                 error: function(XMLHttpRequest, textStatus, errorThrown) {
                     $("#error").css("opacity","1");
                     $("#kdNr").addClass("searchChange");
-                }
+                }*/
             })
         });
 
