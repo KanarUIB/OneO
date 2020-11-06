@@ -1,7 +1,7 @@
-
-            html, body{
+html, body{
                 margin: 0;
                 padding: 0;
+                position: relative;
                 font-family: sans-serif;
             }
             ::selection{
@@ -64,14 +64,87 @@
                 margin-left: 20%;
             }
 
+            #hamburger{
+                position: absolute;
+                top: 18px;
+                right: 30px;
+                width: 40px;
+                1height: 50px;
+                display: none;
+                cursor: pointer;
+            }
+
+            #hamburger > span{
+                margin: 6px 0;
+                display: block;
+                width 100%;
+                border-radius: 100px;
+                height: 2px;
+                background: #29588C;
+            }
+            #first,#second,#third{
+                transition-duration: 200ms;
+            }
+            .firstChange{
+                transform: rotate(45deg) translate(5px,5px);
+            }
+            .secondChange{
+                opacity: 0;
+                transform: translateX(-15px);
+            }
+            .thirdChange{
+                transform: rotate(-45deg) translate(5px,-5px);
+            }
+
+            #menu{
+                position: fixed;
+                width: 0;
+                right: 0;
+                height: 100%;
+                background: white;
+                z-index: 9;
+                padding: 100px 0 0;
+                box-shadow: 0 0 20px 0 rgb(20,20,20);
+                transition-duration: 200ms;
+            }
+
+            #menu ul{
+                display: block;
+                width: 90%;
+                margin: 0 auto;
+                padding: 0;
+            }
+            #menu li{
+                display: block;
+            }
+            #menu li a{
+                display: block;
+                text-decoration: none;
+                padding: 10px;
+                color: #29588C;
+            }
+            #menu li a:hover{
+                background: #f0f0f0;
+            }
+            #menu .login-btn{
+                margin-top: 50px;
+                text-align: center;
+                border-radius: 6px;
+            }
+
+            .hamOpen{
+                display: block;
+            }
+
+
             main{
-                padding: 200px 10% 0;
+                padding: 200px 10%;
             }
 
             .panel{
                 border-radius: 10px;
                 padding: 40px;
-                margin: 80px 0 100px;
+                margin: 80px 0 0px;
             }
             .panel h2{
                 text-align: left;
@@ -97,6 +170,9 @@
             input:focus{
                 borer: 1px solid rgb(660,120,170);
             }
+            .searchChange{
+                border: 1ßx solid rgb(255,50,70);
+            }
             select{
                 cursor: pointer;
                 padding: 8px 10px;
@@ -105,41 +181,40 @@
                 font-weight: 700;
                 border: 2px solid #29588C;
             }
-            table.checker{
+            .checker{
                 margin: 50px 0 0;
                 width: 100%;
                 text-align: center;
                 border-collapse: collapse;
             }
-            .checker tr:first-child{
-                background: #29588C;
-                color: white;
+            .checker > div{
+                display: flex;
+                border: 1px solid rgb(180,180,180);
+                box-shadow: 3px 5px 3px -2px rgb(160,160,160);
+                border-radius: 50px;
+                margin: 10px 0;
+                padding: 10px;
+                height: 32px;
+                align-items: center;
             }
-            .checker th{
-                font-size: 1.2em;
-                letter-spacing: 0.08em;
-                padding 20px 0;
-                border-bottom: 1px solid rgb(150,150,150);
-            }
-            .checker tr{
-                padding: 20px 0;
-            }
-            .checker tr:nth-child(even){
+            .checker > div:nth-child(odd){
                 background: rgb(240,240,240);
             }
-            .checker th{
-                padding: 15px;
+            .checker .header{
+                background: red;
             }
-            .checker td{
-                padding: 10px;
-                border-bottom: 1px solid rgb(120,120,120);
+            .checker > div > div{
+                flex: 1;
             }
-            tr td:nth-child(2){
-                1border-radius: 100px;
+            .checker button{
+                display: block;
+                margin 0 auto;
             }
-
             footer{
                 background: #d5d9d8;
+                position: absolute;
+                left: 0;
+                right: 0;
                 bottom: 0;
             }
             footer p{
@@ -164,6 +239,14 @@
                 text-transform: uppercase;
                 transition-duration: 240ms;
             }
+            #search{
+                padding: 7px 20px;
+                background: #29588C;
+                color: white;
+            }
+            #search:hover{
+                background: #2968BC;
+            }
             button:hover{
                 background: #29588C;
                 color: white;
@@ -177,8 +260,8 @@
             .pakete{
                 display: flex;
                 margin: 100px 0;
-
             }
+
             .pakete > div{
                 flex: 1;
                 position: relative;
@@ -230,4 +313,24 @@
                 margin: 30px 0 0;
                 overflow: hidden;
                 transition-duration: 400ms;
+            }
+
+
+            @media only screen and (max-width: 1100px){
+                .pakete{
+                    flex-direction: column;
+                }
+                main{
+                    padding: 200px 2% 0;
+                }
+                .mainNav{
+                    display: none;
+                }
+                #hamburger{
+                    display: block;
+                }
+                nav img{
+                    width: 100px;
+                    margin-left: 10%;
+                }
             }

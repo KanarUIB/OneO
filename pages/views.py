@@ -11,7 +11,7 @@ def home(request):
         "khs": KundeHatSoftware.objects.all()
 
     }
-    return render(request, "extends.html", context)
+    return render(request, "dashboard.html", context)
 
 
 def getUser(request):

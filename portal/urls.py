@@ -1,4 +1,4 @@
-"""myproject URL Configuration
+"""portal URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/3.1/topics/http/urls/
@@ -23,10 +23,9 @@ from users import views as user_views
 
 urlpatterns = [
     path('admin/', admin.site.urls, name="admin"),
-    path('', page.home, name="index"),
-    #path("", include("pages.urls"))
+    #path('', page.home, name="index"),
+    path('', include("pages.urls")),
     path('login/', auth_views.LoginView.as_view(template_name='users/login.html'), name='login'),
     path('register/', user_views.register, name='register'),
     path('getUser/', page.getUser, name="getUser"),
-
 ]
