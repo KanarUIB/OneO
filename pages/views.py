@@ -32,6 +32,9 @@ def getUser(request):
             "version": str(x.swId.version)
         })
 
+
+    print(kundenliste)
+
     data = {
         "kunde": kundenliste
     }

@@ -187,7 +187,21 @@ html, body{
                 text-align: center;
                 border-collapse: collapse;
             }
-            .checker > div{
+            .checker .header{
+                display: flex;
+                border: 1px solid rgb(180,180,180);
+                box-shadow: 3px 5px 3px -2px rgb(160,160,160);
+                border-radius: 50px;
+                margin: 10px 0;
+                padding: 10px;
+                height: 32px;
+                align-items: center;
+                background: rgb(30,90,150);
+                color: white;
+                height: 50px;
+                text-transform: uppercase;
+            }
+            .checker .results > div{
                 display: flex;
                 border: 1px solid rgb(180,180,180);
                 box-shadow: 3px 5px 3px -2px rgb(160,160,160);
@@ -197,18 +211,31 @@ html, body{
                 height: 32px;
                 align-items: center;
             }
-            .checker > div:nth-child(odd){
-                background: rgb(240,240,240);
+            .checker .results > div:nth-child(odd){
+                background: rgb(230,230,230);
             }
             .checker > div{
-                display: hidden;
+                1display: hidden;
             }
             .checker .header{
-                background: red;
-                display: block;
+                1background: red;
             }
-            .checker > div > div{
+            .results .line{
+                display: flex;
+                transition-duration: 600ms;
+            }
+            .checker .results .line > div, .checker .header > div{
                 flex: 1;
+                border-right: 1px solid rgb(100,100,100);
+            }
+            .checker .header > div{
+                border-right: 1px solid rgb(200,200,200);
+            }
+            .checker .header > div:nth-child(4){
+                border-right: none;
+            }
+            .checker .results .line > div:nth-child(4), .checker .results .line > div:nth-child(5){
+                border-right: none;
             }
             .checker button{
                 display: block;
@@ -251,10 +278,14 @@ html, body{
             #search:hover{
                 background: #2968BC;
             }
+            #search:active, .checker button:active, .pakete button:active, .details:active{
+                background: #2982BC;
+            }
             button:hover{
                 background: #29588C;
                 color: white;
             }
+
 
             .checker td:last-child{
                 border: none;

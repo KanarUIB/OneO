@@ -75,28 +75,43 @@
 
                     if(data && newdata.length > 0 ){
                         $("#mandant").text(newdata[0]["kdNr"]);
+                        $(".checker .results .line").replaceWith("");
                         for(var x = 0; x < newdata.length; x++){
 
                             lizenz = newdata[x]["lizenz"] == "True" ? "AKTIV" : "INAKTIV";
 
-                            $(".checker").append(""
-                                + "<div style='display: hidden;'>"
+                            if(lizenz == "INAKTIV"){
+                                button ="<div><button>Update</button></div>"
+                            }else{
+                                button ="<div></div>"
+                            }
+
+                            $(".checker .results").append(""
+                                + "<div class='line' style='opacity: 0;'>"
                                     + "<div>" + newdata[x]["swId"] + "</div>"
                                     + "<div class='lizenz'>" + lizenz + "</div>"
                                     + "<div>" + newdata[x]["version"] + "</div>"
                                     + "<div>20.07.2025</div>"
-                                    + "<div>"
-                                        + "<button>Update</button>"
-                                    + "</div>"
+                                    + button
                                 + "</div>");
+
 
                         }
 
+                        setTimeout(function(){
+                            $(".line").css("opacity","1");
+
+                        },200);
 
 
                         $("#error").css("opacity","0");
                         $("#kdNr").addClass("searchChange");
                     }else{
+                        $("#mandant").text("");
+                        $(".line").css("opacity","0");
+                        setTimeout(function(){
+                            $(".checker .results .line").replaceWith("");
+                        },400);
                         $("#error").css("opacity","1");
                         $("#kdNr").addClass("searchChange");
                     }
@@ -143,12 +158,15 @@
 
 
     <div class="checker">
-        <div class="header" style="background: rgb(30,90,150); color: white; height: 50px;text-transform: uppercase">
+        <div class="header">
             <div>Softwarepaket</div>
             <div>Lizenz</div>
             <div>Version</div>
             <div>Ablaufdatum</div>
             <div></div>
+        </div>
+        <div class="results">
+            <div class="line" style="opacity: 0;"></div>
         </div>
      <!--   {% for x in khs %}
         {% if x.kdNr|equals:"Mercedesverkauf GmbH" %}
