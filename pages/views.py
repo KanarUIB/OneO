@@ -16,6 +16,23 @@ def home(request):
     return render(request, "dashboard.html", context)
 
 
+def kundenprofil(request):
+    context = {
+        "kunde": Kunde.objects.all(),
+        "software": Software.objects.all(),
+        "khs": KundeHatSoftware.objects.all()
+
+    }
+    return render(request, "kundenprofil.html", context)
+
+def kunden(request):
+    context = {
+        "kunde": Kunde.objects.all()
+
+    }
+    return render(request, "kunden.html", context)
+
+
 def getUser(request):
     kdNr = request.GET.get('kdNr', None)
 
