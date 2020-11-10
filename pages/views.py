@@ -2,6 +2,8 @@ from django.shortcuts import render
 from .models import Kunde, KundeHatSoftware, Software
 from django.http import JsonResponse, HttpResponse
 from django.core import serializers
+from django.forms.models import model_to_dict
+import json
 
 
 def home(request):
@@ -17,12 +19,24 @@ def home(request):
 def getUser(request):
     kdNr = request.GET.get('kdNr', None)
 
-    kunde = KundeHatSoftware.objects.filter(kdNr_id=kdNr).values('kdNr', 'swId', 'lizenz')
-    #kunde = serializers.serialize('json', KundeHatSoftware.objects.filter(kdNr_id=kdNr), fields=('kd','size'))
+    kunde = KundeHatSoftware.objects.filter(kdNr_id=kdNr)
+    #print(kunde[0])
+    #for x in kunde:
+    #    print(x.swId)
+    kundenliste = []
+    for x in kunde:
+        kundenliste.append({
+            "kdNr": str(x.kdNr),
+            "swId": str(x.swId),
+            "lizenz": str(x.lizenz),
+            "version": str(x.swId.version)
+        })
 
     data = {
-        #'kdNr': list(KundeHatSoftware.objects.filter(id=kdNr).values_list("id", "kdNr", "swId", "lizenz")),
-        "kunde": kunde
+        "kunde": kundenliste
     }
 
-    return HttpResponse(data)
+
+    #print(kunde)
+
+    return JsonResponse(json.dumps(kundenliste), safe=False)

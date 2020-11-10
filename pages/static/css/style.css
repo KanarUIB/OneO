@@ -200,8 +200,12 @@ html, body{
             .checker > div:nth-child(odd){
                 background: rgb(240,240,240);
             }
+            .checker > div{
+                display: hidden;
+            }
             .checker .header{
                 background: red;
+                display: block;
             }
             .checker > div > div{
                 flex: 1;
@@ -304,6 +308,7 @@ html, body{
                 margin: 10px auto 0;
                 cursor: pointer;
                 transition-duration: 300ms;
+                user-select: none;
             }
             .pakete .more:hover{
                 opacity: 0.5;

@@ -41,6 +41,7 @@
             }
         });
 
+        $(".checker").on("change", function(){;
         lizenzArr.forEach(function(e){
             if(e.innerText == "INAKTIV"){
                 e.style.color = "rgb(250,30,80)";
@@ -48,6 +49,7 @@
                 e.style.color = "rgb(30,200,70)";
             }
         });
+        })
 
         notifyArr.forEach(function(e){
             if(e.innerText == "aktuell"){
@@ -67,13 +69,35 @@
                 },
                 dataType: 'json',
                 success: function(data){
-                    if(!data.kunde){
-                        $("#error").css("opacity","1");
-                        $("#kdNr").addClass("searchChange");
-                        alert("Hallo");
-                    }else{
-                        alert(data.kunde.length);
+                    newdata = JSON.parse(data);
+                    console.log(newdata);
+                    var lizenz = "";
+
+                    if(data && newdata.length > 0 ){
+                        $("#mandant").text(newdata[0]["kdNr"]);
+                        for(var x = 0; x < newdata.length; x++){
+
+                            lizenz = newdata[x]["lizenz"] == "True" ? "AKTIV" : "INAKTIV";
+
+                            $(".checker").append(""
+                                + "<div style='display: hidden;'>"
+                                    + "<div>" + newdata[x]["swId"] + "</div>"
+                                    + "<div class='lizenz'>" + lizenz + "</div>"
+                                    + "<div>" + newdata[x]["version"] + "</div>"
+                                    + "<div>20.07.2025</div>"
+                                    + "<div>"
+                                        + "<button>Update</button>"
+                                    + "</div>"
+                                + "</div>");
+
+                        }
+
+
+
                         $("#error").css("opacity","0");
+                        $("#kdNr").addClass("searchChange");
+                    }else{
+                        $("#error").css("opacity","1");
                         $("#kdNr").addClass("searchChange");
                     }
                 },
@@ -105,15 +129,15 @@
         </tr>
         <tr>
             <td>Mandant</td>
-            <td>Mercverkauf GmbH</td>
+            <td id="mandant"></td>
         </tr>
         <tr>
             <td>Land</td>
-            <td>Deutschland</td>
+            <td id="land">Deutschland</td>
         </tr>
         <tr>
             <td>Stadt</td>
-            <td>Stuttgart</td>
+            <td id="stadt">Stuttgart</td>
         </tr>
     </table>
 
@@ -126,7 +150,7 @@
             <div>Ablaufdatum</div>
             <div></div>
         </div>
-        {% for x in khs %}
+     <!--   {% for x in khs %}
         {% if x.kdNr|equals:"Mercedesverkauf GmbH" %}
         <div>
             <div>{{ x.swId }}</div>
@@ -139,7 +163,7 @@
             </div>
         </div>
         {% endif %}
-        {% endfor %}
+        {% endfor %} -->
     </div>
 
     {% endblock dashboardtabelle %}
