@@ -1,4 +1,3 @@
-
 <nav>
     <div>
         <a class="emblem" href="/"><img src="https://www.aubex.de/sites/all/themes/aubex/logo.png" width="130px"/></a>
@@ -7,7 +6,9 @@
     <div class="mainNav">
         <ul>
             <li><a href="/">Home</a></li>
+            {%if user.is_superuser %}
             <li><a href="/admin">Admin</a></li>
+            {% endif %}
             <li><a href="">Lizenzen</a></li>
             <li><a href="/Kunden">Kunden</a></li>
             <li><a href="">Sonstige</a></li>
@@ -28,13 +29,13 @@
 
 </nav>
 
-    <div id="menu">
-        <ul>
-            <li><a href="/">Home</a></li>
-            <li><a href="/admin">Admin</a></li>
-            <li><a href="">Lizenzen</a></li>
-            <li><a href="">Kunden</a></li>
-            <li><a href="">Sonstige</a></li>
-            <li><a class="login-btn" href="{% url 'login' %}">Login</a></li>
-        </ul>
-    </div>
+<div id="menu">
+    <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/admin">Admin</a></li>
+        <li><a href="">Lizenzen</a></li>
+        <li><a href="">Kunden</a></li>
+        <li><a href="">Sonstige</a></li>
+        <li><a class="login-btn" href="{% url 'login' %}">Login</a></li>
+    </ul>
+</div>
