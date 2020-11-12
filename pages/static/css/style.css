@@ -291,6 +291,18 @@ html, body{
                 background: rgb(255,255,255);
                 padding: 0 0 0 10px;
             }
+             .container > form{
+                text-align:center;
+                width:100%;
+                box-shadow: 4px 4px 9px 0 rgb(200,200,200);
+
+                border-radius: 25px;
+                padding: 20px;
+
+            }
+            .container >form button{
+            width:70%;
+            }
             .pakete{
                 display: flex;
                 margin: 100px 0;
