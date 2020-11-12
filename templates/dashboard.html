@@ -5,19 +5,24 @@
 <h2>Übersicht</h2>
 
 <div class="pakete">
+    <div class="row">
 
     {% for x in software %}
-    <div>
-        <h4>{{ x }}</h4>
-        <span class="notify">aktuell</span>
-        <p>Version {{ x.version }}</p>
-        <button class="details">Details anzeigen</button>
-        <button class="update">Update durchführen</button>
-        <div class="beschreibung"><p>{{ x.beschreibung }}</p></div>
-        <span class="more">&#9001;</span>
+
+        <div class="col-s col-md">
+            <h4>{{ x }}</h4>
+            <span class="notify">aktuell</span>
+            <p>Version {{ x.version }}</p>
+            <button class="details">Details anzeigen</button>
+            <button class="update">Update durchführen</button>
+            <div class="beschreibung"><p>{{ x.beschreibung }}</p></div>
+            <span class="more">&#9001;</span>
+
+        </div>
+        {% endfor %}
     </div>
-    {% endfor %}
 </div>
+
 {% endblock ubersicht %}
 
 
@@ -33,7 +38,7 @@
 
         $(".more").click(function(){
             if($(this).prev().css("height") == "0px"){
-                $(this).prev().css("height","200px");
+                $(this).prev().css("height","320px");
                 $(this).css("transform","rotate(90deg)");
             }else{
                 $(this).prev().css("height","0px");

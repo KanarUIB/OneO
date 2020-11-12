@@ -303,19 +303,28 @@ html, body{
             .container >form button{
             width:70%;
             }
-            .pakete{
-                display: flex;
+            1.pakete{
+                1display: flex;
                 margin: 100px 0;
             }
 
-            .pakete > div{
+            .col-s,.col-md{
+            margin:0 1%;
+              border-radius: 25px;
+                padding: 20px;
+              box-shadow: 4px 4px 9px 0 rgb(200,200,200);
+              height: 100%;
+
+            }
+
+            1.pakete > div{
                 flex: 1;
                 position: relative;
                 box-shadow: 4px 4px 9px 0 rgb(200,200,200);
                 margin: 0 10px;
                 border-radius: 25px;
                 padding: 20px;
-                height: 100%;
+
             }
             .pakete button{
                 height: inherit;
@@ -357,13 +366,13 @@ html, body{
             }
             .pakete .beschreibung{
                 height: 0;
-                margin: 30px 0 0;
+                margin: 30px 0 0 ;
                 overflow: hidden;
                 transition-duration: 400ms;
             }
 
 
-            @media only screen and (max-width: 1100px){
+   @media only screen and (max-width: 1100px){
                 .pakete{
                     flex-direction: column;
 
