@@ -5,7 +5,7 @@ html, body{
                 font-family: sans-serif;
             }
             ::selection{
-                background-color: rgb(255,50,70);
+                background-color: rgb(2,50,70);
                 color: white;
             }
             h1,h2,h3{
@@ -141,27 +141,17 @@ html, body{
                 padding: 200px 10%;
             }
 
-            .panel{
-                border-radius: 10px;
+            #panel{
                 padding: 40px;
                 margin: 80px 0 0px;
             }
-            .panel h2{
-                text-align: left;
-                margin: 0 0 50px;
-            }
-            table td{
-                padding: 8px 20px;
-            }
-            input, select, textarea{
-                outline: none;
-            }
+
             input{
                 appearance: none;
                 -webkit-appearance: none;
                 -moz-appearance: none;
-                padding: 8px 10px;
-                border-radius: 10px;
+                padding: 10px 10px;
+                border-radius: 20px;
                 color: #29588C;
                 font-weight: 700;
                 border: 1px solid rgb(130,130,130);
@@ -307,24 +297,17 @@ html, body{
             }
 
 
-            .pakete>.col-s,.col-md{
+            #softwarekasten{
+
                margin:0 0,5%;
               border-radius: 25px;
-                padding: 20px;
+                padding: 20 50 20 50;
               box-shadow: 4px 4px 9px 0 rgb(200,200,200);
               height: 100%;
 
             }
 
-            1.pakete > div{
-                flex: 1;
-                position: relative;
-                box-shadow: 4px 4px 9px 0 rgb(200,200,200);
-                margin: 0 10px;
-                border-radius: 25px;
-                padding: 20px;
 
-            }
             .pakete button{
                 height: inherit;
                 margin-top: 10px;
@@ -337,7 +320,7 @@ html, body{
                 1float: right;
                 position: absolute;
                 top: 30px;
-                right: 30px;
+                right: 50px;
                 padding: 10px 25px;
                 background: rgb(100,180,30);
                 color: white;
@@ -355,7 +338,7 @@ html, body{
                 transform: rotate(-90deg);
                 font-size: 2em;
                 width: 20px;
-                margin: 10px auto 0;
+                margin: 0px auto 0;
                 cursor: pointer;
                 transition-duration: 300ms;
                 user-select: none;
@@ -372,16 +355,9 @@ html, body{
 
 
    @media only screen and (max-width: 1100px){
-                .pakete{
-                    flex-direction: column;
 
-                }
                 .pakete div{
                 margin-top:50;
-                }
-
-                main{
-                    padding: 200px 2% 0;
                 }
                 .mainNav{
                     display: none;
