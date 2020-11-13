@@ -1,18 +1,22 @@
 {% extends '../base.html' %}
 {% block content %}
-<h1>Login</h1>
-<div class="container">
-    <form method="POST">
-        {% csrf_token %}
-        <fieldset class="form-group">
-            {{ form.as_p }}
-        </fieldset>
-        <div class="form-group">
-            <button class="btn btn-outline-primary" type="submit">Anmelden</button>
-        </div>
-    </form>
-    <div class="border-top pt-3">
-        <small class="text-muted">Benötigst du einen Account? <a class="ml-2" href="{% url 'register' %}">Registriere dich hier!</a></small>
+
+<div class="loginBlock">
+
+          <form method="POST">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                {{ form.as_p }}
+            </fieldset>
+            <div class="form-group">
+                <button class="btn btn-outline-primary" type="submit">Anmelden</button>
+            </div>
+          </form>
     </div>
-</div>
+            <div class="border-top pt-3 text-center">
+                <small class="text-muted">Benötigst du einen Account? <a class="ml-2" href="{% url 'register' %}">Registriere dich hier!</a></small>
+            </div>
+
+
+
 {% endblock content %}
