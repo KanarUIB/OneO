@@ -1,9 +1,6 @@
 {% extends "base.html" %}
 
 {% block ubersicht %}
-<h1>Lizenzrollout und Updater</h1>
-<h2>Übersicht</h2>
-
 <div class="pakete">
     <div class="row">
 
@@ -38,7 +35,7 @@
 
         $(".more").click(function(){
             if($(this).prev().css("height") == "0px"){
-                $(this).prev().css("height","320px");
+                $(this).prev().css("height","150px");
                 $(this).css("transform","rotate(90deg)");
             }else{
                 $(this).prev().css("height","0px");
