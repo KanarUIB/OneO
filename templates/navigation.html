@@ -4,18 +4,18 @@
     </div>
 
     <div class="mainNav">
-        <ul>
-            <li><a href="/">Home</a></li>
+        <ul class="nav">
+            <li class="nav-item"><a href="/">Home</a></li>
             {%if user.is_superuser %}
-            <li><a href="/admin">Admin</a></li>
+            <li class="nav-item"><a href="/admin">Admin</a></li>
             {% endif %}
-            <li><a href="">Lizenzen</a></li>
-            <li><a href="/Kunden">Kunden</a></li>
-            <li><a href="">Sonstige</a></li>
+            <li class="nav-item"><a href="">Lizenzen</a></li>
+            <li class="nav-item"><a href="/Kunden">Kunden</a></li>
+            <li class="nav-item"><a href="">Sonstige</a></li>
             {% if user.is_authenticated %}
-            <li><a class="login-btn" href="{% url 'logout' %}">Abmelden</a></li>
+            <li class="nav-item"><a class="login-btn" href="{% url 'logout' %}">Abmelden</a></li>
             {% else %}
-            <li><a class="login-btn" href="{% url 'login' %}">Login</a></li>
+            <li class="nav-item"><a class="login-btn" href="{% url 'login' %}">Login</a></li>
             {% endif %}
 
         </ul>

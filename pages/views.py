@@ -23,7 +23,7 @@ def home(request):
 
 
 #   untenstehenden TEST-Befehl auf Kundenseite integrieren in Verbindung mit cronjob im Format */10 * * * * ... (alle 10 Minuten)
-#   curl -X POST -d kdNr=1;mandant=Mercedes_GmbH;software=aurep;lizenz=True localhost:8000/test
+#   curl -X POST -d kdNr=1;mandant=Mercedes_GmbH;software=aurep;lizenz=True localhost:8000/heartbeat
 @api_view(["POST"])
 def heartbeat(request):
 
@@ -33,7 +33,7 @@ def heartbeat(request):
 
     beat = {
         "kdNr": request.data["kdNr"],
-        "mandant": request.data["mandant"],
+        #"mandant": request.data["mandant"],
         "software": request.data["software"],
         "lizenz": request.data["lizenz"],
     }

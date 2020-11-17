@@ -18,7 +18,7 @@ html, body{
             }
             h2{
             }
-            nav{
+            1nav{
                 display: block;
                 width: 100%;
                 1height: 150px;
@@ -30,28 +30,28 @@ html, body{
                 top: 0;
                 z-index: 10;
             }
-            nav > div{
+            1nav > div{
                 flex: 1;
             }
-            ul{
+            1ul{
                 display: flex;
                 width: 30%;
             }
-            li{
+            1li{
                 list-style: none;
                 flex: 1;
 	            text-transform: uppercase;
 	            margin: 0 6px;
 	            font-size: 0.8em;
             }
-            nav li > a{
+            1nav li > a{
                 text-decoration: none;
 	            color: #29588C;
                 padding: 9px 14px;
                 border-radius: 3px;
                 transition-duration: 250ms;
             }
-            li > a:hover{
+            1li > a:hover{
                 background: #29588C;
                 color: white;
             }
@@ -60,7 +60,7 @@ html, body{
                 padding: 9px 14px;
             }
 
-            nav img{
+            1nav img{
                 margin-left: 20%;
             }
 
