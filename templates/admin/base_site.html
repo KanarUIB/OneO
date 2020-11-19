@@ -1,7 +1,7 @@
 
 {% extends "admin/base.html" %}
 
-{% block title %}{% if subtitle %}{{ subtitle }} | {% endif %}{{ title }} | Aubex Adminbereich{% endblock %}
+{% block title %}{{ title }} | Aubex Adminbereich{% endblock %}
 
 {% block extrastyle %}
     <style>
@@ -22,10 +22,8 @@
         color: black;}
 
         #header a:link, #header a:visited {
-        color: #005b9b;}
-
-
-
+    color: #black;
+}
     </style>
 
 {% endblock %}
@@ -36,7 +34,5 @@
 
 <h1 id="site-name"><a href="{% url 'admin:index' %}">Lizenzen und Updates | Adminbereich</a></h1>
 {% endblock %}
-
-
 
 {% block nav-global %}{% endblock %}
