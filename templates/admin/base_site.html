@@ -1,0 +1,42 @@
+
+{% extends "admin/base.html" %}
+
+{% block title %}{% if subtitle %}{{ subtitle }} | {% endif %}{{ title }} | Aubex Adminbereich{% endblock %}
+
+{% block extrastyle %}
+    <style>
+        #header{
+        background: rgba(255,255,255,0.9);
+        box-shadow: 0 0 10px 0 rgba(60,60,60,0.4);
+        color:black;
+        }
+        div.breadcrumbs {
+        background: #005b9b;
+
+        }
+        .module caption{
+        background: #0f6d9b;
+          border-radius: 50px;
+        }
+        #branding h1, #branding h1 a:link, #branding h1 a:visited {
+        color: black;}
+
+        #header a:link, #header a:visited {
+        color: #005b9b;}
+
+
+
+    </style>
+
+{% endblock %}
+
+
+{% block branding %}
+<a class="emblem" href="{% url 'admin:index' %}"><img src="https://www.aubex.de/sites/all/themes/aubex/logo.png" width="130px"/></a>
+
+<h1 id="site-name"><a href="{% url 'admin:index' %}">Lizenzen und Updates | Adminbereich</a></h1>
+{% endblock %}
+
+
+
+{% block nav-global %}{% endblock %}
