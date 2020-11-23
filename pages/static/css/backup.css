@@ -16,10 +16,72 @@ html, body{
                 color: #29588C;
                 font-size: 1.2em;
             }
+            h2{
+            }
+            nav{
+                display: block;
+                width: 100%;
+                height: 150px;
+                padding: 15px 0;
+                background: rgba(255,255,255,0.9);
+                box-shadow: 0 0 10px 0 rgba(60,60,60,0.4);
+                display: flex;
+                position: fixed;
+                top: 0;
+                z-index: 10;
+            }
+            nav > div{
+                flex: 1;
+            }
+            ul{
+                display: flex;
+                width: 30%;
+            }
+            li{
+                list-style: none;
+                flex: 1;
+	            text-transform: uppercase;
+	            margin: 0 6px;
+	            font-size: 0.8em;
+            }
+            nav li > a{
+                text-decoration: none;
+	            color: #29588C;
+                padding: 9px 14px;
+                border-radius: 3px;
+                transition-duration: 250ms;
+            }
+            li > a:hover{
+                background: #29588C;
+                color: white;
+            }
+            .login-btn{
+                border: 2px solid #29588C;
+                padding: 9px 14px;
+            }
 
+            nav img{
+                margin-left: 20%;
+            }
 
+            #hamburger{
+                position: absolute;
+                top: 18px;
+                right: 30px;
+                width: 40px;
+                height: 50px;
+                display: none;
+                cursor: pointer;
+            }
 
-
+            #hamburger > span{
+                margin: 6px 0;
+                display: block;
+                width 100%;
+                border-radius: 100px;
+                height: 2px;
+                background: #29588C;
+            }
             #first,#second,#third{
                 transition-duration: 200ms;
             }
@@ -35,23 +97,40 @@ html, body{
                 transform: rotate(-45deg) translate(5px,-5px);
             }
 
+            #menu{
+                position: fixed;
+                width: 0;
+                right: 0;
+                height: 100%;
+                background: white;
+                z-index: 9;
+                padding: 100px 0 0;
+                box-shadow: 0 0 20px 0 rgb(20,20,20);
+                transition-duration: 200ms;
+            }
 
-
-
+            #menu ul{
+                display: block;
+                width: 90%;
+                margin: 0 auto;
+                padding: 0;
+            }
+            #menu li{
+                display: block;
+            }
             #menu li a{
+                display: block;
                 text-decoration: none;
-                text-decoration: none;
+                padding: 10px;
                 color: #29588C;
             }
             #menu li a:hover{
                 background: #f0f0f0;
             }
             #menu .login-btn{
-            border: 2px solid #29588C;
+                margin-top: 50px;
                 text-align: center;
                 border-radius: 6px;
-                padding:10px;
-
             }
 
             .hamOpen{
@@ -129,7 +208,9 @@ html, body{
             .checker > div{
                 display: hidden;
             }
-
+            .checker .header{
+                background: red;
+            }
             .results .line{
                 display: flex;
                 transition-duration: 600ms;
@@ -167,7 +248,7 @@ html, body{
                 font-size: 0.9em;
             }
 
-             .pakete button{
+            button{
                 display: inline-block;
                 background: rgb(250,250,250);
                 padding: 8px 0;
@@ -179,14 +260,10 @@ html, body{
                 text-transform: uppercase;
                 transition-duration: 240ms;
             }
-
-
             #search{
-                padding: 10px 20px;
+                padding: 7px 20px;
                 background: #29588C;
-                border-radius: 30px;
                 color: white;
-                width:100%;
             }
             #search:hover{
                 background: #2968BC;
@@ -276,9 +353,6 @@ html, body{
                 overflow: hidden;
                 transition-duration: 400ms;
             }
-
-            .trennblock{
-            height:20px;}
 
 
    @media only screen and (max-width: 1100px){

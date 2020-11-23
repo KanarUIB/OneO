@@ -1,17 +1,20 @@
-<nav>
-    <div>
-        <a class="emblem" href="/"><img src="https://www.aubex.de/sites/all/themes/aubex/logo.png" width="130px"/></a>
-    </div>
 
-    <div class="mainNav">
-        <ul class="nav">
-            <li class="nav-item"><a href="/">Home</a></li>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div id="menu" class="container">
+        <a class="navbar-brand" href="/"><img src="https://www.aubex.de/sites/all/themes/aubex/logo.png" width="130px"/></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-auto">
+            <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
             {%if user.is_superuser %}
-            <li class="nav-item"><a href="/admin">Admin</a></li>
+            <li class="nav-item"><a class="nav-link" href="/admin">Admin</a></li>
             {% endif %}
-            <li class="nav-item"><a href="{% url 'lizenzen' %}">Lizenzen</a></li>
-            <li class="nav-item"><a href="/Kunden">Kunden</a></li>
-            <li class="nav-item"><a href="">Sonstige</a></li>
+            <li class="nav-item"><a class="nav-link" href="">Lizenzen</a></li>
+            <li class="nav-item"><a  class="nav-link" href="/Kunden">Kunden</a></li>
+            <li class="nav-item"><a class="nav-link" href="">Sonstige</a></li>
             {% if user.is_authenticated %}
             <li class="nav-item"><a class="login-btn" href="{% url 'logout' %}">Abmelden</a></li>
             {% else %}
@@ -19,30 +22,9 @@
             {% endif %}
 
         </ul>
+
+            </div>
     </div>
 
-    <div id="hamburger" onclick="hamToggle(this)">
-        <span id="first"></span>
-        <span id="second"></span>
-        <span id="third"></span>
-    </div>
 
 </nav>
-
-<div id="menu">
-    <ul>
-        <li><a href="/">Home</a></li>
-        {%if user.is_superuser %}
-             <li><a href="/admin">Admin</a></li>
-            {% endif %}
-        <li><a href="">Lizenzen</a></li>
-        <li><a href="">Kunden</a></li>
-        <li><a href="">Sonstige</a></li>
-
-        {% if user.is_authenticated %}
-            <li class="nav-item"><a class="login-btn" href="{% url 'logout' %}">Abmelden</a></li>
-            {% else %}
-            <li class="nav-item"><a class="login-btn" href="{% url 'login' %}">Login</a></li>
-            {% endif %}
-    </ul>
-</div>
