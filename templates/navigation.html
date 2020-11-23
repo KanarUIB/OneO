@@ -15,10 +15,11 @@
             <li class="nav-item"><a class="nav-link" href="">Lizenzen</a></li>
             <li class="nav-item"><a  class="nav-link" href="/Kunden">Kunden</a></li>
             <li class="nav-item"><a class="nav-link" href="">Sonstige</a></li>
+
             {% if user.is_authenticated %}
-            <li class="nav-item"><a class="login-btn" href="{% url 'logout' %}">Abmelden</a></li>
+            <li class="nav-item"><a class="login-btn nav-link" href="{% url 'logout' %}">Abmelden</a></li>
             {% else %}
-            <li class="nav-item"><a class="login-btn" href="{% url 'login' %}">Login</a></li>
+            <li class="nav-item"><a class="login-btn nav-link" href="{% url 'login' %}">Login</a></li>
             {% endif %}
 
         </ul>

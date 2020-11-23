@@ -41,6 +41,7 @@ html, body{
             #menu li a{
                 text-decoration: none;
                 text-decoration: none;
+                text-align:center;
                 color: #29588C;
             }
             #menu li a:hover{
@@ -50,14 +51,26 @@ html, body{
             border: 2px solid #29588C;
                 text-align: center;
                 border-radius: 6px;
-                padding:10px;
+                padding:5px 20px 5px;
+                width:100%;
 
             }
 
-            .hamOpen{
-                display: block;
+            #menu .login-btn:hover{
+            background-color: #29588C;
+            color:white;}
+            .navbar {
+
+            background-color:white;
+           box-shadow: 0px 1px 15px 0 rgb(200,200,200);
             }
 
+            .navbar-toggler:hover{
+            background-color: white;}
+
+            .navbar-expand-lg{
+            padding-bottom:10px;
+            }
 
             main{
                 padding: 200px 10%;
