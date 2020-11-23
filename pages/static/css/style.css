@@ -18,10 +18,10 @@ html, body{
             }
             h2{
             }
-            1nav{
+            nav{
                 display: block;
                 width: 100%;
-                1height: 150px;
+                height: 150px;
                 padding: 15px 0;
                 background: rgba(255,255,255,0.9);
                 box-shadow: 0 0 10px 0 rgba(60,60,60,0.4);
@@ -30,28 +30,28 @@ html, body{
                 top: 0;
                 z-index: 10;
             }
-            1nav > div{
+            nav > div{
                 flex: 1;
             }
-            1ul{
+            ul{
                 display: flex;
                 width: 30%;
             }
-            1li{
+            li{
                 list-style: none;
                 flex: 1;
 	            text-transform: uppercase;
 	            margin: 0 6px;
 	            font-size: 0.8em;
             }
-            1nav li > a{
+            nav li > a{
                 text-decoration: none;
 	            color: #29588C;
                 padding: 9px 14px;
                 border-radius: 3px;
                 transition-duration: 250ms;
             }
-            1li > a:hover{
+            li > a:hover{
                 background: #29588C;
                 color: white;
             }
@@ -60,7 +60,7 @@ html, body{
                 padding: 9px 14px;
             }
 
-            1nav img{
+            nav img{
                 margin-left: 20%;
             }
 
@@ -69,7 +69,7 @@ html, body{
                 top: 18px;
                 right: 30px;
                 width: 40px;
-                1height: 50px;
+                height: 50px;
                 display: none;
                 cursor: pointer;
             }
@@ -88,6 +88,7 @@ html, body{
             .firstChange{
                 transform: rotate(45deg) translate(5px,5px);
             }
+            
             .secondChange{
                 opacity: 0;
                 transform: translateX(-15px);
@@ -205,10 +206,10 @@ html, body{
                 background: rgb(230,230,230);
             }
             .checker > div{
-                1display: hidden;
+                display: hidden;
             }
             .checker .header{
-                1background: red;
+                background: red;
             }
             .results .line{
                 display: flex;
@@ -317,7 +318,7 @@ html, body{
             }
             .pakete .notify{
                 display: inline-block;
-                1float: right;
+                float: right;
                 position: absolute;
                 top: 30px;
                 right: 50px;

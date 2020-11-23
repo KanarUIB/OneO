@@ -1,10 +1,21 @@
 {% extends "base.html" %}
 
+{% block heartbeat%}
+<div class="container mb-3">
+    <div class="row">
+        <div id="softwarekasten">
+            <h2>Heartbeat-Meldungen</h2>
+            <p>Hier könnte ein Heartbeat stehen</p>
+        </div>
+    </div>
+</div>
+{% endblock heartbeat%}
+
 {% block ubersicht %}
 <div class="pakete">
     <div class="row">
 
-    {% for x in software %}
+        {% for x in software %}
 
         <div id="Softwarekasten" class="col-s col-md">
             <h4>{{ x }}</h4>
@@ -125,6 +136,7 @@
             })
         });
 
+
 </script>
 {% endblock javascript %}
 
@@ -157,32 +169,32 @@
         </tr>
     </table>
 
-  </div>
-    <div class="checker">
-        <div class="header">
-            <div>Softwarepaket</div>
-            <div>Lizenz</div>
-            <div>Version</div>
-            <div>Ablaufdatum</div>
-            <div></div>
-        </div>
-        <div class="results">
-            <div class="line" style="opacity: 0;"></div>
-        </div>
-     <!--   {% for x in khs %}
-        {% if x.kdNr|equals:"Mercedesverkauf GmbH" %}
-        <div>
-            <div>{{ x.swId }}</div>
-            <div class="lizenz">{% if x.lizenz == False %} INAKTIV {% else %} AKTIV {% endif %}</div>
-            <div>{{ x.swId.version }}</div>
-            <div>20.07.2025</div>
-            <div>{% if x.lizenz == False %}
-                <button>Update</button>
-                {% endif %}
-            </div>
-        </div>
-        {% endif %}
-        {% endfor %} -->
+</div>
+<div class="checker">
+    <div class="header">
+        <div>Softwarepaket</div>
+        <div>Lizenz</div>
+        <div>Version</div>
+        <div>Ablaufdatum</div>
+        <div></div>
     </div>
+    <div class="results">
+        <div class="line" style="opacity: 0;"></div>
+    </div>
+    <!--   {% for x in khs %}
+       {% if x.kdNr|equals:"Mercedesverkauf GmbH" %}
+       <div>
+           <div>{{ x.swId }}</div>
+           <div class="lizenz">{% if x.lizenz == False %} INAKTIV {% else %} AKTIV {% endif %}</div>
+           <div>{{ x.swId.version }}</div>
+           <div>20.07.2025</div>
+           <div>{% if x.lizenz == False %}
+               <button>Update</button>
+               {% endif %}
+           </div>
+       </div>
+       {% endif %}
+       {% endfor %} -->
+</div>
 
-    {% endblock dashboardtabelle %}
+{% endblock dashboardtabelle %}

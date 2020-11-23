@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'pages',
     'rest_framework',
+    'heartbeat',
+    'update',
     'users.apps.UsersConfig',
 ]
 
