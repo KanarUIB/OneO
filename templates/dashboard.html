@@ -87,7 +87,7 @@
                     var lizenz = "";
 
                     if(data && newdata.length > 0 ){
-                        $("#mandant").text(newdata[0]["kdNr"]);
+                        $("#mandant").text(newdata[0]["name"]);
                         $(".checker .results .line").replaceWith("");
                         for(var x = 0; x < newdata.length; x++){
 
@@ -101,7 +101,7 @@
 
                             $(".checker .results").append(""
                                 + "<div class='line' style='opacity: 0;'>"
-                                    + "<div>" + newdata[x]["swId"] + "</div>"
+                                    + "<div>" + newdata[x]["software"] + "</div>"
                                     + "<div class='lizenz'>" + lizenz + "</div>"
                                     + "<div>" + newdata[x]["version"] + "</div>"
                                     + "<div>20.07.2025</div>"

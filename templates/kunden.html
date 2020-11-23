@@ -5,7 +5,7 @@
 <div class="kundenliste">
     <h1>Kundenliste</h1>
     {% for x in kunde %}
-        <a href="/Kunden/Profil?'3'" class="kunde">{{ x }}</a>
+        <a href="/Kunden/Profil?id={{ x.id }}" class="kunde">{{ x }}</a>
     {% endfor %}
 </div>
 
