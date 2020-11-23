@@ -30,5 +30,6 @@ urlpatterns = [
     path('logout/', auth_views.LogoutView.as_view(template_name='users/logout.html'), name='logout'),
     path('register/', user_views.register, name='register'),
     path('getUser/', page.getUser, name="getUser"),
-    path('heartbeat', heartbeat_views.heartbeat, name="heartbeat"),
+    path('heartbeat/', heartbeat_views.heartbeat, name="heartbeat"),
+    path('lizenzen/', page.lizenzen, name='lizenzen'),
 ]

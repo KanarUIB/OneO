@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Kunde, KundeHatSoftware, Software, Standort
+from .models import Kunde, KundeHatSoftware, Software, Standort, Lizenz
 from django.http import JsonResponse, HttpResponse
 import json
 
@@ -66,3 +66,9 @@ def getUser(request):
     }
 
     return JsonResponse(json.dumps(kundenliste), safe=False)
+
+def lizenzen(request):
+    context = {
+        'lizenzen' : Lizenz.objects.all()
+    }
+    return render(request,"lizenz.html", context)
