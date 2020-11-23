@@ -32,10 +32,17 @@
 <div id="menu">
     <ul>
         <li><a href="/">Home</a></li>
-        <li><a href="/admin">Admin</a></li>
+        {%if user.is_superuser %}
+             <li><a href="/admin">Admin</a></li>
+            {% endif %}
         <li><a href="">Lizenzen</a></li>
         <li><a href="">Kunden</a></li>
         <li><a href="">Sonstige</a></li>
-        <li><a class="login-btn" href="{% url 'login' %}">Login</a></li>
+
+        {% if user.is_authenticated %}
+            <li class="nav-item"><a class="login-btn" href="{% url 'logout' %}">Abmelden</a></li>
+            {% else %}
+            <li class="nav-item"><a class="login-btn" href="{% url 'login' %}">Login</a></li>
+            {% endif %}
     </ul>
 </div>
