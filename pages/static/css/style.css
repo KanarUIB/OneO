@@ -36,7 +36,15 @@ html, body{
             }
 
 
+            th{
+            background-color: #29588C;
+            color: white;}
 
+            tr{
+            background-color: #f7f7f7;}
+
+            tr:hover{
+            background-color: #f0f7ff;}
 
             #menu li a{
                 text-decoration: none;
