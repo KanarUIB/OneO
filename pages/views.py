@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Kunde, KundeHatSoftware, Software
+from .models import Kunde, KundeHatSoftware, Software, Standort
 from django.http import JsonResponse, HttpResponse
 import json
 
@@ -35,14 +35,14 @@ def kunden(request):
 def getUser(request):
     kdNr = request.GET.get('kdNr', None)
 
-    kunde = KundeHatSoftware.objects.filter(kdNr_id=kdNr)
+    kunde = Standort.objects.filter(id=kdNr)
     kundenliste = []
     for x in kunde:
         kundenliste.append({
-            "kdNr": str(x.kdNr),
-            "swId": str(x.swId),
-            "lizenz": str(x.lizenz),
-            "version": str(x.swId.version)
+            "id": str(x.id),
+            "swId": str(x.name),
+            #"lizenz": str(x.lizenz),
+            #"version": str(x.swId.version)
         })
 
 
