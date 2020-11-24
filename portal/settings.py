@@ -58,7 +58,7 @@ ROOT_URLCONF = 'portal.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ["templates", "templates/lizenz"],
+        'DIRS': ["templates", "templates/lizenz", "templates/update"],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

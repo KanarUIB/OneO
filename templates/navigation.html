@@ -14,7 +14,7 @@
             {% endif %}
             <li class="nav-item"><a class="nav-link" href="{% url 'lizenzen' %}">Lizenzen</a></li>
             <li class="nav-item"><a  class="nav-link" href="/Kunden">Kunden</a></li>
-            <li class="nav-item"><a class="nav-link" href="">Sonstige</a></li>
+            <li class="nav-item"><a class="nav-link" href="{% url 'updates' %}">Updates</a></li>
 
             {% if user.is_authenticated %}
             <li class="nav-item"><a class="login-btn nav-link" href="{% url 'logout' %}">Abmelden</a></li>

@@ -29,27 +29,8 @@
 <div class="trennblock"></div>
 {% endblock heartbeat%}
 
-{% block ubersicht %}
-<div class="pakete">
-    <div class="row">
 
-        {% for x in software %}
 
-        <div id="Softwarekasten" class="col-s col-md">
-            <h4>{{ x }}</h4>
-            <span class="notify">aktuell</span>
-            <p>Version {{ x.version }}</p>
-            <button class="details">Details anzeigen</button>
-            <button class="update">Update durchführen</button>
-            <div class="beschreibung"><p>{{ x.beschreibung }}</p></div>
-            <span class="more">&#9001;</span>
-
-        </div>
-        {% endfor %}
-    </div>
-</div>
-
-{% endblock ubersicht %}
 
 
 {% block javascript %}
@@ -181,16 +162,8 @@
             <td><span id="error" style="color: red; opacity: 0;">Kundennummer existiert nicht!</span></td>
         </tr>
         <tr>
-            <td>Mandant</td>
+            <td>Kunde</td>
             <td id="mandant"></td>
-        </tr>
-        <tr>
-            <td>Land</td>
-            <td id="land">Deutschland</td>
-        </tr>
-        <tr>
-            <td>Stadt</td>
-            <td id="stadt">Stuttgart</td>
         </tr>
     </table>
 

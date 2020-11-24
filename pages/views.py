@@ -74,3 +74,9 @@ def lizenzen(request):
         'lizenzen' : Lizenz.objects.all()
     }
     return render(request,"lizenz.html", context)
+
+def updates(request):
+    context = {
+        'softwares': Software.objects.all()
+    }
+    return render(request,'updates.html',context)
