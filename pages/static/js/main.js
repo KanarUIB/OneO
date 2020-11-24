@@ -15,3 +15,9 @@ function hamToggle(e){
     hamThird.toggleClass("thirdChange");
     console.log(document.getElementById("menu"));
 }
+
+
+$(document).ready(function () {
+    $('#lizenzTabelle').DataTable();
+    $('.dataTables_length').addClass('bs-select');
+    });

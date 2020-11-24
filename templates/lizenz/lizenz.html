@@ -3,26 +3,30 @@
 {% block content %}
 <h2>{{ request.title }}</h2>
 <div class="container">
-   <table class="table">
-    <tr>
-        <th>Kunde</th>
-        <th>Software</th>
-        <th>Modul</th>
-        <th>Lizenzschlüssel</th>
-        <th>Gültig von</th>
-        <th>Gültig bis</th>
-    </tr>
-    {% for lizenz in lizenzen %}
-    <tr>
-        <td>{{ lizenz.KundeHatSoftware.standort.name }}</td>
-        <td>{{ lizenz.KundeHatSoftware.Software }}
-        <td>{{ lizenz.modul }}</td>
-        <td>{{ lizenz.license_key }}</td>
-        <td>{{ lizenz.gültig_von }}</td>
-        <td>{{ lizenz.gültig_bis }}</td>
-    </tr>
+   <table class="table table-sm" id="lizenzTabelle" cellspacing="0" width="100%">
+       <thead>
+            <tr>
+                <th>Kunde</th>
+                <th>Software</th>
+                <th>Modul</th>
+                <th>Lizenzschlüssel</th>
+                <th>Gültig von</th>
+                <th>Gültig bis</th>
+            </tr>
+       </thead>
+
+       <tbody>
+       {% for lizenz in lizenzen %}
+            <tr>
+                <td>{{ lizenz.KundeHatSoftware.standort.name }}</td>
+                <td>{{ lizenz.KundeHatSoftware.Software }}
+                <td>{{ lizenz.modul }}</td>
+                <td>{{ lizenz.license_key }}</td>
+                <td>{{ lizenz.gültig_von }}</td>
+                <td>{{ lizenz.gültig_bis }}</td>
+            </tr>
     {% endfor %}
-</table>
+   </table>
 
 
 </div>
