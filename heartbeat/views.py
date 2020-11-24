@@ -4,7 +4,8 @@ from pages import models
 # Create your views here.
 #   untenstehenden TEST-Befehl auf Kundenseite integrieren in Verbindung mit cronjob im Format */10 * * * * ... (alle 10 Minuten)
 #   curl -X POST -d kdNr=1;mandant=Mercedes_GmbH;software=aurep;lizenz=True localhost:8000/heartbeat
-from pages.models import KundeHatSoftware
+from pages.models import KundeHatSoftware, Lizenz
+from .models import Heartbeat
 from django.http import JsonResponse, HttpResponse
 from django.core import serializers
 from django.forms.models import model_to_dict
@@ -14,8 +15,10 @@ from rest_framework import viewsets
 from rest_framework import permissions
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+import datetime
 import json
-
+"""""""""
+Kanar Heartbeat Funktion
 @api_view(["POST"])
 def heartbeat(request):
 
@@ -44,4 +47,24 @@ def heartbeat(request):
 
     # Response an den Kunden zurück vielleicht nicht notwendig
     return Response(beat["kdNr"])
+"""""""""
 
+@api_view(["POST"])
+def heartbeat(request):
+
+    # serializerKunde = KundenSerializer(data=request.data)
+    # if serializerKunde.is_valid():
+    #    serializerKunde.save()
+
+    beat = {
+        "meldung": request.data["meldung"],
+    }
+    """""""""
+    Instanziere alle nötigen Attribute für einen Heartbeat
+    """""""""
+    license = Lizenz.objects.get(license_key=beat["meldung"])
+    kundeSoftware = license.KundeHatSoftware
+    datum = datetime.datetime.now()
+
+    heartbeat = Heartbeat.objects.create(kundeSoftware=kundeSoftware, meldung=beat["meldung"], datum=datum)
+    return Response(beat["meldung"])

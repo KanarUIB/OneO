@@ -79,13 +79,13 @@ class Person(models.Model):
 
 
 class Ansprechpartner(Person):
-
     standort = models.ForeignKey(Standort, on_delete=models.CASCADE)
     zuständige_software = models.ManyToManyField(
-            Software,
-            through='Zuständigkeit',
-            through_fields=('ansprechpartner','software'),
-            blank=True, null=True)
+        Software,
+        through='Zuständigkeit',
+        through_fields=('ansprechpartner', 'software'),
+    )
+
 
 class Zuständigkeit(models.Model):
     ansprechpartner = models.ForeignKey(Ansprechpartner, on_delete=models.SET_NULL,

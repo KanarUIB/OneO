@@ -1,4 +1,6 @@
 from django.shortcuts import render
+
+from heartbeat.models import Heartbeat
 from .models import Kunde, KundeHatSoftware, Software, Standort, Lizenz
 from django.http import JsonResponse, HttpResponse
 import json
@@ -8,8 +10,8 @@ def home(request):
     context = {
         "kunde": Kunde.objects.all(),
         "software": Software.objects.all(),
-        "khs": KundeHatSoftware.objects.all()
-
+        "khs": KundeHatSoftware.objects.all(),
+        "heartbeats": Heartbeat.objects.all(),
     }
     return render(request, "dashboard.html", context)
 

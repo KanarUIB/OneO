@@ -3,9 +3,25 @@
 {% block heartbeat%}
 <div class="pakete">
     <div class="row">
-        <div id="softwarekasten" class="col-md-12">
+        <div id="softwarekasten" class="col-md-12 mb-5">
             <h2>Heartbeat-Meldungen</h2>
-            <p>Hier könnte ein Heartbeat stehen</p>
+            <table class="table">
+                <tr>
+                        <th>Kunde</th>
+                        <th>Software</th>
+                        <th>Lizenzschlüssel</th>
+                        <th>Datum</th>
+
+                </tr>
+                {% for heartbeat in heartbeats %}
+                <tr>
+                    <td>{{ heartbeat.kundeSoftware.standort }}</td>
+                    <td>{{ heartbeat.kundeSoftware.software }}</td>
+                    <td>{{ heartbeat.meldung }}</td>
+                    <td>{{ heartbeat.datum }}</td>
+                </tr>
+                {% endfor %}
+            </table>
         </div>
     </div>
 </div>
@@ -137,6 +153,13 @@
                 }
             })
         });
+
+
+
+
+
+
+
 
 
 </script>

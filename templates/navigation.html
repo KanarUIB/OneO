@@ -12,7 +12,7 @@
             {%if user.is_superuser %}
             <li class="nav-item"><a class="nav-link" href="/admin">Admin</a></li>
             {% endif %}
-            <li class="nav-item"><a class="nav-link" href="">Lizenzen</a></li>
+            <li class="nav-item"><a class="nav-link" href="{% url 'lizenzen' %}">Lizenzen</a></li>
             <li class="nav-item"><a  class="nav-link" href="/Kunden">Kunden</a></li>
             <li class="nav-item"><a class="nav-link" href="">Sonstige</a></li>
 

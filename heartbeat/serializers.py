@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User, Group
 from rest_framework import serializers
 from pages.models import Kunde, KundeHatSoftware, Software
-
+from .models import Heartbeat
 
 class KundenSerializer(serializers.ModelSerializer):
     class Meta:
@@ -20,3 +20,7 @@ class SoftwareSerializer(serializers.ModelSerializer):
         model = Software
         fields = '__all__'
 
+class HeartbeatSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Heartbeat
+        fields = '__all__'
