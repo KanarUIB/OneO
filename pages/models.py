@@ -53,7 +53,7 @@ class Modul(models.Model):
     produkt = models.ForeignKey(Software, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.produkt.software_name + "/" + self.name
+        return self.name
 
 
 class Lizenz(models.Model):

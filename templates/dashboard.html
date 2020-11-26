@@ -7,10 +7,10 @@
             <h2>Heartbeat-Meldungen</h2>
             <table class="table">
                 <tr>
-                        <th>Kunde</th>
-                        <th>Software</th>
-                        <th>Lizenzschlüssel</th>
-                        <th>Datum</th>
+                    <th>Kunde</th>
+                    <th>Software</th>
+                    <th>Lizenzschlüssel</th>
+                    <th>Datum</th>
 
                 </tr>
                 {% for heartbeat in heartbeats %}
@@ -28,10 +28,43 @@
 
 <div class="trennblock"></div>
 {% endblock heartbeat%}
+{% block chartJS %}
+<script>
+
+$(document).ready(function(){
+   var ctx = document.getElementById('myChart').getContext('2d');
+    var chart = new Chart(ctx, {
+    // The type of chart we want to create
+    type: 'bar',
+
+    // The data for our dataset
+    data: {
+        labels: ['30 Tage', '90 Tage', '+90 Tage',],
+        datasets: [{
+            label: 'Ablaufende Lizenzen',
+            backgroundColor: 'rgb(255, 99, 132)',
+            borderColor: 'rgb(255, 99, 132)',
+            data: [{% for delta in lizenzenDelta %} {{ delta }}, {% endfor %}]
+        }]
+    },
+
+        // Configuration options go here
+        options: {
+        }
+    });
+});
 
 
-
-
+</script>
+{% endblock chartJS %}
+{% block chart %}
+<div class="row">
+    <div class="col">
+        <canvas id="myChart" width="50" height="25"></canvas>
+    </div>
+    <div class="col"></div>
+</div>
+{% endblock chart%}
 
 {% block javascript %}
 <script type="text/javascript">
@@ -134,13 +167,6 @@
                 }
             })
         });
-
-
-
-
-
-
-
 
 
 </script>

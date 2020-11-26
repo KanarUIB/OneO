@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h2>{{ request.title }}</h2>
+<h2>Lizenzen</h2>
 <div class="container">
    <table class="table" id="lizenzTabelle" width="100%">
        <thead>
@@ -19,7 +19,7 @@
        {% for lizenz in lizenzen %}
             <tr>
                 <td>{{ lizenz.KundeHatSoftware.standort.name }}</td>
-                <td>{{ lizenz.KundeHatSoftware.Software }}
+                <td>{{ lizenz.KundeHatSoftware.software }}
                 <td>{{ lizenz.modul }}</td>
                 <td>{{ lizenz.license_key }}</td>
                 <td>{{ lizenz.gültig_von }}</td>

@@ -4,7 +4,27 @@ from heartbeat.models import Heartbeat
 from .models import Kunde, KundeHatSoftware, Software, Standort, Lizenz
 from django.http import JsonResponse, HttpResponse
 import json
+import datetime
 
+
+def getLicenseDeltaDays():
+    lizenzen = Lizenz.objects.all()
+    licenseDeltaDays = []
+    oneMonth = 0
+    threeMonth=0
+    others = 0
+    for lizenz in lizenzen:
+        tage_uebrig = lizenz.gültig_bis - datetime.date.today()
+        if tage_uebrig.days <= 30:
+            oneMonth += 1
+        elif tage_uebrig.days <= 90:
+            threeMonth += 1
+        else:
+            others += 1
+    licenseDeltaDays.append(oneMonth)
+    licenseDeltaDays.append(threeMonth)
+    licenseDeltaDays.append(others)
+    return licenseDeltaDays
 
 def home(request):
     context = {
@@ -12,17 +32,15 @@ def home(request):
         "software": Software.objects.all(),
         "khs": KundeHatSoftware.objects.all(),
         "heartbeats": Heartbeat.objects.all(),
+        "lizenzenDelta": getLicenseDeltaDays(),
     }
     return render(request, "dashboard.html", context)
-
 
 
 def kundenprofil(request):
     id = request.GET.get('id', None)
 
     kunde = KundeHatSoftware.objects.get(id=id)
-
-
 
     context = {
         "kdNr": str(kunde.standort.kunde.id),
@@ -40,6 +58,7 @@ def kundenprofil(request):
 
     return render(request, "kundenprofil.html", context)
 
+
 def kunden(request):
     context = {
         "kunde": Kunde.objects.all(),
@@ -56,10 +75,9 @@ def getUser(request):
         kundenliste.append({
             "software": str(x.software),
             "name": str(x.standort.name),
-            #"lizenz": str(x.lizenz),
-            #"version": str(x.swId.version)
+            # "lizenz": str(x.lizenz),
+            # "version": str(x.swId.version)
         })
-
 
     print(kundenliste)
 
@@ -69,14 +87,17 @@ def getUser(request):
 
     return JsonResponse(json.dumps(kundenliste), safe=False)
 
+
 def lizenzen(request):
     context = {
-        'lizenzen' : Lizenz.objects.all()
+        'lizenzen': Lizenz.objects.all()
     }
-    return render(request,"lizenz.html", context)
+    return render(request, "lizenz.html", context)
+
 
 def updates(request):
     context = {
         'softwares': Software.objects.all()
     }
-    return render(request,'updates.html',context)
+    return render(request, 'updates.html', context)
+
