@@ -31,19 +31,24 @@ $(document).ready(function () {
     });
 
 
-$(document).ready(function() {
-    $('#lizenzTabelle').DataTable( {
 
-        columnDefs: [ {
-            orderable: false,
-            className: 'select-checkbox',
-            targets:   0
-        } ],
+$(document).ready(function () {
+  $('#lizenzTabelle').dataTable({
 
-        select: {
-            style:    'multi',
-            selector: 'td:first-child'
-        },
-        order: [[ 1, 'asc' ]]
-    } );
-} );
+    initComplete: function () {
+      this.api().columns().every( function () {
+          var column = this;
+          var search = $(`<input class="form-control form-control-sm" type="text" placeholder="Search">`)
+              .appendTo( $(column.footer()).empty() )
+              .on( 'change input', function () {
+                  var val = $(this).val()
+
+                  column
+                      .search( val ? val : '', true, false )
+                      .draw();
+              } );
+
+      } );
+  }
+  });
+});

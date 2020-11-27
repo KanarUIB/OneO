@@ -17,7 +17,8 @@ html, body{
                 font-size: 1.2em;
             }
 
-
+            tfoot th{
+            background-color: white;}
 
 
             #first,#second,#third{
