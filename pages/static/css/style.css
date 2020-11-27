@@ -5,7 +5,7 @@ html, body{
                 font-family: sans-serif;
             }
             ::selection{
-                background-color: rgb(2,50,70);
+                background-color: rgb(22,150,70);
                 color: white;
             }
             h1,h2,h3{
@@ -67,7 +67,8 @@ html, body{
             #menu .login-btn:hover{
             background-color: #29588C;
             color:white;}
-            .navbar {
+
+            .bg-light {
 
             background-color:white;
            box-shadow: 0px 1px 15px 0 rgb(200,200,200);

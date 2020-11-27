@@ -23,7 +23,7 @@ function hamToggle(e){
 $(document).ready(function () {
 
     $('#heartbeatsTabelle').DataTable({
-    scrollY: 400
+
 
 
     });
