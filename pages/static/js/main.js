@@ -17,7 +17,29 @@ function hamToggle(e){
 }
 
 
+
+
 $(document).ready(function () {
-    $('#lizenzTabelle').DataTable();
+
+    $('#lizenzTabelle').DataTable({
+    scrollY: 400
+
+
+    });
     $('.dataTables_length').addClass('bs-select');
     });
+
+$(document).ready(function () {
+
+    $('#heartbeatsTabelle').DataTable({
+    scrollY: 400
+
+
+    });
+    $('.dataTables_length').addClass('bs-select');
+    });
+
+
+
+
+

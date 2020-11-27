@@ -1,30 +1,37 @@
 {% extends "base.html" %}
 
 {% block heartbeat%}
-<div class="pakete">
+<div class="container">
     <div class="row">
         <div id="softwarekasten" class="col-md-12 mb-5">
             <h2>Heartbeat-Meldungen</h2>
-            <table class="table">
-                <tr>
-                    <th>Kunde</th>
-                    <th>Software</th>
-                    <th>Lizenzschlüssel</th>
-                    <th>Datum</th>
+            <table class="table" id="heartbeatsTabelle" width="100%">
+                <thead>
+                    <tr>
+                        <th>Kunde</th>
+                        <th>Software</th>
+                        <th>Lizenzschlüssel</th>
+                        <th>Datum</th>
+                    </tr>
 
-                </tr>
-                {% for heartbeat in heartbeats %}
-                <tr>
-                    <td>{{ heartbeat.kundeSoftware.standort }}</td>
-                    <td>{{ heartbeat.kundeSoftware.software }}</td>
-                    <td>{{ heartbeat.meldung }}</td>
-                    <td>{{ heartbeat.datum }}</td>
-                </tr>
-                {% endfor %}
+
+                </thead>
+
+                <tbody>
+                    {% for heartbeat in heartbeats %}
+                    <tr>
+                        <td>{{ heartbeat.kundeSoftware.standort }}</td>
+                        <td>{{ heartbeat.kundeSoftware.software }}</td>
+                        <td>{{ heartbeat.meldung }}</td>
+                        <td>{{ heartbeat.datum }}</td>
+                    </tr>
+                    {% endfor %}
+
+                </tbody>
+
             </table>
         </div>
     </div>
-</div>
 
 <div class="trennblock"></div>
 {% endblock heartbeat%}
@@ -58,7 +65,7 @@ $(document).ready(function(){
 </script>
 {% endblock chartJS %}
 {% block chart %}
-<div class="row">
+<div class="row mb-5">
     <div class="col">
         <canvas id="myChart" width="50" height="25"></canvas>
     </div>
@@ -176,9 +183,10 @@ $(document).ready(function(){
 {% block dashboardtabelle %}
 
 {% load pages_extras %}
+</div>
 
 
-<div class="container" id="panel">
+<div class="container">
     <table class="table">
         <tr>
             <td><input placeholder="Kundennummer" type="text" name="kdNr" id="kdNr"/></td>
