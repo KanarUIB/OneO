@@ -19,15 +19,6 @@ function hamToggle(e){
 
 
 
-$(document).ready(function () {
-
-    $('#lizenzTabelle').DataTable({
-    scrollY: 400
-
-
-    });
-    $('.dataTables_length').addClass('bs-select');
-    });
 
 $(document).ready(function () {
 
@@ -40,6 +31,20 @@ $(document).ready(function () {
     });
 
 
+$(document).ready(function() {
+    $('#lizenzTabelle').DataTable( {
 
 
-
+        scrollY:400,
+        columnDefs: [ {
+            orderable: false,
+            className: 'select-checkbox',
+            targets:   0
+        } ],
+        select: {
+            style:    'os',
+            selector: 'td:first-child'
+        },
+        order: [[ 1, 'asc' ]]
+    } );
+} );

@@ -3,9 +3,10 @@
 {% block content %}
 <h2>Lizenzen</h2>
 <div class="container">
-   <table class="table" id="lizenzTabelle" width="100%">
+   <table class="table display" id="lizenzTabelle" width="100%">
        <thead>
             <tr>
+                <th></th>
                 <th>Kunde</th>
                 <th>Software</th>
                 <th>Modul</th>
@@ -18,6 +19,7 @@
        <tbody>
        {% for lizenz in lizenzen %}
             <tr>
+                <td></td>
                 <td>{{ lizenz.KundeHatSoftware.standort.name }}</td>
                 <td>{{ lizenz.KundeHatSoftware.software }}
                 <td>{{ lizenz.modul }}</td>
