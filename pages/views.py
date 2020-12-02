@@ -101,3 +101,10 @@ def updates(request):
     }
     return render(request, 'updates.html', context)
 
+
+def suche(request):
+
+
+
+    return JsonResponse({"data": "g"});
+
