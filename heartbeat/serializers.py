@@ -24,3 +24,8 @@ class HeartbeatSerializer(serializers.ModelSerializer):
     class Meta:
         model = Heartbeat
         fields = '__all__'
+
+#class LizenzSerializer(serializers.ModelSerializer):
+#    class Meta:
+#        model = Lizenz
+#        fields = '__all__'

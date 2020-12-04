@@ -55,6 +55,11 @@ def heartbeat(request):
     # serializerKunde = KundenSerializer(data=request.data)
     # if serializerKunde.is_valid():
     #    serializerKunde.save()
+    print("HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH                 " + str(request))
+    print(request)
+    print(request.data)
+    print(request.data["meldung"])
+
 
     beat = {
         "meldung": request.data["meldung"],

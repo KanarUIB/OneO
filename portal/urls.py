@@ -33,5 +33,4 @@ urlpatterns = [
     path('heartbeat', heartbeat_views.heartbeat, name="heartbeat"),
     path('lizenzen/', page.lizenzen, name='lizenzen'),
     path('update/', page.updates, name='updates'),
-
 ]
