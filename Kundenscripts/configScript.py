@@ -3,7 +3,9 @@ import os
 import re
 
 
-logfile = open("D:/Development/Django/LOG.txt")
+#logfile = open("D:/Development/Django/LOG.txt")
+
+logfile = open("C:/Users/Administrator/Desktop/ADDS/LOG.txt")
 
 log = print(" ".join(logfile.readlines()))
 #print(re.split("[\s]",logfile.readlines()))
@@ -13,7 +15,7 @@ log = print(" ".join(logfile.readlines()))
 URL = "http://localhost:8000/heartbeat"
 
 # Temporäre Localhostfreigabe für externe Clients
-#URL = "https://da55b770f326.ngrok.io/heartbeat"
+#URL = "https://e1715b876272.ngrok.io/heartbeat"
 
 # Informationen zu Lizenzschluessel
 lizenzschluessel = "FFFFSDsdsdQ1231231SDLKA1231"
