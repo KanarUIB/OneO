@@ -1,9 +1,8 @@
 {% extends "base.html" %}
 
 {% block content %}
-
-<div class="kundenliste">
-    <h1>Kundenliste</h1>
+  <h1>Kundenübersicht</h1>
+<div class="container mt-5 kundenliste">
     {% for x in kunde %}
         <a href="/Kunden/Profil?id={{ x.id }}" class="kunde">{{ x }}</a>
     {% endfor %}

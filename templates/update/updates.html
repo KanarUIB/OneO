@@ -2,13 +2,14 @@
 
 {% block content %}
 <h2>{{ request.title }}</h2>
+<h1>Updates</h1>
 <div class="container">
     <div class="pakete">
         <div class="row">
 
             {% for software in softwares %}
 
-            <div id="Softwarekasten" class="col-s col-md">
+            <div class="col-s col-md Softwarekasten">
                 <h4>{{ software }}</h4>
                 <span class="notify">aktuell</span>
                 <p>Version {{ software.version }}</p>
@@ -24,4 +25,49 @@
 
 
 </div>
+
+<div class="container mt-5">
+   <table class="table table-responsive-lg" id="lizenzTabelle" width="100%">
+       <thead>
+            <tr>
+
+                <th>Kunde</th>
+                <th>Software</th>
+                <th>Modul</th>
+                <th>Version</th>
+                <th>Update verfügbar?</th>
+                <th>Update durchgeführt am</th>
+            </tr>
+       </thead>
+
+       <tbody>
+       {% for software in softwares %}
+            <tr>
+
+                <td>{{ software.KundeHatSoftware.standort.name }}</td>
+                <td>{{ software.KundeHatSoftware.software }}
+                <td>{{ software.modul }}</td>
+                <td>{{ software.versionNo }}</td>
+                <td>{{ software.updateVerfuegbar }}</td>
+                <td>{{ software.DatumUpdate }}</td>
+            </tr>
+    {% endfor %}
+
+
+
+        <tfoot>
+            <tr>
+
+                <th>Kunde</th>
+                <th>Software</th>
+                <th>Modul</th>
+                <th>Version</th>
+                <th>Update verfügbar?</th>
+                <th>Update durchgeführt am</th>
+            </tr>
+       </tfoot>
+   </table>
+</div>
+
+
 {% endblock content %}

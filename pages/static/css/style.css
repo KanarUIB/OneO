@@ -8,14 +8,26 @@ html, body{
                 background-color: rgb(22,150,70);
                 color: white;
             }
-            h1,h2,h3{
+            h2{
                 color: #29588C;
-                text-align: center;;
+                font-size:18pt;
+            text-align:center;
+            font-weight:500;
+
+            }
+            h1{
+            font-size:20pt;
+            text-align:center;
+            font-weight:700;
+            letter-spacing:4pt;
             }
             .swpaket{
                 color: #29588C;
                 font-size: 1.2em;
             }
+
+            h2{
+            margin-top: 50px;}
 
             tfoot th{
             background-color: white;}
@@ -83,7 +95,7 @@ html, body{
             }
 
             main{
-                padding: 200px 10%;
+                padding: 80px 10% 200px;
             }
 
             #panel{
@@ -242,9 +254,10 @@ html, body{
                 padding:30;
 
             }
+            .pakete, .table {
+            margin-top:60px;}
 
-
-            #softwarekasten{
+            .softwarekasten{
 
                margin:0 0,5%;
               border-radius: 25px;
