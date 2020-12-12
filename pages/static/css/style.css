@@ -5,8 +5,13 @@ html, body{
                 font-family: sans-serif;
             }
             ::selection{
-                background-color: rgb(22,150,70);
+                background-color: rgb(230,10,70);
                 color: white;
+            }
+            *{
+                outline: none;
+                appearance: none;
+                -webkit-appearance: none;
             }
             h2{
                 color: #29588C;
@@ -57,7 +62,11 @@ html, body{
             background-color: #f7f7f7;}
 
             tr:hover{
-            background-color: #f0f7ff;}
+                background-color: rgb(220,220,220);
+                transform: scale(1.01);
+                box-shadow: 0 0 2px 0 rgb(100,100,100);
+                transition-duration: 30ms;
+            }
 
             #menu li a{
                 text-decoration: none;
@@ -220,7 +229,11 @@ html, body{
                 padding: 10px 20px;
                 background: #29588C;
                 border-radius: 30px;
+                border: none;
                 color: white;
+                outline: none;
+                appearance: none;
+                -webkit-appearance: none;
                 width:100%;
             }
             #search:hover{
