@@ -1,7 +1,6 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h2>{{ request.title }}</h2>
 <h1>Updates</h1>
 <div class="container">
     <div class="pakete">
@@ -11,7 +10,7 @@
 
             <div class="col-s col-md Softwarekasten">
                 <h4>{{ software }}</h4>
-                <span class="notify">aktuell</span>
+                <span class="notify"></span>
                 <p>Version {{ software.version }}</p>
                 <button class="details">Details anzeigen</button>
                 <button class="update">Update durchführen</button>
@@ -19,8 +18,14 @@
                 <span class="more">&#9001;</span>
 
             </div>
+
             {% endfor %}
+
         </div>
+         <div class="legende mt-5">
+            <div class="row"><div class="statusPositiv"></div><p>Software auf aktuellem Stand.</p></div>
+             <div class="row"><div class="statusNegativ"></div><p>Softwarestand veraltet.</p></div>
+            </div>
     </div>
 
 

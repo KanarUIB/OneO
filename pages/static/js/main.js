@@ -1,6 +1,6 @@
 
 $(document).ready(function () {
-
+   $('#listnav').listnav();
   $('#lizenzTabelle').DataTable({
    "scrollY":"60vh",
 
