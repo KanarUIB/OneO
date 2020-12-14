@@ -67,8 +67,13 @@ def heartbeat(request):
     Instanziere alle nötigen Attribute für einen Heartbeat
     """""""""
     license = Lizenz.objects.get(license_key=beat["meldung"])
-    kundeSoftware = license.KundeHatSoftware
-    datum = datetime.datetime.now()
+    if str(license.license_key) == str(beat["meldung"]):
+        kundeSoftware = license.KundeHatSoftware
+        datum = datetime.datetime.now()
 
-    heartbeat = Heartbeat.objects.create(kundeSoftware=kundeSoftware, meldung=beat["meldung"], datum=datum)
+        print(license.license_key)
+
+        Heartbeat.objects.create(kundeSoftware=kundeSoftware, meldung=beat["meldung"], datum=datum)
+
+
     return Response(beat["meldung"])

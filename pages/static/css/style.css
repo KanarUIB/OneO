@@ -13,18 +13,29 @@ html, body{
                 appearance: none;
                 -webkit-appearance: none;
             }
+            a:hover{
+                text-decoration: none;
+                color: inherit;
+            }
+            button{
+                appearance: none;
+                border: 1px solid #29588C;
+                border-radius: 20px;
+                padding: 4px 20px;
+                transition-duration: 150ms
+            }
             h2{
                 color: #29588C;
-                font-size:18pt;
-            text-align:center;
-            font-weight:500;
+                font-size:18px;
+                text-align:center;
+                font-weight:500;
 
             }
             h1{
-            font-size:20pt;
-            text-align:center;
-            font-weight:700;
-            letter-spacing:4pt;
+                font-size:20pt;
+                text-align:center;
+                font-weight:700;
+                letter-spacing:0px;
             }
             .swpaket{
                 color: #29588C;
@@ -59,13 +70,22 @@ html, body{
             color: white;}
 
             tr{
-            background-color: #f7f7f7;}
+                1background-color: #f7f7f7;
+            }
 
-            tr:hover{
-                background-color: rgb(220,220,220);
-                transform: scale(1.01);
+            .softwarekasten tbody tr:hover{
+                background-color: rgb(240,240,240);
+                transform: scale(1.005);
                 box-shadow: 0 0 2px 0 rgb(100,100,100);
                 transition-duration: 30ms;
+            }
+
+            table tr{
+                background-color: none;
+                border-top: none;
+            }
+            1table.table td{
+                border-top: none;
             }
 
             #menu li a{
@@ -163,8 +183,8 @@ html, body{
                 box-shadow: 3px 5px 3px -2px rgb(160,160,160);
                 border-radius: 50px;
                 margin: 10px 0;
-                padding: 10px;
-                height: 32px;
+                padding: 5px;
+                min-height: 30px;
                 align-items: center;
             }
             .checker .results > div:nth-child(odd){

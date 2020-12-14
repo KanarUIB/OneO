@@ -5,6 +5,7 @@ from .models import Kunde, KundeHatSoftware, Software, Standort, Lizenz
 from django.http import JsonResponse, HttpResponse
 import json
 import datetime
+from django.core.exceptions import ObjectDoesNotExist
 
 
 def getLicenseDeltaDays():
@@ -26,6 +27,7 @@ def getLicenseDeltaDays():
     licenseDeltaDays.append(others)
     return licenseDeltaDays
 
+
 def home(request):
     context = {
         "kunde": Kunde.objects.all(),
@@ -38,23 +40,29 @@ def home(request):
 
 
 def kundenprofil(request):
-    id = request.GET.get('id', None)
+    id = request.GET.get('id', "-1")
+    try:
+        kunde = KundeHatSoftware.objects.get(id=str(id))
+    except ObjectDoesNotExist:
+        return render(request,"404.html")
 
-    kunde = KundeHatSoftware.objects.get(id=id)
+    if id is None or not kunde:
+        return HttpResponse("404.html")
 
-    context = {
-        "kdNr": str(kunde.standort.kunde.id),
-        "name": str(kunde.standort.name),
-        "email": str(kunde.standort.email),
-        "telNr": str(kunde.standort.telNr),
-        "software": str(kunde.software),
-        "plz": str(kunde.standort.plz),
-        "ort": str(kunde.standort.ort),
-        "strasse": str(kunde.standort.strasse),
-        "hausnr": str(kunde.standort.hausnr),
-    }
+    if id is not None:
 
-    print(kunde)
+        context = {
+            "kdNr": str(kunde.standort.kunde.id),
+            "name": str(kunde.standort.name),
+            "email": str(kunde.standort.email),
+            "telNr": str(kunde.standort.telNr),
+            "software": str(kunde.software),
+            "plz": str(kunde.standort.plz),
+            "ort": str(kunde.standort.ort),
+            "strasse": str(kunde.standort.strasse),
+            "hausnr": str(kunde.standort.hausnr),
+        }
+        print(context)
 
     return render(request, "kundenprofil.html", context)
 
