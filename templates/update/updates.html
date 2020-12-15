@@ -48,13 +48,13 @@
        </thead>
 
        <tbody>
-       {% for software in softwares %}
+       {% for software in lizenzen %}
             <tr>
 
                 <td>{{ software.KundeHatSoftware.standort.name }}</td>
                 <td>{{ software.KundeHatSoftware.software }}
                 <td>{{ software.modul }}</td>
-                <td>{{ software.versionNo }}</td>
+                <td>{{ software.KundeHatSoftware.version }}</td>
                 <td>{{ software.updateVerfuegbar }}</td>
                 <td>{{ software.DatumUpdate }}</td>
             </tr>

@@ -105,6 +105,7 @@ def lizenzen(request):
 
 def updates(request):
     context = {
+        'lizenzen': Lizenz.objects.all(),
         'softwares': Software.objects.all()
     }
     return render(request, 'updates.html', context)
