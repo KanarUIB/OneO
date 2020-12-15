@@ -16,6 +16,7 @@
                     <th>Kunde</th>
                     <th>Software</th>
                     <th>Lizenzschlüssel</th>
+                         <th>Meldung</th>
                     <th>Datum</th>
                 </tr>
 
@@ -28,6 +29,7 @@
                 <tr>
                     <td>{{ heartbeat.kundeSoftware.standort }}</td>
                     <td>{{ heartbeat.kundeSoftware.software }}</td>
+                       <td>{{ heartbeat.lizenzschluessel }}</td>
                     <td>{{ heartbeat.meldung }}</td>
                     <td>{{ heartbeat.datum }}</td>
                 </tr>
@@ -134,10 +136,10 @@ $(document).ready(function(){
     {% endblock chartJS %}
     {% block chart %}
     <div class="row mb-5">
-        <div class="col softwarekasten">
+        <div class="col-lg-6 col-sm-12 softwarekasten mt-5">
             <canvas id="myChart" width="30" height="25"></canvas>
         </div>
-        <div class="col softwarekasten">
+        <div class="col-lg-6 col-sm-12 softwarekasten mt-5">
             <canvas id="softwareChart" width="30" height="25"></canvas>
         </div>
     </div>
