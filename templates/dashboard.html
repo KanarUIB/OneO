@@ -53,15 +53,27 @@ $(document).ready(function(){
     data: {
         labels: ['30 Tage', '90 Tage', '+90 Tage',],
         datasets: [{
-            label: 'Ablaufende Lizenzen',
-            backgroundColor: 'rgb(255, 99, 132)',
-            borderColor: 'rgb(255, 99, 132)',
+            label: ['Ablaufende Lizenzen'],
+            backgroundColor: ['#dc3545','#ffc107','#7ec074'],
+            borderColor: '#dc3545',
             data: [{% for delta in lizenzenDelta %} {{ delta }}, {% endfor %}]
         }]
     },
 
         // Configuration options go here
         options: {
+            legend:{display:false},
+            title: {display:true, text:"Ablaufende Lizenzen", fontSize: 20},
+            scales: {
+             yAxes: [{
+              gridLines: {
+                display: false
+              }
+            }],
+            xAxes: [{
+                barPercentage: 0.5
+            }]
+        }
         }
     });
 });
@@ -72,7 +84,7 @@ $(document).ready(function(){
 {% block chart %}
 <div class="row mb-5">
     <div class="col softwarekasten">
-        <canvas id="myChart" width="50" height="25"></canvas>
+        <canvas id="myChart" width="30" height="25"></canvas>
     </div>
     <div class="col"></div>
 </div>
