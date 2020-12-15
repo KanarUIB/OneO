@@ -22,7 +22,7 @@ lizenzschluessel = "FFFFSDsdsdQ1231231SDLKA1231"
 
 # Alle Parameter die mitgesendet werden:
 # Lizenzschluessel sowie Errorlogs aus dem LOG File (falls Probleme bei der Kundensoftware registriert werden)
-PARAMS = {'meldung': lizenzschluessel, "log": log}
+PARAMS = {'lizenzschluessel': lizenzschluessel, "meldung": log}
 
 # Post Request wird an API gesendet, mit jeweiligen Daten und dem URL Pfad
 r = requests.post(url=URL, data=PARAMS)
