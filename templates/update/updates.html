@@ -2,6 +2,7 @@
 
 {% block content %}
 <h1>Updates</h1>
+<h2>Übersicht Softwarepakete</h2>
 <div class="container">
     <div class="pakete">
         <div class="row">
@@ -15,7 +16,7 @@
                 <button class="details">Details anzeigen</button>
                 <button class="update">Update durchführen</button>
                 <div class="beschreibung"><p>{{ software.beschreibung }}</p></div>
-                <span class="more">&#9001;</span>
+                <!--span class="more">&#9001;</span>-->
 
             </div>
 
@@ -30,7 +31,8 @@
 
 
 </div>
-
+<hr>
+<h2>Softwarestände</h2>
 <div class="container mt-5">
    <table class="table table-responsive-lg" id="lizenzTabelle" width="100%">
        <thead>

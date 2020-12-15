@@ -5,7 +5,7 @@ html, body{
                 font-family: sans-serif;
             }
             ::selection{
-                background-color: rgb(230,10,70);
+                background-color: rgb(20,10,70);
                 color: white;
             }
             *{
@@ -302,7 +302,7 @@ html, body{
                margin:0 0,5%;
               border-radius: 25px;
                 padding: 20 50 20 50;
-              box-shadow: 4px 4px 9px 0 #e9ecefa1;
+              box-shadow: 4px 4px 9px 0 #e9ecefd4;
               height: 100%;
 
             }
