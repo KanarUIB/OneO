@@ -5,7 +5,7 @@ html, body{
                 font-family: sans-serif;
             }
             ::selection{
-                background-color: rgb(230,10,70);
+                background-color: rgb(20,10,70);
                 color: white;
             }
             *{
@@ -25,6 +25,7 @@ html, body{
                 transition-duration: 150ms
             }
             h2{
+                margin-bottom:50px;
                 color: #29588C;
                 font-size:18px;
                 text-align:center;
@@ -64,8 +65,15 @@ html, body{
                 transform: rotate(-45deg) translate(5px,-5px);
             }
 
+            table th:first-child{
+            border-radius:5px 0 0 5px;
+            }
 
-            th{
+            table th:last-child{
+            border-radius:0 5px 5px 0;
+            }
+
+            thead{
             background-color: #29588C;
             color: white;}
 
@@ -75,9 +83,8 @@ html, body{
 
             .softwarekasten tbody tr:hover{
                 background-color: rgb(240,240,240);
-                transform: scale(1.005);
                 box-shadow: 0 0 2px 0 rgb(100,100,100);
-                transition-duration: 30ms;
+
             }
 
             table tr{
@@ -124,7 +131,7 @@ html, body{
             }
 
             main{
-                padding: 80px 10% 200px;
+                padding: 100px 10% 200px;
             }
 
             #panel{
@@ -237,7 +244,7 @@ html, body{
                 padding: 8px 0;
                 width: 100%;
                 border: 2px solid #29588C;
-                border-radius: 30px;
+                border-radius: 5px;
                 cursor: pointer;
                 outline: none;
                 text-transform: uppercase;
@@ -295,7 +302,7 @@ html, body{
                margin:0 0,5%;
               border-radius: 25px;
                 padding: 20 50 20 50;
-              box-shadow: 4px 4px 9px 0 rgb(200,200,200);
+              box-shadow: 4px 4px 9px 0 #e9ecefd4;
               height: 100%;
 
             }
@@ -308,16 +315,37 @@ html, body{
             .pakete h4{
                 display: inline-block;
             }
+              .statusPositiv{
+            width:15px;
+            height:15px;
+
+            background-color:rgb(100,180,30);
+            border-radius:20px;
+            margin-right:10px;}
+
+            .statusNegativ{
+            width:15px;
+            height:15px;
+            background-color:red;
+            border-radius:20px;
+            margin-right:10px;}
+
+
+            ul{
+            list-style-type:none;
+            }
+
             .pakete .notify{
                 display: inline-block;
                 float: right;
                 position: absolute;
-                top: 30px;
-                right: 50px;
-                padding: 10px 25px;
-                background: rgb(100,180,30);
-                color: white;
-                border-radius: 25px;
+                top:25px;
+                right:30px;
+                width: 20px;
+                height: 20px;
+                1background: rgb(100,180,30);
+                 background: red;
+                border-radius: 35px;
             }
             .pakete .details{
                 background: #29588C;
@@ -366,17 +394,6 @@ html, body{
                     margin-left: 10%;
                 }
             }
-
-
-
-
-
-
-
-
-
-
-
 
             .profil{
                 width: 95%;

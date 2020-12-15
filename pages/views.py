@@ -1,13 +1,31 @@
 from django.shortcuts import render
-
+import heartbeat.views as heartbeat_views
 from heartbeat.models import Heartbeat
 from .models import Kunde, KundeHatSoftware, Software, Standort, Lizenz
 from django.http import JsonResponse, HttpResponse
 import json
 import datetime
 from django.core.exceptions import ObjectDoesNotExist
+"""""""""
+Returns amount of customers for each software, in the order aurep, ADDS, Werkstattliste and TjeKvik
+"""""""""
 
+def getAmountUser():
+    softwareUsers = []
+    amountADDS = KundeHatSoftware.objects.filter(software=Software.objects.get(software_name="ADDS"))
+    amountTjeKvik = KundeHatSoftware.objects.filter(software=Software.objects.get(software_name="TjeKvik"))
+    amountWerkstattliste = KundeHatSoftware.objects.filter(software=Software.objects.get(software_name="Werkstattliste"))
+    amountAurep = KundeHatSoftware.objects.filter(software=Software.objects.get(software_name="aurep"))
+    softwareUsers.append(len(amountAurep))
+    softwareUsers.append(len(amountADDS))
+    softwareUsers.append(len(amountWerkstattliste))
+    softwareUsers.append(len(amountTjeKvik))
+    return softwareUsers
 
+"""""""""
+Returns amount of licenses which will expire within 30 days, 90 days and +90 days as a
+List in this order.
+"""""""""
 def getLicenseDeltaDays():
     lizenzen = Lizenz.objects.all()
     licenseDeltaDays = []
@@ -29,12 +47,16 @@ def getLicenseDeltaDays():
 
 
 def home(request):
+    getAmountUser()
+    heartbeat_views.createMissingHeartbeats()
+    #heartbeat_views.updateMissingHeartbeats()
     context = {
         "kunde": Kunde.objects.all(),
-        "software": Software.objects.all(),
+        "softwares": Software.objects.all(),
         "khs": KundeHatSoftware.objects.all(),
-        "heartbeats": Heartbeat.objects.all(),
+        "heartbeats": heartbeat_views.getNegativeHeartbeats(),
         "lizenzenDelta": getLicenseDeltaDays(),
+        "anzahlKunden": getAmountUser(),
     }
     return render(request, "dashboard.html", context)
 
@@ -105,6 +127,7 @@ def lizenzen(request):
 
 def updates(request):
     context = {
+        'lizenzen': Lizenz.objects.all(),
         'softwares': Software.objects.all()
     }
     return render(request, 'updates.html', context)

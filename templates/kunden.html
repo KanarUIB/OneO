@@ -2,10 +2,23 @@
 
 {% block content %}
   <h1>Kundenübersicht</h1>
-<div class="container mt-5 kundenliste">
-    {% for x in kunde %}
-        <a href="/Kunden/Profil?id={{ x.id }}" class="kunde">{{ x }}</a>
-    {% endfor %}
+<div class="container mt-5 ">
+    <div class="Kunden">
+        <ul id="kundenliste" >
+              {% for x in kunde %}
+            <li><a href="/Kunden/Profil?id={{ x.id }}" class="kunde">{{ x }}</a></li>
+        {% endfor %}
+
+        </ul>
+    </div>
+
+        {% load static %}
+    <script type="text/javascript" src="{% static 'js/jquery-listnav.js' %}"></script>
+
+
+    <script>
+	$('#kundenliste').listnav();
+    </script>
 </div>
 
 

@@ -3,10 +3,11 @@ import datetime
 
 
 class Kunde(models.Model):
-    mandant = models.CharField(max_length=50)
+    name = models.CharField(max_length=50)
+    vf_nummer = models.IntegerField()
 
     def __str__(self):
-        return str(self.mandant)
+        return str(self.name)
 
     def equals(self, string):
         return self.mandant == string
@@ -23,7 +24,7 @@ class Standort(models.Model):
     ort = models.CharField(max_length=50)
 
     def __str__(self):
-        return str(self.name)
+        return str(self.kunde.name)+" " + str(self.name)
 
 
 class Software(models.Model):
@@ -38,14 +39,10 @@ class Software(models.Model):
 class KundeHatSoftware(models.Model):
     standort = models.ForeignKey(Standort, on_delete=models.CASCADE)
     software = models.ForeignKey(Software, on_delete=models.CASCADE)
-    # lizenz = models.BooleanField(default=False)
     version = models.CharField(max_length=10)
 
     def __str__(self):
-        return self.standort.kunde.mandant + " - " + self.standort.ort + ": " + self.software.software_name
-
-
-#   return "Kundennummer: " + self.kdNr + ", Software-Id: " + self.swId + ", Aktive Lizenz?: " + self.lizenz
+        return self.standort.kunde.name + " - " + self.standort.ort + ": " + self.software.software_name
 
 
 class Modul(models.Model):
@@ -53,7 +50,7 @@ class Modul(models.Model):
     produkt = models.ForeignKey(Software, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.name
+        return str(self.name)
 
 
 class Lizenz(models.Model):
@@ -67,18 +64,17 @@ class Lizenz(models.Model):
     def __str__(self):
         return self.KundeHatSoftware.__str__() + " - " + self.modul.name
 
+class Kundenlizenz(Lizenz):
+    pass
 
-class Person(models.Model):
+class Standortlizenz(Lizenz):
+    pass
+
+class Ansprechpartner(models.Model):
     vorname = models.CharField(max_length=100)
     nachname = models.CharField(max_length=100)
     telefon_nr = models.CharField(max_length=50)
     email = models.EmailField()
-
-    class Meta:
-        abstract = True
-
-
-class Ansprechpartner(Person):
     standort = models.ForeignKey(Standort, on_delete=models.CASCADE)
     zuständige_software = models.ManyToManyField(
         Software,
@@ -92,7 +88,3 @@ class Zuständigkeit(models.Model):
                                         blank=True, null=True)
     software = models.ForeignKey(Software, on_delete=models.SET_NULL,
                                  blank=True, null=True)
-
-
-class Kundenbetreuer(Person):
-    pass
