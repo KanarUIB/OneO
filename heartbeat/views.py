@@ -58,7 +58,6 @@ def createMissingHeartbeats():
             heartbeat = Heartbeat.objects.create(kundeSoftware=kundeSoftware,
                                                  lizenzschluessel=Lizenz.objects.get(
                                                      KundeHatSoftware=kundeSoftware).license_key,
-                                                 software_version="-",
                                                  meldung="Heartbeat nicht eingetroffen",
                                                  datum=datetime.datetime.now())
     for heartbeat in getCurrentHeartbeats():
@@ -95,6 +94,7 @@ def getNegativeHeartbeats():
                 print(current_date - delta)
                 print(heartbeat)
                 break
+    negativeHeartbeats += getErrorHeartbeats()
     return negativeHeartbeats
 
     """""""""
@@ -131,9 +131,7 @@ def updateNegativeHeartbeats():
 def heartbeat(request):
     beat = {
         "lizenzschluessel": request.data["lizenzschluessel"],
-        "software_version": request.data["software_version"],
         "meldung": request.data["meldung"],
-        "log": request.data["log"]
     }
     """""""""
     #Instanziere alle nötigen Attribute für einen Heartbeat
@@ -141,10 +139,10 @@ def heartbeat(request):
     license = Lizenz.objects.get(license_key=beat["lizenzschluessel"])
 
     kundeSoftware = license.KundeHatSoftware
-    datum = datetime.datetime.now(tz=timezone.utc)
+    datum = datetime.datetime.now()
 
     heartbeat = Heartbeat.objects.create(kundeSoftware=kundeSoftware, lizenzschluessel=beat["lizenzschluessel"],
-                                         software_version=beat["software_version"], meldung=beat["meldung"],
+                                         meldung=beat["meldung"],
                                          datum=datum)
     return Response(beat["lizenzschluessel"])
 
@@ -152,7 +150,6 @@ def heartbeat(request):
 """"""
 {
     "lizenzschluessel": "APSDASDQ123123ASDLKA1231",
-    "software_version": "1.2",
     "meldung": "Error: Couldn't fetch data"
 }
 

@@ -11,7 +11,6 @@
 
             <div class="col-s col-md Softwarekasten">
                 <h4>{{ software }}</h4>
-                <span class="notify"></span>
                 <p>Version {{ software.version }}</p>
                 <button class="details">Details anzeigen</button>
                 <button class="update">Update durchführen</button>
@@ -23,10 +22,7 @@
             {% endfor %}
 
         </div>
-         <div class="legende mt-5">
-            <div class="row"><div class="statusPositiv"></div><p>Software auf aktuellem Stand.</p></div>
-             <div class="row"><div class="statusNegativ"></div><p>Softwarestand veraltet.</p></div>
-            </div>
+
     </div>
 
 
@@ -34,46 +30,45 @@
 <hr>
 <h2>Softwarestände</h2>
 <div class="container mt-5">
-   <table class="table table-responsive-lg" id="lizenzTabelle" width="100%">
-       <thead>
-            <tr>
+    <table class="table table-responsive-lg" id="lizenzTabelle" width="100%">
+        <thead>
+        <tr>
 
-                <th>Kunde</th>
-                <th>Software</th>
-                <th>Modul</th>
-                <th>Version</th>
-                <th>Update verfügbar?</th>
-                <th>Update durchgeführt am</th>
-            </tr>
-       </thead>
+            <th>Kunde</th>
+            <th>Software</th>
+            <th>Modul</th>
+            <th>Version</th>
+            <th>Update verfügbar?</th>
+            <th>Update durchgeführt am</th>
+        </tr>
+        </thead>
 
-       <tbody>
-       {% for software in lizenzen %}
-            <tr>
+        <tbody>
+        {% for software in lizenzen %}
+        <tr>
 
-                <td>{{ software.KundeHatSoftware.standort.name }}</td>
-                <td>{{ software.KundeHatSoftware.software }}
-                <td>{{ software.modul }}</td>
-                <td>{{ software.KundeHatSoftware.version }}</td>
-                <td>{{ software.updateVerfuegbar }}</td>
-                <td>{{ software.DatumUpdate }}</td>
-            </tr>
-    {% endfor %}
-
+            <td>{{ software.KundeHatSoftware.standort.name }}</td>
+            <td>{{ software.KundeHatSoftware.software }}
+            <td>{{ software.modul }}</td>
+            <td>{{ software.KundeHatSoftware.version }}</td>
+            <td>{{ software.updateVerfuegbar }}</td>
+            <td>{{ software.DatumUpdate }}</td>
+        </tr>
+        {% endfor %}
 
 
         <tfoot>
-            <tr>
+        <tr>
 
-                <th>Kunde</th>
-                <th>Software</th>
-                <th>Modul</th>
-                <th>Version</th>
-                <th>Update verfügbar?</th>
-                <th>Update durchgeführt am</th>
-            </tr>
-       </tfoot>
-   </table>
+            <th>Kunde</th>
+            <th>Software</th>
+            <th>Modul</th>
+            <th>Version</th>
+            <th>Update verfügbar?</th>
+            <th>Update durchgeführt am</th>
+        </tr>
+        </tfoot>
+    </table>
 </div>
 
 

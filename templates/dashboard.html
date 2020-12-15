@@ -9,13 +9,14 @@
             {% if heartbeats|length == 0 %}
             <p>Keine Hearbeats austehend oder fehlerhaft</p>
             {% else %}
-             <table class="table table-responsive-lg" id="heartbeatsTabelle" width="100%">
+            <table class="table table-responsive-lg" id="lizenzTabelle" width="100%">
+                <thead>
                 <tr>
-                    <tr>
-                        <th>Kunde</th>
-                        <th>Software</th>
-                     <th>Lizenzschlüssel</th>
-                        <th>Datum</th>
+                <tr>
+                    <th>Kunde</th>
+                    <th>Software</th>
+                    <th>Lizenzschlüssel</th>
+                    <th>Datum</th>
                 </tr>
 
 
@@ -28,7 +29,7 @@
                     <td>{{ heartbeat.kundeSoftware.standort }}</td>
                     <td>{{ heartbeat.kundeSoftware.software }}</td>
                     <td>{{ heartbeat.meldung }}</td>
-                    <td>{{ heartbeat.datum_utc }}</td>
+                    <td>{{ heartbeat.datum }}</td>
                 </tr>
                 {% endfor %}
                 {% endif %}
@@ -39,12 +40,56 @@
         </div>
     </div>
 
-<div class="trennblock"></div>
+    <div class="trennblock"></div>
 
     <h2>Infografiken</h2>
-{% endblock heartbeat%}
-{% block chartJS %}
-<script>
+    {% endblock heartbeat%}
+    {% block chartJS %}
+    <script>
+
+$(document).ready(function(){
+   var ctx = document.getElementById('softwareChart').getContext('2d');
+    var chart = new Chart(ctx, {
+
+    // The type of chart we want to create
+    type: 'bar',
+
+    // The data for our dataset
+    data: {
+        labels: [{%for software in softwares %} '{{ software.software_name }}' , {%endfor%}],
+        datasets: [{
+            label: ['Nutzer der Software'],
+            backgroundColor: ['#dc3545','#ffc107','#7ec074','#FE642E'],
+            borderColor: '#dc3545',
+            data: [{% for anzahlKunde in anzahlKunden %} {{ anzahlKunde }}, {% endfor %}]
+        }]
+    },
+
+        // Configuration options go here
+        options: {
+            legend:{display:false},
+            title: {display:true, text:"Anzahl Nutzer", fontSize: 20},
+            scales: {
+             yAxes: [{
+
+              gridLines: {
+                display: false
+              },
+              ticks: {min:0,stepSize:1
+              }
+            }],
+            xAxes: [{
+                barPercentage: 0.5
+            }]
+        }
+        }
+    });
+});
+
+    </script>
+
+
+    <script>
 
 $(document).ready(function(){
    var ctx = document.getElementById('myChart').getContext('2d');
@@ -85,20 +130,22 @@ $(document).ready(function(){
     });
 });
 
-
-</script>
-{% endblock chartJS %}
-{% block chart %}
-<div class="row mb-5">
-    <div class="col softwarekasten">
-        <canvas id="myChart" width="30" height="25"></canvas>
+    </script>
+    {% endblock chartJS %}
+    {% block chart %}
+    <div class="row mb-5">
+        <div class="col softwarekasten">
+            <canvas id="myChart" width="30" height="25"></canvas>
+        </div>
+        <div class="col softwarekasten">
+            <canvas id="softwareChart" width="30" height="25"></canvas>
+        </div>
     </div>
-    <div class="col"></div>
-</div>
-{% endblock chart%}
+    {% endblock chart%}
 
-{% block javascript %}
-<script type="text/javascript">
+
+    {% block javascript %}
+    <script type="text/javascript">
  var lizenz = document.getElementsByClassName("lizenz");
         var lizenzArr = Array.prototype.slice.call(lizenz);
         var notify = document.getElementsByClassName("notify");
@@ -200,13 +247,16 @@ $(document).ready(function(){
         });
 
 
-</script>
-{% endblock javascript %}
 
 
-{% block dashboardtabelle %}
 
-{% load pages_extras %}
+    </script>
+    {% endblock javascript %}
+
+
+    {% block dashboardtabelle %}
+
+    {% load pages_extras %}
 </div>
 
 <!--

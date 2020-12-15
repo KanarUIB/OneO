@@ -24,7 +24,7 @@ class Standort(models.Model):
     ort = models.CharField(max_length=50)
 
     def __str__(self):
-        return str(self.name)
+        return str(self.kunde.name)+" " + str(self.name)
 
 
 class Software(models.Model):
@@ -50,7 +50,7 @@ class Modul(models.Model):
     produkt = models.ForeignKey(Software, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.name
+        return str(self.name)
 
 
 class Lizenz(models.Model):
