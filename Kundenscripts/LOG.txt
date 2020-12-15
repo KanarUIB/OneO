@@ -1,0 +1,7 @@
+.LOG
+15:50 04.12.2020
+[SUCCESS] Keine Fehler
+15:50 04.12.2020
+[ERROR] Kommunikationsfehler
+	Serververbindung inaktiv 
+	Code: 500

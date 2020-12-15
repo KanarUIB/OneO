@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+{% load static %}
+<h1>Die von Ihnen angeforderte Seite konnte nicht gefunden werden</h1>
+<img src="{% static 'images/404.png' %}" style="display: block; margin: 150px auto"/>
+
+
+{% endblock content %}

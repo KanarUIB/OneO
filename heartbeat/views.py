@@ -1,12 +1,8 @@
-import pytz
-from django.shortcuts import render
-from django.utils.timezone import is_aware
-
-from pages import models
 
 # Create your views here.
 #   untenstehenden TEST-Befehl auf Kundenseite integrieren in Verbindung mit cronjob im Format */10 * * * * ... (alle 10 Minuten)
 #   curl -X POST -d kdNr=1;mandant=Mercedes_GmbH;software=aurep;lizenz=True localhost:8000/heartbeat
+
 from .models import Heartbeat
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -137,6 +133,7 @@ def heartbeat(request):
         "lizenzschluessel": request.data["lizenzschluessel"],
         "software_version": request.data["software_version"],
         "meldung": request.data["meldung"],
+        "log": request.data["log"]
     }
     """""""""
     #Instanziere alle nötigen Attribute für einen Heartbeat

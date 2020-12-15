@@ -1,28 +1,27 @@
 {% extends "base.html" %}
 
 {% block heartbeat%}
-<div class="container">
+<h1>Dashboard</h1>
+<h2>Heartbeat-Meldungen</h2>
+<div class="container mt-5">
     <div class="row">
-        <div id="softwarekasten" class="col-md-12 mb-5">
-            <h2>Heartbeat-Meldungen</h2>
+        <div id="softwarekasten" class="col-md-12 mb-5 softwarekasten">
             {% if heartbeats|length == 0 %}
             <p>Keine Hearbeats austehend oder fehlerhaft</p>
             {% else %}
-            <table class="table table-responsive-lg" id="heartbeatsTabelle" width="100%">
-                <thead>
+             <table class="table table-responsive-lg" id="heartbeatsTabelle" width="100%">
                 <tr>
-
-                    <th>Kunde</th>
-                    <th>Software</th>
-                    <th>Lizenzschlüssel</th>
-                    <th>Datum</th>
+                    <tr>
+                        <th>Kunde</th>
+                        <th>Software</th>
+                     <th>Lizenzschlüssel</th>
+                        <th>Datum</th>
                 </tr>
 
 
                 </thead>
 
                 <tbody>
-
 
                 {% for heartbeat in heartbeats %}
                 <tr>
@@ -40,10 +39,12 @@
         </div>
     </div>
 
-    <div class="trennblock"></div>
-    {% endblock heartbeat%}
-    {% block chartJS %}
-    <script>
+<div class="trennblock"></div>
+
+    <h2>Infografiken</h2>
+{% endblock heartbeat%}
+{% block chartJS %}
+<script>
 
 $(document).ready(function(){
    var ctx = document.getElementById('myChart').getContext('2d');
@@ -55,34 +56,45 @@ $(document).ready(function(){
     data: {
         labels: ['30 Tage', '90 Tage', '+90 Tage',],
         datasets: [{
-            label: 'Ablaufende Lizenzen',
-            backgroundColor: 'rgb(255, 99, 132)',
-            borderColor: 'rgb(255, 99, 132)',
+            label: ['Ablaufende Lizenzen'],
+            backgroundColor: ['#dc3545','#ffc107','#7ec074'],
+            borderColor: '#dc3545',
             data: [{% for delta in lizenzenDelta %} {{ delta }}, {% endfor %}]
         }]
     },
 
         // Configuration options go here
         options: {
+            legend:{display:false},
+            title: {display:true, text:"Ablaufende Lizenzen", fontSize: 20},
+            scales: {
+             yAxes: [{
+              gridLines: {
+                display: false
+              }
+            }],
+            xAxes: [{
+                barPercentage: 0.5
+            }]
+        }
         }
     });
 });
 
 
-
-    </script>
-    {% endblock chartJS %}
-    {% block chart %}
-    <div class="row mb-5">
-        <div class="col">
-            <canvas id="myChart" width="50" height="25"></canvas>
-        </div>
-        <div class="col"></div>
+</script>
+{% endblock chartJS %}
+{% block chart %}
+<div class="row mb-5">
+    <div class="col softwarekasten">
+        <canvas id="myChart" width="30" height="25"></canvas>
     </div>
-    {% endblock chart%}
+    <div class="col"></div>
+</div>
+{% endblock chart%}
 
-    {% block javascript %}
-    <script type="text/javascript">
+{% block javascript %}
+<script type="text/javascript">
  var lizenz = document.getElementsByClassName("lizenz");
         var lizenzArr = Array.prototype.slice.call(lizenz);
         var notify = document.getElementsByClassName("notify");
@@ -184,17 +196,16 @@ $(document).ready(function(){
         });
 
 
+</script>
+{% endblock javascript %}
 
-    </script>
-    {% endblock javascript %}
 
+{% block dashboardtabelle %}
 
-    {% block dashboardtabelle %}
-
-    {% load pages_extras %}
+{% load pages_extras %}
 </div>
 
-
+<!--
 <div class="container">
     <table class="table">
         <tr>
@@ -222,7 +233,7 @@ $(document).ready(function(){
     <div class="results">
         <div class="line" style="opacity: 0;"></div>
     </div>
-    <!--   {% for x in khs %}
+    {% for x in khs %}
        {% if x.kdNr|equals:"Mercedesverkauf GmbH" %}
        <div>
            <div>{{ x.swId }}</div>
@@ -235,7 +246,9 @@ $(document).ready(function(){
            </div>
        </div>
        {% endif %}
-       {% endfor %} -->
+       {% endfor %}
 </div>
+-->
+
 
 {% endblock dashboardtabelle %}
