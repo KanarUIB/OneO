@@ -1,12 +1,16 @@
 from django.shortcuts import render
-
+import heartbeat.views as heartbeat_views
 from heartbeat.models import Heartbeat
 from .models import Kunde, KundeHatSoftware, Software, Standort, Lizenz
 from django.http import JsonResponse, HttpResponse
 import json
 import datetime
+import smtplib
 
-
+"""""""""
+Returns amount of licenses which will expire within 30 days, 90 days and +90 days as a
+List in this order.
+"""""""""
 def getLicenseDeltaDays():
     lizenzen = Lizenz.objects.all()
     licenseDeltaDays = []
@@ -27,11 +31,13 @@ def getLicenseDeltaDays():
     return licenseDeltaDays
 
 def home(request):
+    heartbeat_views.createMissingHeartbeats()
+    #heartbeat_views.updateMissingHeartbeats()
     context = {
         "kunde": Kunde.objects.all(),
         "software": Software.objects.all(),
         "khs": KundeHatSoftware.objects.all(),
-        "heartbeats": Heartbeat.objects.all(),
+        "heartbeats": heartbeat_views.getNegativeHeartbeats(),
         "lizenzenDelta": getLicenseDeltaDays(),
     }
     return render(request, "dashboard.html", context)

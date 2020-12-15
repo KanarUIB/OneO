@@ -5,28 +5,34 @@
     <div class="row">
         <div id="softwarekasten" class="col-md-12 mb-5">
             <h2>Heartbeat-Meldungen</h2>
+            {% if heartbeats|length == 0 %}
+            <p>Keine Hearbeats austehend oder fehlerhaft</p>
+            {% else %}
             <table class="table table-responsive-lg" id="heartbeatsTabelle" width="100%">
                 <thead>
-                    <tr>
+                <tr>
 
-                        <th>Kunde</th>
-                        <th>Software</th>
-                        <th>Lizenzschlüssel</th>
-                        <th>Datum</th>
-                    </tr>
+                    <th>Kunde</th>
+                    <th>Software</th>
+                    <th>Lizenzschlüssel</th>
+                    <th>Datum</th>
+                </tr>
 
 
                 </thead>
 
                 <tbody>
-                    {% for heartbeat in heartbeats %}
-                    <tr>
-                        <td>{{ heartbeat.kundeSoftware.standort }}</td>
-                        <td>{{ heartbeat.kundeSoftware.software }}</td>
-                        <td>{{ heartbeat.meldung }}</td>
-                        <td>{{ heartbeat.datum }}</td>
-                    </tr>
-                    {% endfor %}
+
+
+                {% for heartbeat in heartbeats %}
+                <tr>
+                    <td>{{ heartbeat.kundeSoftware.standort }}</td>
+                    <td>{{ heartbeat.kundeSoftware.software }}</td>
+                    <td>{{ heartbeat.meldung }}</td>
+                    <td>{{ heartbeat.datum_utc }}</td>
+                </tr>
+                {% endfor %}
+                {% endif %}
 
                 </tbody>
 
@@ -34,10 +40,10 @@
         </div>
     </div>
 
-<div class="trennblock"></div>
-{% endblock heartbeat%}
-{% block chartJS %}
-<script>
+    <div class="trennblock"></div>
+    {% endblock heartbeat%}
+    {% block chartJS %}
+    <script>
 
 $(document).ready(function(){
    var ctx = document.getElementById('myChart').getContext('2d');
@@ -63,19 +69,20 @@ $(document).ready(function(){
 });
 
 
-</script>
-{% endblock chartJS %}
-{% block chart %}
-<div class="row mb-5">
-    <div class="col">
-        <canvas id="myChart" width="50" height="25"></canvas>
-    </div>
-    <div class="col"></div>
-</div>
-{% endblock chart%}
 
-{% block javascript %}
-<script type="text/javascript">
+    </script>
+    {% endblock chartJS %}
+    {% block chart %}
+    <div class="row mb-5">
+        <div class="col">
+            <canvas id="myChart" width="50" height="25"></canvas>
+        </div>
+        <div class="col"></div>
+    </div>
+    {% endblock chart%}
+
+    {% block javascript %}
+    <script type="text/javascript">
  var lizenz = document.getElementsByClassName("lizenz");
         var lizenzArr = Array.prototype.slice.call(lizenz);
         var notify = document.getElementsByClassName("notify");
@@ -177,13 +184,14 @@ $(document).ready(function(){
         });
 
 
-</script>
-{% endblock javascript %}
+
+    </script>
+    {% endblock javascript %}
 
 
-{% block dashboardtabelle %}
+    {% block dashboardtabelle %}
 
-{% load pages_extras %}
+    {% load pages_extras %}
 </div>
 
 
