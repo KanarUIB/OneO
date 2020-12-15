@@ -25,6 +25,7 @@ html, body{
                 transition-duration: 150ms
             }
             h2{
+                margin-bottom:50px;
                 color: #29588C;
                 font-size:18px;
                 text-align:center;
@@ -82,9 +83,8 @@ html, body{
 
             .softwarekasten tbody tr:hover{
                 background-color: rgb(240,240,240);
-                transform: scale(1.005);
                 box-shadow: 0 0 2px 0 rgb(100,100,100);
-                transition-duration: 30ms;
+
             }
 
             table tr{
@@ -131,7 +131,7 @@ html, body{
             }
 
             main{
-                padding: 200px 10% 200px;
+                padding: 100px 10% 200px;
             }
 
             #panel{
@@ -345,7 +345,7 @@ html, body{
                 height: 20px;
                 1background: rgb(100,180,30);
                  background: red;
-                 border-radius: 35px;
+                border-radius: 35px;
             }
             .pakete .details{
                 background: #29588C;
