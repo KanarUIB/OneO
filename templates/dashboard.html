@@ -46,6 +46,7 @@
 $(document).ready(function(){
    var ctx = document.getElementById('myChart').getContext('2d');
     var chart = new Chart(ctx, {
+
     // The type of chart we want to create
     type: 'bar',
 
@@ -66,8 +67,11 @@ $(document).ready(function(){
             title: {display:true, text:"Ablaufende Lizenzen", fontSize: 20},
             scales: {
              yAxes: [{
+
               gridLines: {
                 display: false
+              },
+              ticks: {min:0,stepSize:1
               }
             }],
             xAxes: [{
