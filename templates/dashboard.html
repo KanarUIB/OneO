@@ -181,13 +181,13 @@ $(document).ready(function(){
 </script>
 {% endblock javascript %}
 
-
+<!-
 {% block dashboardtabelle %}
 
 {% load pages_extras %}
 </div>
 
-
+<!--
 <div class="container">
     <table class="table">
         <tr>
@@ -215,7 +215,7 @@ $(document).ready(function(){
     <div class="results">
         <div class="line" style="opacity: 0;"></div>
     </div>
-    <!--   {% for x in khs %}
+    {% for x in khs %}
        {% if x.kdNr|equals:"Mercedesverkauf GmbH" %}
        <div>
            <div>{{ x.swId }}</div>
@@ -228,7 +228,9 @@ $(document).ready(function(){
            </div>
        </div>
        {% endif %}
-       {% endfor %} -->
+       {% endfor %}
 </div>
+-->
+
 
 {% endblock dashboardtabelle %}
