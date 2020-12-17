@@ -133,6 +133,8 @@ def heartbeat(request):
         "lizenzschluessel": request.data["lizenzschluessel"],
         "meldung": request.data["meldung"],
     }
+    print(beat["lizenzschluessel"])
+    print(beat["meldung"])
     """""""""
     #Instanziere alle nötigen Attribute für einen Heartbeat
     """""""""
@@ -141,7 +143,7 @@ def heartbeat(request):
     kundeSoftware = license.KundeHatSoftware
     datum = datetime.datetime.now()
 
-    heartbeat = Heartbeat.objects.create(kundeSoftware=kundeSoftware, lizenzschluessel=beat["lizenzschluessel"],
+    Heartbeat.objects.create(kundeSoftware=kundeSoftware, lizenzschluessel=beat["lizenzschluessel"],
                                          meldung=beat["meldung"],
                                          datum=datum)
     return Response(beat["lizenzschluessel"])

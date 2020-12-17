@@ -47,16 +47,16 @@ def getLicenseDeltaDays():
 
 
 def home(request):
-    getAmountUser()
-    heartbeat_views.createMissingHeartbeats()
+    #getAmountUser()
+    #heartbeat_views.createMissingHeartbeats()
     #heartbeat_views.updateMissingHeartbeats()
     context = {
         "kunde": Kunde.objects.all(),
         "softwares": Software.objects.all(),
         "khs": KundeHatSoftware.objects.all(),
-        "heartbeats": heartbeat_views.getNegativeHeartbeats(),
+        #"heartbeats": heartbeat_views.getNegativeHeartbeats(),
         "lizenzenDelta": getLicenseDeltaDays(),
-        "anzahlKunden": getAmountUser(),
+        #"anzahlKunden": getAmountUser(),
     }
     return render(request, "dashboard.html", context)
 
