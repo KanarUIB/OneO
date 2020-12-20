@@ -129,6 +129,7 @@ def updateNegativeHeartbeats():
 
 @api_view(["POST"])
 def heartbeat(request):
+    print("\n\n\n\nDRIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIN\n\n\n\n")
     beat = {
         "lizenzschluessel": request.data["lizenzschluessel"],
         "meldung": request.data["meldung"],
