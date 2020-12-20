@@ -12,7 +12,7 @@ import re
 
 
 # REST API Schnittstelle
-URL = "http://localhost:8000/heartbeat"
+URL = "http://localhost:8000/heartbeat/post"
 
 # Temporäre Localhostfreigabe für externe Clients
 #URL = "https://e1715b876272.ngrok.io/heartbeat"
@@ -26,3 +26,9 @@ PARAMS = {'lizenzschluessel': lizenzschluessel, "meldung": "Test"}
 
 # Post Request wird an API gesendet, mit jeweiligen Daten und dem URL Pfad
 r = requests.post(url=URL, data=PARAMS)
+
+#response verwerten, je nach Updatestand
+
+#wenn true, shell command an Ansible-Control-Node geben von Ansible-Master zu pullen
+
+#Ansible command

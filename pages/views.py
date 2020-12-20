@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 import heartbeat.views as heartbeat_views
 from heartbeat.models import Heartbeat
 from .models import Kunde, KundeHatSoftware, Software, Standort, Lizenz
@@ -47,16 +47,15 @@ def getLicenseDeltaDays():
 
 
 def home(request):
-    #getAmountUser()
-    #heartbeat_views.createMissingHeartbeats()
+    heartbeat_views.createMissingHeartbeats()
     #heartbeat_views.updateMissingHeartbeats()
     context = {
         "kunde": Kunde.objects.all(),
         "softwares": Software.objects.all(),
         "khs": KundeHatSoftware.objects.all(),
-        #"heartbeats": heartbeat_views.getNegativeHeartbeats(),
+        "heartbeats": heartbeat_views.getNegativeHeartbeats(),
         "lizenzenDelta": getLicenseDeltaDays(),
-        #"anzahlKunden": getAmountUser(),
+        "anzahlKunden": getAmountUser(),
     }
     return render(request, "dashboard.html", context)
 

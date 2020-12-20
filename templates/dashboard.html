@@ -15,7 +15,7 @@
                     <th>Kunde</th>
                     <th>Software</th>
                     <th>Lizenzschlüssel</th>
-                         <th>Meldung</th>
+                    <th>Meldung</th>
                     <th>Datum</th>
                 </tr>
 
@@ -28,10 +28,19 @@
                 <tr>
                     <td>{{ heartbeat.kundeSoftware.standort }}</td>
                     <td>{{ heartbeat.kundeSoftware.software }}</td>
-                       <td>{{ heartbeat.lizenzschluessel }}</td>
+                    <td>{{ heartbeat.lizenzschluessel }}</td>
                     <td>{{ heartbeat.meldung }}</td>
                     <td>{{ heartbeat.datum }}</td>
+                    <td>
+                        <form method="POST" action="{% url 'deleteEntry' heartbeat.id %}">
+                        {% csrf_token %}<input type="submit" value="DELETE">
+                            <span aria-hidden="true">&times;</span>
+                        </form>
+                        <!--a class="close" aria-label="Dismiss" href="{% url 'deleteEntry'  %}">
+                        </a-->
+                    </td>
                 </tr>
+
                 {% endfor %}
                 {% endif %}
 
@@ -87,6 +96,10 @@ $(document).ready(function(){
     });
 });
 
+
+
+
+
     </script>
 
 
@@ -130,6 +143,10 @@ $(document).ready(function(){
         }
     });
 });
+
+
+
+
 
     </script>
     {% endblock chartJS %}
@@ -246,6 +263,10 @@ $(document).ready(function(){
                 }
             })
         });
+
+
+
+
 
 
 

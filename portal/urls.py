@@ -16,11 +16,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from pages import views as page
-from django.conf import settings
-from django.conf.urls.static import static
 from django.contrib.auth import views as auth_views
 from users import views as user_views
-from heartbeat import views as heartbeat_views
 
 urlpatterns = [
     path('admin/', admin.site.urls, name="admin"),
@@ -30,7 +27,7 @@ urlpatterns = [
     path('logout/', auth_views.LogoutView.as_view(template_name='users/logout.html'), name='logout'),
     path('register/', user_views.register, name='register'),
     path('getUser/', page.getUser, name="getUser"),
-    path('heartbeat', heartbeat_views.heartbeat, name="heartbeat"),
     path('lizenzen/', page.lizenzen, name='lizenzen'),
     path('update/', page.updates, name='updates'),
+    path('heartbeat/', include('heartbeat.urls')),
 ]
