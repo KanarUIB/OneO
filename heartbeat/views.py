@@ -1,7 +1,7 @@
-
 # Create your views here.
 #   untenstehenden TEST-Befehl auf Kundenseite integrieren in Verbindung mit cronjob im Format */10 * * * * ... (alle 10 Minuten)
 #   curl -X POST -d kdNr=1;mandant=Mercedes_GmbH;software=aurep;lizenz=True localhost:8000/heartbeat
+from django.shortcuts import redirect, render
 
 from .models import Heartbeat
 from rest_framework.decorators import api_view
@@ -11,8 +11,21 @@ import datetime
 from django.utils import timezone
 
 current_date = datetime.datetime.now()
-# negativeHeartbeats = []
+negativeHeartbeats = []
 missingHeartbeats = []
+errorHeartbeats = []
+
+
+def deleteHeartbeatEntry(request, pk):
+    delEntry = Heartbeat.objects.get(id=pk)
+    if request.method == 'POST':
+        global negativeHeartbeats
+        negativeHeartbeats.remove(delEntry)
+        return redirect("/")
+    context = {
+        "entry": delEntry
+    }
+    return render(request, '../templates/heartbeat/heartbeat_delete.html', context)
 
 
 def getCurrentHeartbeats():
@@ -50,7 +63,7 @@ for the specific KundeHatSoftware.
 
 def createMissingHeartbeats():
     kundeHatSoftware_objs = KundeHatSoftware.objects.all()
-    global missingHeartbeats
+    global missingHeartbeats, errorHeartbeats
     for kundeSoftware in kundeHatSoftware_objs:
         if (checkHeartbeat(kundeSoftware) == False):
             # print("hier für muss ein negatives heartbeat erstellt werden: ")
@@ -60,41 +73,18 @@ def createMissingHeartbeats():
                                                      KundeHatSoftware=kundeSoftware).license_key,
                                                  meldung="Heartbeat nicht eingetroffen",
                                                  datum=datetime.datetime.now())
+
     for heartbeat in getCurrentHeartbeats():
+        if str(heartbeat.meldung).__contains__("Error"):
+            errorHeartbeats.append(heartbeat)
         if heartbeat.meldung == "Heartbeat nicht eingetroffen":
             missingHeartbeats.append(heartbeat)
 
 
-def getErrorHeartbeats():
-    heartbeat_objs = getCurrentHeartbeats()
-    errorHeartbeats = []
-    for heartbeat in heartbeat_objs:
-        if str(heartbeat.meldung).__contains__("Error"):
-            errorHeartbeats.append(heartbeat)
-    return errorHeartbeats
-
-
-def getMissingHeartbeats():
-    global missingHeartbeat
-    for heartbeat in getCurrentHeartbeats():
-        if heartbeat.meldung == "Heartbeat nicht eingetroffen":
-            missingHeartbeat.append(heartbeat)
-    return missingHeartbeat
-
-
 def getNegativeHeartbeats():
-    kundeSoftware_objs = KundeHatSoftware.objects.all()
-    negativeHeartbeats = []
-    delta = datetime.timedelta(days=2)
-    for kundeSoftware in kundeSoftware_objs:
-        print("---")
-        for heartbeat in Heartbeat.objects.filter(kundeSoftware=kundeSoftware).order_by('-datum'):
-            if timezone.make_naive(heartbeat.datum) > current_date - delta and heartbeat.meldung == "Heartbeat nicht eingetroffen":
-                negativeHeartbeats.append(heartbeat)
-                print(current_date - delta)
-                print(heartbeat)
-                break
-    negativeHeartbeats += getErrorHeartbeats()
+    global negativeHeartbeats
+    negativeHeartbeats.append(missingHeartbeats)
+    negativeHeartbeats.append(errorHeartbeats)
     return negativeHeartbeats
 
     """""""""
@@ -145,8 +135,8 @@ def heartbeat(request):
     datum = datetime.datetime.now()
 
     Heartbeat.objects.create(kundeSoftware=kundeSoftware, lizenzschluessel=beat["lizenzschluessel"],
-                                         meldung=beat["meldung"],
-                                         datum=datum)
+                             meldung=beat["meldung"],
+                             datum=datum)
     return Response(beat["lizenzschluessel"])
 
 
