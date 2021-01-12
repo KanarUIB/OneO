@@ -5,6 +5,10 @@ import re
 import os
 import hashlib
 import requests
+import string
+from ctypes import windll
+
+
 
 """
 Globale Url des Management-Portals mit der subdirectory /heartbeat welche REST (POST) Abfragen bearbeitet
@@ -12,22 +16,21 @@ Globale Url des Management-Portals mit der subdirectory /heartbeat welche REST (
 URL = "http://localhost:8000/heartbeat"
 
 
+
 """
 dir: Root Ordner von dem aus angefangen wird nach dem /Kundenscripts subordner zu suchen
 zaehler: Hilfsvariable für rekursiven Methodenaufruf mit anderem Root Ordner
 
 """
-def searchFiles(dir: str, zaehler = 0):
+def searchFiles(dir, zaehler = 0):
     global URL
     abspathLog = ""
     abspathConfig = ""
 
-
-    if zaehler == 2:
-        return
-
-    for root, dirs, files in os.walk(dir):
-        print(root)
+    #print(dir[zaehler] + ":/")
+    #print(zaehler)
+    for root, dirs, files in os.walk(dir[zaehler] + ":/"):
+        #print(root)
         if os.path.basename(root) != 'Kundenscripts':
             continue
 
@@ -39,7 +42,10 @@ def searchFiles(dir: str, zaehler = 0):
         break
 
     if not abspathLog and not abspathConfig:
-        searchFiles("D:/", zaehler + 1)
+        zaehler += 1
+        if zaehler == len(dir):
+            return
+        searchFiles(dir, zaehler)
 
 
     PARAMS = readData(str(os.path.abspath(root)), abspathLog, abspathConfig)
@@ -65,7 +71,7 @@ Liest die Daten aus config.txt und LOG.txt aus und speichert sie im PARAMS dict
 """
 def readData(dir: str, abspathLog: str, abspathConfig: str):
     if not dir or not abspathLog or not abspathConfig:
-        return None
+        return {}
 
 
     abspathLog = dir + "\\" + abspathLog
@@ -105,16 +111,31 @@ def directRequest(dir: str):
     requests.post(url= URL, data= PARAMS)
 
 
+"""
+Findet alle existierenden Laufwerke und speichert diese in drives[]
+"""
+def get_drives():
+    drives = []
+    bitmask = windll.kernel32.GetLogicalDrives()
+    for letter in string.ascii_uppercase:
+        if bitmask & 1:
+            drives.append(letter)
+        bitmask >>= 1
+
+    return drives
+
 
 
 
 
 
 """
-Führt den Heartbeat Request aus und prüft vorher ob path.txt einen Inhalt besitzt, 
-um basierend darauf zwei verschiedene Wege zu gehen (searchFiles/directRequest)
+Führt den Heartbeat Request aus und prüft vorher ob path.txt einen Inhalt besitzt (den absoluten Pfad), 
+um darauf basierend zwei verschiedene Wege zu gehen (searchFiles oder directRequest)
 """
 def execute():
+    drives = get_drives()
+    print(drives)
     try:
         path = open("./path.txt", "r")
         abspathPath = path.read()
@@ -123,11 +144,9 @@ def execute():
         abspathPath = ""
 
     if not abspathPath:
-        searchFiles("C:/")
+        searchFiles(drives)
     else:
         directRequest(abspathPath)
-
-
 
 
 
@@ -137,4 +156,3 @@ schedule.every(1).seconds.do(execute)
 while True:
     schedule.run_pending()
     time.sleep(1)
-

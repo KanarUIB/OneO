@@ -437,7 +437,7 @@ html, body{
                 padding: 15px;
                 border-radius: 50px;
                 text-decoration: none;
-                transition-duration: 200ms;
+                transition-duration: 140ms;
                 color: black;
             }
             .kundenliste h1{
@@ -445,5 +445,28 @@ html, body{
                 margin: 0 0 100px;
             }
             .kunde:hover{
-                background: rgb(220,220,220);
+                background: rgb(240,240,240);
+                transform: scale(1.02);
+            }
+
+            .listNav{
+                margin: 50px 0;
+            }
+            .ln-letters{
+                1border-radius: 200px;
+                1border: 1px solid rgb(140,140,140);
+            }
+            .ln-letters a{
+                1border: 1px solid rgb(140,140,140);
+                padding: 2px 5px;
+                margin: 0 1px;
+                border: 1px solid rgb(120,120,120);
+                border-radius: 2px;
+                min-width: 25px;
+                text-align: center;
+                background: rgb(240,240,240);
+                color: black;
+            }
+            .ln-letters .ln-disabled{
+                color: rgb(160,160,160);
             }

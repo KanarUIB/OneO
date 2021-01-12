@@ -6,10 +6,10 @@
 <div class="container mt-5">
     <div class="row">
         <div id="softwarekasten" class="col-md-12 mb-5 softwarekasten">
-            {% if heartbeats|length == 0 %}
+            {% if  0 == 0 %}
             <p>Keine Hearbeats austehend oder fehlerhaft</p>
             {% else %}
-            <table class="table table-responsive-lg" id="lizenzTabelle" width="100%">
+          <!--  <table class="table table-responsive-lg" id="lizenzTabelle" width="100%">
                 <thead>
                 <tr>
                     <th>Kunde</th>
@@ -20,8 +20,8 @@
                 </tr>
 
 
-                </thead>
-
+                </thead>-->
+<!--
                 <tbody>
 
                 {% for heartbeat in heartbeats %}
@@ -36,16 +36,17 @@
                         {% csrf_token %}<input type="submit" value="DELETE">
                             <span aria-hidden="true">&times;</span>
                         </form>
-                        <!--a class="close" aria-label="Dismiss" href="{% url 'deleteEntry'  %}">
-                        </a-->
+                        a class="close" aria-label="Dismiss" href="{% url 'deleteEntry'  %}">
+                        </a>
                     </td>
                 </tr>
 
                 {% endfor %}
+
                 {% endif %}
 
                 </tbody>
-
+-->
             </table>
         </div>
     </div>
@@ -54,7 +55,7 @@
 
     <h2>Infografiken</h2>
     {% endblock heartbeat%}
-    {% block chartJS %}
+    <!--{% block chartJS %}
     <script>
 
 $(document).ready(function(){
@@ -274,7 +275,7 @@ $(document).ready(function(){
 
     </script>
     {% endblock javascript %}
-
+-->
 
     {% block dashboardtabelle %}
 

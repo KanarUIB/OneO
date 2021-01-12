@@ -18,6 +18,8 @@ from django.urls import path, include
 from pages import views as page
 from django.contrib.auth import views as auth_views
 from users import views as user_views
+from update import views as update_views
+from heartbeat import views as heartbeat_view
 
 urlpatterns = [
     path('admin/', admin.site.urls, name="admin"),
@@ -26,8 +28,9 @@ urlpatterns = [
     path('login/', auth_views.LoginView.as_view(template_name='users/login.html'), name='login'),
     path('logout/', auth_views.LogoutView.as_view(template_name='users/logout.html'), name='logout'),
     path('register/', user_views.register, name='register'),
+    path('updates', update_views.updateChecker, name='updates'),
     path('getUser/', page.getUser, name="getUser"),
     path('lizenzen/', page.lizenzen, name='lizenzen'),
-    path('update/', page.updates, name='updates'),
-    path('heartbeat/', include('heartbeat.urls')),
+    path('update/', page.updates, name='update'),
+    path('heartbeat', heartbeat_view.heartbeat, name="heartbeat"),
 ]
