@@ -40,6 +40,8 @@ urlpatterns = [
     path('heartbeat', heartbeat_view.heartbeat, name="heartbeat")
 ]
 
+
+"""
 async def time(websocket, path):
     print("test")
     while True:
@@ -52,4 +54,4 @@ start_server = websockets.serve(time, "127.0.0.1", 5000)
 
 asyncio.get_event_loop().run_until_complete(start_server)
 asyncio.get_event_loop().run_forever()
-
+"""
