@@ -20,6 +20,11 @@ from django.contrib.auth import views as auth_views
 from users import views as user_views
 from update import views as update_views
 from heartbeat import views as heartbeat_view
+import datetime
+import asyncio
+import asyncws
+import random
+import websockets
 
 urlpatterns = [
     path('admin/', admin.site.urls, name="admin"),
@@ -32,5 +37,19 @@ urlpatterns = [
     path('getUser/', page.getUser, name="getUser"),
     path('lizenzen/', page.lizenzen, name='lizenzen'),
     path('update/', page.updates, name='update'),
-    path('heartbeat', heartbeat_view.heartbeat, name="heartbeat"),
+    path('heartbeat', heartbeat_view.heartbeat, name="heartbeat")
 ]
+
+async def time(websocket, path):
+    print("test")
+    while True:
+        now = datetime.datetime.utcnow().isoformat() + "Z"
+        await websocket.send(now)
+        await asyncio.sleep(random.random() * 3)
+
+
+start_server = websockets.serve(time, "127.0.0.1", 5000)
+
+asyncio.get_event_loop().run_until_complete(start_server)
+asyncio.get_event_loop().run_forever()
+

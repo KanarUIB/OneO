@@ -14,7 +14,6 @@ jobstores = {
     'mongo': MongoDBJobStore(),
     'default': SQLAlchemyJobStore(url='sqlite:///jobs.sqlite')
 }
-"""
 executors = {
     'default': ThreadPoolExecutor(20),
     'processpool': ProcessPoolExecutor(5)
@@ -23,17 +22,9 @@ job_defaults = {
     'coalesce': False,
     'max_instances': 3
 }
-scheduler = BackgroundScheduler(jobstores="default", executors=executors, job_defaults=job_defaults, timezone=utc)
+"""
+#scheduler = BackgroundScheduler(jobstores="default", executors=executors, job_defaults=job_defaults, timezone=utc)
+scheduler = BackgroundScheduler(daemon=True)
 
-scheduler.add_job(job, 'interval', minutes=1)
+scheduler.add_job(lambda: scheduler.print_jobs(), 'interval', seconds=5)
 scheduler.start()
-"""
-@sched.cron_job(second= "*")
-def job():
-    print("test")
-
-sched.add_job(job, "interval", seconds=5)
-sched.start()
-sched.add_cron(job())
-
-"""

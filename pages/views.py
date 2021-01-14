@@ -138,3 +138,7 @@ def suche(request):
 
     return JsonResponse({"data": "g"});
 
+
+
+
+

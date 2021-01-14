@@ -10,3 +10,5 @@ class Heartbeat(models.Model):
 
     def __str__(self):
         return str(self.kundeSoftware) + ':' + str(self.datum)
+
+
