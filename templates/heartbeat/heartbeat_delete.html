@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Registrierung</h1>
+<div>
+    <form method="POST">
+        {% csrf_token %}
+        <fieldset class="form-group">
+            <p>Möchtest du die Heartbeat-Meldung "<b>{{ heartbeat.kundeSoftware.standort }}</b>" wirklich verwerfen?
+            </p>
+        </fieldset>
+        <div class="form-group">
+            <button class="btn btn-danger" type="submit">Verwerfen</button>
+            <button class="btn btn-outline-info" href="{% url 'index' %}">Abbrechen</button>
+        </div>
+    </form>
+</div>
+{% endblock content %}
