@@ -7,6 +7,8 @@ import hashlib
 import requests
 import string
 from ctypes import windll
+import subprocess
+
 
 
 
@@ -20,7 +22,6 @@ URL = "http://localhost:8000/heartbeat"
 """
 dir: Root Ordner von dem aus angefangen wird nach dem /Kundenscripts subordner zu suchen
 zaehler: Hilfsvariable für rekursiven Methodenaufruf mit anderem Root Ordner
-
 """
 def searchFiles(dir, zaehler = 0):
     global URL
@@ -30,6 +31,7 @@ def searchFiles(dir, zaehler = 0):
     #print(dir[zaehler] + ":/")
     #print(zaehler)
     for root, dirs, files in os.walk(dir[zaehler] + ":/"):
+        print(files)
         #print(root)
         if os.path.basename(root) != 'Kundenscripts':
             continue
@@ -149,10 +151,18 @@ def execute():
         directRequest(abspathPath)
 
 
+time.sleep(10)
+#execute()
+
+firstTime = open("initial.txt", "r").read()
+
+if firstTime.lower() == "false":
+    subprocess.call([r'.\autostart.bat'])
+    open("initial.txt", "w").write("True")
 
 
-schedule.every(1).seconds.do(execute)
+#schedule.every(1).seconds.do(execute)
 
-while True:
-    schedule.run_pending()
-    time.sleep(1)
+#while True:
+#    schedule.run_pending()
+#    time.sleep(1)
