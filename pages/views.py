@@ -63,7 +63,9 @@ def home(request):
 def kundenprofil(request):
     id = request.GET.get('id', "-1")
     try:
-        kunde = KundeHatSoftware.objects.get(id=str(id))
+        kunde = Kunde.objects.get(id=str(id))
+        kundenStandorte = Standort.objects.filter(kunde=kunde)
+        print(kundenStandorte)
     except ObjectDoesNotExist:
         return render(request,"404.html")
 
@@ -73,17 +75,9 @@ def kundenprofil(request):
     if id is not None:
 
         context = {
-            "kdNr": str(kunde.standort.kunde.id),
-            "name": str(kunde.standort.name),
-            "email": str(kunde.standort.email),
-            "telNr": str(kunde.standort.telNr),
-            "software": str(kunde.software),
-            "plz": str(kunde.standort.plz),
-            "ort": str(kunde.standort.ort),
-            "strasse": str(kunde.standort.strasse),
-            "hausnr": str(kunde.standort.hausnr),
+            "kunde": kunde,
+            "standorte": kundenStandorte,
         }
-        print(context)
 
     return render(request, "kundenprofil.html", context)
 

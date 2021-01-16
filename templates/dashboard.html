@@ -3,14 +3,13 @@
 {% block heartbeat%}
 <h1>Dashboard</h1>
 <h2>Heartbeat-Meldungen</h2>
-    <ul id="socket">Test</ul>
 <div class="container mt-5">
     <div class="row">
         <div id="softwarekasten" class="col-md-12 mb-5 softwarekasten">
-            {% if  0 == 0 %}
+            {% if 0 == 0 %}
             <p>Keine Hearbeats austehend oder fehlerhaft</p>
             {% else %}
-          <!--  <table class="table table-responsive-lg" id="lizenzTabelle" width="100%">
+            <table class="table table-responsive-lg" id="lizenzTabelle" width="100%">
                 <thead>
                 <tr>
                     <th>Kunde</th>
@@ -21,8 +20,7 @@
                 </tr>
 
 
-                </thead>-->
-<!--
+                </thead>
                 <tbody>
 
                 {% for heartbeat in heartbeats %}
@@ -32,14 +30,6 @@
                     <td>{{ heartbeat.lizenzschluessel }}</td>
                     <td>{{ heartbeat.meldung }}</td>
                     <td>{{ heartbeat.datum }}</td>
-                    <td>
-                        <form method="POST" action="{% url 'deleteEntry' heartbeat.id %}">
-                        {% csrf_token %}<input type="submit" value="DELETE">
-                            <span aria-hidden="true">&times;</span>
-                        </form>
-                        a class="close" aria-label="Dismiss" href="{% url 'deleteEntry'  %}">
-                        </a>
-                    </td>
                 </tr>
 
                 {% endfor %}
@@ -47,7 +37,7 @@
                 {% endif %}
 
                 </tbody>
--->
+
             </table>
         </div>
     </div>
@@ -56,7 +46,7 @@
 
     <h2>Infografiken</h2>
     {% endblock heartbeat%}
-    <!--{% block chartJS %}
+    {% block chartJS %}
     <script>
 
 $(document).ready(function(){
@@ -97,6 +87,7 @@ $(document).ready(function(){
         }
     });
 });
+
 
 
 
@@ -145,6 +136,7 @@ $(document).ready(function(){
         }
     });
 });
+
 
 
 
@@ -274,14 +266,12 @@ $(document).ready(function(){
 
 
 
+
     </script>
     {% endblock javascript %}
--->
-
-
     {% block javascripts %}
 
-        <script type="text/javascript">
+    <!--script type="text/javascript">
 
             var ws = new WebSocket("ws://127.0.0.1:5000");
 
@@ -301,61 +291,15 @@ $(document).ready(function(){
             };
 
             document.body.appendChild(messages);
-        </script>
+
+    </script>-->
 
     {% endblock javascripts %}
-
 
 
     {% block dashboardtabelle %}
 
     {% load pages_extras %}
 </div>
-
-<!--
-<div class="container">
-    <table class="table">
-        <tr>
-            <td><input placeholder="Kundennummer" type="text" name="kdNr" id="kdNr"/></td>
-            <td>
-                <button id="search">Suchen</button>
-            </td>
-            <td><span id="error" style="color: red; opacity: 0;">Kundennummer existiert nicht!</span></td>
-        </tr>
-        <tr>
-            <td>Kunde</td>
-            <td id="mandant"></td>
-        </tr>
-    </table>
-
-</div>
-<div class="checker">
-    <div class="header">
-        <div>Softwarepaket</div>
-        <div>Lizenz</div>
-        <div>Version</div>
-        <div>Ablaufdatum</div>
-        <div></div>
-    </div>
-    <div class="results">
-        <div class="line" style="opacity: 0;"></div>
-    </div>
-    {% for x in khs %}
-       {% if x.kdNr|equals:"Mercedesverkauf GmbH" %}
-       <div>
-           <div>{{ x.swId }}</div>
-           <div class="lizenz">{% if x.lizenz == False %} INAKTIV {% else %} AKTIV {% endif %}</div>
-           <div>{{ x.swId.version }}</div>
-           <div>20.07.2025</div>
-           <div>{% if x.lizenz == False %}
-               <button>Update</button>
-               {% endif %}
-           </div>
-       </div>
-       {% endif %}
-       {% endfor %}
-</div>
--->
-
 
 {% endblock dashboardtabelle %}

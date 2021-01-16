@@ -21,17 +21,6 @@ missingHeartbeats = []
 errorHeartbeats = []
 
 
-def deleteHeartbeatEntry(request, pk):
-    delEntry = Heartbeat.objects.get(id=pk)
-    if request.method == 'POST':
-        global negativeHeartbeats
-        negativeHeartbeats.remove(delEntry)
-        return redirect("/")
-    context = {
-        "entry": delEntry
-    }
-    return render(request, '../templates/heartbeat/heartbeat_delete.html', context)
-
 
 def getCurrentHeartbeats():
     heartbeat_objs = Heartbeat.objects.all()
@@ -106,20 +95,6 @@ def getNegativeHeartbeats():
     return negativeHeartbeats
     """""""""
 
-
-def updateNegativeHeartbeats():
-    global missingHeartbeats
-    global negativeHeartbeats
-    currentHeartbeats = getCurrentHeartbeats()
-    # print(currentHeartbeats)
-    missingHeartbeats = []
-    for heartbeat in currentHeartbeats:
-        for negativeHeartbeat in getNegativeHeartbeats():
-            if heartbeat.kundeSoftware == negativeHeartbeat.kundeSoftware:
-                print("Heartbeat:")
-                print(heartbeat)
-                print("negativeHeartbeat:")
-                print(negativeHeartbeat)
 
 
 @api_view(["POST"])
