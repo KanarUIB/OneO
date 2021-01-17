@@ -470,3 +470,12 @@ html, body{
             .ln-letters .ln-disabled{
                 color: rgb(160,160,160);
             }
+
+
+#kundenListe td{
+border:0;}
+
+#kundenListe thead tr th{
+border:0;
+background-color:white;
+}

@@ -82,11 +82,6 @@ def kundenprofil(request):
     return render(request, "kundenprofil.html", context)
 
 
-def kunden(request):
-    context = {
-        "kunde": Kunde.objects.all(),
-    }
-    return render(request, "kunden.html", context)
 
 
 def getUser(request):
@@ -110,10 +105,15 @@ def getUser(request):
 
     return JsonResponse(json.dumps(kundenliste), safe=False)
 
+def kunden(request):
+    context = {
+        "kunde": Kunde.objects.all(),
+    }
+    return render(request, "kunden.html", context)
 
 def lizenzen(request):
     context = {
-        'lizenzen': Lizenz.objects.all()
+        'lizenzen': Lizenz.objects.all(),
     }
     return render(request, "lizenz.html", context)
 

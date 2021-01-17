@@ -1,25 +1,46 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <h1>Kundenübersicht</h1>
-<div class="container mt-5 ">
-    <div class="Kunden">
-        <ul id="kundenliste" >
-              {% for x in kunde %}
-            <li><a href="/Kunden/Profil?id={{ x.id }}" class="kunde">{{ x }}</a></li>
-        {% endfor %}
 
-        </ul>
-    </div>
+<h1>Lizenzen</h1>
+<div class="container mt-5">
+    <table class="table table-responsive-lg" id="kundenListe" width="100%">
+       <thead>
+            <tr>
 
-        {% load static %}
-    <script type="text/javascript" src="{% static 'js/jquery-listnav.js' %}"></script>
+                <th>
 
+                </th>
 
-    <script>
-	$('#kundenliste').listnav();
-    </script>
+            </tr>
+       </thead>
+
+       <tbody>
+       {% for y in kunde %}
+            <tr>
+
+                  <td>
+                      <a href="/Kunden/Profil?id={{ y.id }} " class="kunde" >{{ y }} </a>
+                  </td>
+
+            </tr>
+       {% endfor %}
+        </tbody>
+   </table>
 </div>
+
+
+<script>
+$(document).ready(function() {
+    $('#kundenListe').DataTable( {
+        "paging":   false,
+        "ordering": false,
+        "info":     false
+    } );
+} );
+
+</script>
+
 
 
 {% endblock content %}
