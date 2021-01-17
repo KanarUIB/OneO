@@ -431,11 +431,11 @@ html, body{
             .kunde{
                 display: block;
                 flex: 1;
-                border: 1px solid rgb(150,150,150);
+                border: 0;
                 text-align: center;
-                margin: 0 0 10px;
+    box-shadow: 4px 4px 9px 0 #e9ecefd4;
                 padding: 15px;
-                border-radius: 50px;
+                border-radius: 5px;
                 text-decoration: none;
                 transition-duration: 140ms;
                 color: black;
