@@ -6,6 +6,8 @@ from django.http import JsonResponse, HttpResponse
 import json
 import datetime
 from django.core.exceptions import ObjectDoesNotExist
+
+
 """""""""
 Returns amount of customers for each software, in the order aurep, ADDS, Werkstattliste and TjeKvik
 """""""""
@@ -47,8 +49,8 @@ def getLicenseDeltaDays():
 
 
 def home(request):
-    heartbeat_views.createMissingHeartbeats()
-    #heartbeat_views.updateMissingHeartbeats()
+    heartbeat_views.checkHeartbeat()
+    print("home:"+str(heartbeat_views.getNegativeHeartbeats()))
     context = {
         "kunde": Kunde.objects.all(),
         "softwares": Software.objects.all(),
