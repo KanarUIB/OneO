@@ -14,23 +14,14 @@ from rest_framework.response import Response
 from pages.models import Lizenz, KundeHatSoftware
 import datetime
 from django.utils import timezone
+import schedule
 
 current_date = datetime.datetime.now()
 negativeHeartbeats = []
-missingHeartbeats = []
-errorHeartbeats = []
 
 
-
-def getCurrentHeartbeats():
-    heartbeat_objs = Heartbeat.objects.all()
-    currentHeartbeats = []
-    for heartbeat in heartbeat_objs:
-        if heartbeat.datum.date() == current_date.date():
-            currentHeartbeats.append(heartbeat)
-            # print(heartbeat.id)
-            # print(heartbeat)
-    return currentHeartbeats
+def getLetzteHeartbeat(kundeHatSoftware):
+    return Heartbeat.objects.filter(kundeSoftware=kundeHatSoftware).order_by('datum').last()
 
 
 """""""""
@@ -39,67 +30,73 @@ Return True if there is a Heartbeat object or False if there is no Heartbeat obj
 """""""""
 
 
-def checkHeartbeat(kundeHatSoftware):
-    hearbeat_objs = Heartbeat.objects.filter(kundeSoftware=kundeHatSoftware)
-    if hearbeat_objs is not None:
-        for heartbeat in hearbeat_objs:
-            if heartbeat.datum.date() == current_date.date():
-                if heartbeat.kundeSoftware == kundeHatSoftware:
-                    return True
-    return False
+def checkHeartbeat():
+    softwarePakete = KundeHatSoftware.objects.all()
+    for paket in softwarePakete:
+        letzterHeartbeat = getLetzteHeartbeat(paket)
+        if letzterHeartbeat is None:
+            heartbeat = Heartbeat.objects.create(kundeSoftware=paket,
+                                                 lizenzschluessel=Lizenz.objects.get(
+                                                     KundeHatSoftware=paket).license_key,
+                                                 meldung="Heartbeat noch nie eingetroffen",
+                                                 datum=datetime.datetime.now())
+        else:
+            timedelta = datetime.timedelta(hours=24)
+            zeit = current_date - timezone.make_naive(letzterHeartbeat.datum)
+            if zeit > timedelta:
+                createMissingHeartbeats(letzterHeartbeat.kundeSoftware)
 
 
 """""""""
 Creates Database Entries for the missing Heartbeats after checking if there is a heartbeat
 for the specific KundeHatSoftware.
+@param kundeHatSoftware Software-Paket von einem spezifischen Standort/Kunden
 """""""""
 
 
-def createMissingHeartbeats():
-    kundeHatSoftware_objs = KundeHatSoftware.objects.all()
-    global missingHeartbeats, errorHeartbeats
-    for kundeSoftware in kundeHatSoftware_objs:
-        if (checkHeartbeat(kundeSoftware) == False):
-            # print("hier für muss ein negatives heartbeat erstellt werden: ")
-            # print(str(kundeSoftware.id) + ": " + str(kundeSoftware))
-            heartbeat = Heartbeat.objects.create(kundeSoftware=kundeSoftware,
-                                                 lizenzschluessel=Lizenz.objects.get(
-                                                     KundeHatSoftware=kundeSoftware).license_key,
-                                                 meldung="Heartbeat nicht eingetroffen",
-                                                 datum=datetime.datetime.now())
+def createMissingHeartbeats(kundeHatSoftware):
+    heartbeat = Heartbeat.objects.create(kundeSoftware=kundeHatSoftware,
+                                         lizenzschluessel=Lizenz.objects.get(
+                                             KundeHatSoftware=kundeHatSoftware).license_key,
+                                         meldung="Heartbeat nicht eingetroffen",
+                                         datum=datetime.datetime.now())
 
-    for heartbeat in getCurrentHeartbeats():
-        if str(heartbeat.meldung).__contains__("Error"):
-            errorHeartbeats.append(heartbeat)
-        if heartbeat.meldung == "Heartbeat nicht eingetroffen":
-            missingHeartbeats.append(heartbeat)
+
+def getErrorHeartbeats():
+    global negativeHeartbeats
+    softwarePakete = KundeHatSoftware.objects.all()
+    for paket in softwarePakete:
+        heartbeat = Heartbeat.objects.filter(kundeSoftware=paket).filter(meldung__icontains="Error").order_by(
+            "datum").last()
+        print(heartbeat)
+        if heartbeat is not None:
+            if heartbeat not in negativeHeartbeats:
+                negativeHeartbeats.append(heartbeat)
+                print(negativeHeartbeats)
 
 
 def getNegativeHeartbeats():
     global negativeHeartbeats
-    negativeHeartbeats.append(missingHeartbeats)
-    negativeHeartbeats.append(errorHeartbeats)
+    getErrorHeartbeats()
+    softwarePakete = KundeHatSoftware.objects.all()
+    for pakete in softwarePakete:
+        heartbeat = Heartbeat.objects.filter(kundeSoftware=pakete).exclude(
+            meldung="Heartbeat nicht eingetroffen").last()
+        timedelta = datetime.timedelta(hours=48)
+        zeit = current_date - timezone.make_naive(heartbeat.datum)
+        print("heartbeat:"+str(heartbeat))
+        print(zeit)
+        print("timedelta "+ str(timedelta) )
+        if zeit > timedelta:
+            if getLetzteHeartbeat(pakete) not in negativeHeartbeats:
+                print("negative:" + str(negativeHeartbeats))
+                negativeHeartbeats.append(getLetzteHeartbeat(pakete))
+        elif heartbeat.meldung == "Heartbeat noch nie eingetroffen":
+            negativeHeartbeats.append(heartbeat)
     return negativeHeartbeats
-
-    """""""""
-def getNegativeHeartbeats():
-    heartbeat_objs = getCurrentHeartbeats()
-    negativeHeartbeats = []
-    for heartbeat in heartbeat_objs:
-        for comparedHeartbeat in heartbeat_objs:
-            if heartbeat.kundeSoftware == comparedHeartbeat.kundeSoftware and heartbeat.datum_utc < comparedHeartbeat.datum_utc:
-                negativeHeartbeats.append(comparedHeartbeat)
-            else:
-                negativeHeartbeats.append(heartbeat)
-    print(negativeHeartbeats)
-    return negativeHeartbeats
-    """""""""
-
-
 
 @api_view(["POST"])
 def heartbeat(request):
-    print("\n\n\n\nDRIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIN\n\n\n\n")
     beat = {
         "lizenzschluessel": request.data["lizenzschluessel"],
         "meldung": request.data["meldung"],
@@ -127,32 +124,3 @@ def heartbeat(request):
 }
 
 """"""
-
-
-
-"""
-def missingHeartbeatsSocket(request):
-
-    async def hello(websocket, path):
-        name = await websocket.recv()
-        print(f"< {name}")
-
-        greeting = f"Hello {name}!"
-
-        await websocket.send(greeting)
-        print(f"> {greeting}")
-
-    ssl_context = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
-    localhost_pem = pathlib.Path(__file__).with_name("localhost.pem")
-    ssl_context.load_cert_chain(localhost_pem)
-
-    start_server = websockets.serve(
-        hello, "localhost", 8000, ssl=ssl_context
-    )
-
-    asyncio.get_event_loop().run_until_complete(start_server)
-    asyncio.get_event_loop().run_forever()
-
-"""
-
-
