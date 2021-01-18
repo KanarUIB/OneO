@@ -82,18 +82,22 @@ def getNegativeHeartbeats():
     for pakete in softwarePakete:
         heartbeat = Heartbeat.objects.filter(kundeSoftware=pakete).exclude(
             meldung="Heartbeat nicht eingetroffen").last()
-        timedelta = datetime.timedelta(hours=48)
-        zeit = current_date - timezone.make_naive(heartbeat.datum)
-        print("heartbeat:"+str(heartbeat))
-        print(zeit)
-        print("timedelta "+ str(timedelta) )
-        if zeit > timedelta:
-            if getLetzteHeartbeat(pakete) not in negativeHeartbeats:
-                print("negative:" + str(negativeHeartbeats))
-                negativeHeartbeats.append(getLetzteHeartbeat(pakete))
-        elif heartbeat.meldung == "Heartbeat noch nie eingetroffen":
-            negativeHeartbeats.append(heartbeat)
+        if heartbeat is None:
+            negativeHeartbeats.append(getLetzteHeartbeat(pakete))
+        else:
+            timedelta = datetime.timedelta(hours=48)
+            zeit = current_date - timezone.make_naive(heartbeat.datum)
+            print("heartbeat:" + str(heartbeat))
+            print(zeit)
+            print("timedelta " + str(timedelta))
+            if zeit > timedelta:
+                if getLetzteHeartbeat(pakete) not in negativeHeartbeats:
+                    print("negative:" + str(negativeHeartbeats))
+                    negativeHeartbeats.append(getLetzteHeartbeat(pakete))
+            elif heartbeat.meldung == "Heartbeat noch nie eingetroffen":
+                negativeHeartbeats.append(heartbeat)
     return negativeHeartbeats
+
 
 @api_view(["POST"])
 def heartbeat(request):
