@@ -21,6 +21,10 @@ $(document).ready(function () {
       } );
   }
   });
+
+  $('#heartbeatTabelle').DataTable({
+   "scrollY":"60vh",
+
+
+  });
 });
-
-
