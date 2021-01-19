@@ -6,7 +6,7 @@
 <div class="container mt-5">
     <div class="row">
         <div id="softwarekasten" class="col-md-12 mb-5 softwarekasten">
-            {% if 0 == 0 %}
+            {% if heartbeats|length == 0 %}
             <p>Keine Hearbeats austehend oder fehlerhaft</p>
             {% else %}
             <table class="table table-responsive-lg" id="lizenzTabelle" width="100%">

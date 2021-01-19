@@ -50,7 +50,6 @@ def getLicenseDeltaDays():
 
 def home(request):
     heartbeat_views.checkHeartbeat()
-    print("home:"+str(heartbeat_views.getNegativeHeartbeats()))
     context = {
         "kunde": Kunde.objects.all(),
         "softwares": Software.objects.all(),

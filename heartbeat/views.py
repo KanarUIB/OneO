@@ -17,7 +17,6 @@ from django.utils import timezone
 import schedule
 
 current_date = datetime.datetime.now()
-negativeHeartbeats = []
 
 
 def getLetzteHeartbeat(kundeHatSoftware):
@@ -62,24 +61,31 @@ def createMissingHeartbeats(kundeHatSoftware):
                                          datum=datetime.datetime.now())
 
 
-def getErrorHeartbeats():
-    global negativeHeartbeats
-    softwarePakete = KundeHatSoftware.objects.all()
-    for paket in softwarePakete:
-        heartbeat = Heartbeat.objects.filter(kundeSoftware=paket).filter(meldung__icontains="Error").order_by(
+def getErrorHeartbeats(softwarePaket):
+        heartbeat = Heartbeat.objects.filter(kundeSoftware=softwarePaket).filter(meldung__icontains="Error").order_by(
             "datum").last()
-        print(heartbeat)
-        if heartbeat is not None:
-            if heartbeat not in negativeHeartbeats:
-                negativeHeartbeats.append(heartbeat)
-                print(negativeHeartbeats)
+        return heartbeat
 
 
+"""""""""
+
+@return negativeHeartbeats Alle negativen Heartbeats
+"""""""""
 def getNegativeHeartbeats():
-    global negativeHeartbeats
-    getErrorHeartbeats()
+    negativeHeartbeats = []
     softwarePakete = KundeHatSoftware.objects.all()
     for pakete in softwarePakete:
+
+        #Hier werden der negativeHeartbeat-Liste alle Heartbeats die mit einer Error-Meldung hineinkamen
+        #hinzugefügt.
+
+        errorHeartbeats = getErrorHeartbeats(pakete)
+        if errorHeartbeats is not None:
+            negativeHeartbeats.append(errorHeartbeats)
+
+        #Hier wird geprüft wann der letzter erfolgreiche Heartbeat für diesen jeweiligen Software-Paket
+        #einkam, wenn dieser vor über 48 Stunden hineinkam wird der letzte Fehlende-Heartbeat in die Liste hinzugefügt
+
         heartbeat = Heartbeat.objects.filter(kundeSoftware=pakete).exclude(
             meldung="Heartbeat nicht eingetroffen").last()
         if heartbeat is None:
