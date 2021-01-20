@@ -1,15 +1,20 @@
 {% extends "base.html" %}
 
 {% block heartbeat%}
+<style>
+    .chartReihe{
+    margin-left: 80px;
+    }
+</style>
 <h1>Dashboard</h1>
 <h2>Heartbeat-Meldungen</h2>
 <div class="container mt-5">
     <div class="row">
-        <div id="softwarekasten" class="col-md-12 mb-5 softwarekasten">
-            {% if 0 == 0 %}
+        <div id="softwarekasten" class="col-md-12 mb-5">
+            {% if heartbeats|length == 0 %}
             <p>Keine Hearbeats austehend oder fehlerhaft</p>
             {% else %}
-            <table class="table table-responsive-lg" id="lizenzTabelle" width="100%">
+            <table class="table table-responsive-lg" id="heartbeatTabelle" width="100%">
                 <thead>
                 <tr>
                     <th>Kunde</th>
@@ -87,14 +92,7 @@ $(document).ready(function(){
         }
     });
 });
-
-
-
-
-
-
     </script>
-
 
     <script>
 
@@ -136,20 +134,14 @@ $(document).ready(function(){
         }
     });
 });
-
-
-
-
-
-
     </script>
     {% endblock chartJS %}
     {% block chart %}
-    <div class="row mb-5">
-        <div class="col-lg-6 col-sm-12 softwarekasten mt-5">
+    <div class="row mb-5 chartReihe">
+        <div class="col-lg-5  col-sm-12 softwarekasten mt-5">
             <canvas id="myChart" width="30" height="25"></canvas>
         </div>
-        <div class="col-lg-6 col-sm-12 softwarekasten mt-5">
+        <div class="col-lg-5  offset-lg-1 col-sm-12 softwarekasten mt-5">
             <canvas id="softwareChart" width="30" height="25"></canvas>
         </div>
     </div>
@@ -207,7 +199,6 @@ $(document).ready(function(){
                     newdata = JSON.parse(data);
                     console.log(newdata);
                     var lizenz = "";
-
                     if(data && newdata.length > 0 ){
                         $("#mandant").text(newdata[0]["name"]);
                         $(".checker .results .line").replaceWith("");
@@ -220,7 +211,6 @@ $(document).ready(function(){
                             }else{
                                 button ="<div></div>"
                             }
-
                             $(".checker .results").append(""
                                 + "<div class='line' style='opacity: 0;'>"
                                     + "<div>" + newdata[x]["software"] + "</div>"
@@ -229,8 +219,6 @@ $(document).ready(function(){
                                     + "<div>20.07.2025</div>"
                                     + button
                                 + "</div>");
-
-
                         }
 
                         setTimeout(function(){
@@ -257,15 +245,6 @@ $(document).ready(function(){
                 }
             })
         });
-
-
-
-
-
-
-
-
-
 
     </script>
     {% endblock javascript %}
