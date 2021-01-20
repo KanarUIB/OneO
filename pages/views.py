@@ -77,7 +77,14 @@ def kundenprofil(request):
         context = {
             "kunde": kunde,
             "standorte": kundenStandorte,
+            "softwarePakete": getStandortSoftware(kundenStandorte),
+            "heartbeatHistorie": heartbeatHistorie(getStandortSoftware(kundenStandorte))
         }
+
+        print("test " + str(context["softwarePakete"]))
+
+        print(getStandortSoftware(kundenStandorte))
+
 
     return render(request, "kundenprofil.html", context)
 
@@ -126,13 +133,27 @@ def updates(request):
     return render(request, 'updates.html', context)
 
 
-def suche(request):
+def getStandortSoftware(standorte):
+
+    softwareVonKunde = []
+
+    for standort in standorte:
+        for software in KundeHatSoftware.objects.filter(standort = standort):
+            softwareVonKunde.append(software)
+
+    return softwareVonKunde
 
 
 
-    return JsonResponse({"data": "g"});
+def heartbeatHistorie(softwarePakete):
 
+    heartbeat_historie = []
 
+    for paket in softwarePakete:
+        for heartbeat in Heartbeat.objects.filter(kundeSoftware=paket):
+            heartbeat_historie.append(heartbeat)
+
+    return heartbeat_historie
 
 
 

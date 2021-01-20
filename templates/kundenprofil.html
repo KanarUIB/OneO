@@ -2,87 +2,61 @@
 
 {% block content %}
 
-    <div class="profil container">
-        <!--<div class="profilfoto">
 
-        </div>-->
-        <div class="stats">
-            <div>Name</div>
-            <div>{{ kunde.name }}</div>
-        </div>
-        <div class="stats">
-            <div>VF-Nummer</div>
-            <div>{{ kunde.vf_nummer }}</div>
-        </div>
-        <h2>Standorte</h2>
-        {% for standort in standorte %}
-        <div class="stats">
-            <div>{{ standort.name }}</div>
-        </div>
-        {% endfor %}
-        <!--div class="stats">
-            <div>Unternehmenssitz</div><div>{{ strasse }} {{ hausnr }}, {{ ort }}</div>
-        </div>
-        <div class="stats">
-            <div>Ansprechpartner</div><div>Herr Leutner</div>
-        </div>
-        <div class="stats">
-            <div>Gebuchte Softwarepakete</div><div></div>
-        </div>
-        -->
-    </div>
+<div class="container stats">
+    <h2> {{ kunde.name }} <br>
+    {{ kunde.vf_nummer }}</h2>
 
+ {% for standort in standorte %}
+<div class="panel-group" id="accordion">
+    <a class="panel-heading kunde">
+        <div class = "trigger"> {{ standort.name }}</div>
+        <ul class = "toggle">
+            <div class="col-lg-4">
+                <div class="col-lg-4">
+                    <div class="col-lg-4">
+                {{ standort.strasse }} {{ standort.hausnr }}</div>
+            <div>{{ standort.plz }} {{ standort.ort }}</div>
+            <div> {{ standort.geschaeftszeiten }}</div>
+            <div> Ansprechpartner</div>
+            <div>{{ standort.telNr }}</div>
+            <div> {{ standort.email }}</div>
 
-<div class="container">
-    <div class="row">
-        <div class="col-lg-12">
-            <table class="table table-responsive-lg" width="100%">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Unternehmenssitz</th>
-                    <th>Ansprechpartner</th>
-                    <th>Kontaktdaten</th>
-                </tr>
-             </thead>
-
-            <tbody>
-                <tr>
-                     <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-            </tbody>
-            </table>
-        </div>
-        <div class="col-lg-12">
-            <table class="table table-responsive-lg" width="100%">
-            <thead>
-                <tr>
-                    <th>Softwarebezeichnung</th>
-                    <th>Modul</th>
-                    <th>Version</th>
-                    <th>Lizenzschlüssel</th>
-                    <th>Ablaufdatum Lizenz</th>
-                    <th>Update durchgeführt am</th>
-                </tr>
-             </thead>
-
-            <tbody>
-                <tr>
-                     <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-            </tbody>
-            </table>
-        </div>
-    </div>
+            <h3>gebuchte Softwarepakete</h3>
+                    {% for pakete in softwarePakete %}
+                        {% if pakete.standort == standort %}
+                            <div>{{ pakete.software }}</div>
+                        {% endif %}
+                    {% endfor %}
+                                <table>
+                            {% for impuls in heartbeatHistorie %}
+                                {% if impuls.kundeSoftware.standort == standort %}
+                                    <tr>
+                                        <td>
+                                            {{ impuls.meldung }}
+                                        </td>
+                                    </tr>
+                                    {% endif %}
+                                    {% endfor %}
+                                </table>
+                </div>
+            </div>
+        </ul>
+    </a>
 </div>
+</div>
+
+{% endfor %}
+
+
+<script>
+$(".toggle").slideUp();
+$(".trigger").click(function(){
+    $(this).next(".toggle").slideToggle("slow");
+  });
+</script>
 
 
 {% endblock content %}
+
+

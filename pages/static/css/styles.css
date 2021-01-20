@@ -430,10 +430,11 @@ html, body{
             }
             .kunde{
                 display: block;
+                witdh: 100%;
                 flex: 1;
                 border: 0;
                 text-align: center;
-    box-shadow: 4px 4px 9px 0 #e9ecefd4;
+                box-shadow: 4px 4px 9px 0 #e9ecefd4;
                 padding: 15px;
                 border-radius: 5px;
                 text-decoration: none;
