@@ -2,9 +2,6 @@
 $(document).ready(function () {
   $('#lizenzTabelle').DataTable({
    "scrollY":"60vh",
-
-
-
     initComplete: function () {
       this.api().columns().every( function () {
           var column = this;
@@ -24,7 +21,27 @@ $(document).ready(function () {
 
   $('#heartbeatTabelle').DataTable({
    "scrollY":"60vh",
-
+        "ordering": false,
+        "info":     false
 
   });
+
+  $('#kundenListe').DataTable({
+         "paging":   false,
+        "ordering": false,
+        "info":     false
+
+  });
+
+
+
+
+
+
+
+
+
+
+
+
 });
