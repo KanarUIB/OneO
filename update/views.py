@@ -27,6 +27,7 @@ def updateChecker(request):
 
     return Response(update)
 
+
 @api_view(["POST"])
 def updateResource(request):
 
