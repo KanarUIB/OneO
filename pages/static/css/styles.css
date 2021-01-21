@@ -197,6 +197,30 @@ padding:20px;}
                 background: rgb(240,240,240);
                 transform: scale(1.02);
             }
+/* Login */
+        .loginBlock{
+
+            width:400px;
+            margin: 100px auto;
+
+            }
+            .loginBlock >form{
+                border-radius: 5px;
+                padding: 30px;
+            }
+
+            .loginBlock form fieldset input{
+                border-radius: 5px;
+                padding: 6px;
+                width: 100%;
+
+            }
+
+            .loginBlock .btn-outline-primary{
+            width: 100%;}
+
+
+
 
 /* Footer */
 

@@ -248,32 +248,6 @@ $(document).ready(function(){
 
     </script>
     {% endblock javascript %}
-    {% block javascripts %}
-
-    <!--script type="text/javascript">
-
-            var ws = new WebSocket("ws://127.0.0.1:5000");
-
-            ws.onopen = function(event) {
-                alert("SUCCESS");
-            };
-            ws.onerror = function(event) {
-                alert("FAIL");
-            };
-
-            ws.onmessage = function (event) {
-                var messages = document.getElementById('socket'),
-                    message = document.createElement('li'),
-                    content = document.createTextNode(event.data);
-                message.appendChild(content);
-                messages.appendChild(message);
-            };
-
-            document.body.appendChild(messages);
-
-    </script>-->
-
-    {% endblock javascripts %}
 
 
     {% block dashboardtabelle %}
