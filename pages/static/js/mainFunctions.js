@@ -1,7 +1,7 @@
 
 $(document).ready(function () {
   $('#lizenzTabelle').DataTable({
-   "scrollY":"60vh",
+   "scrollY":"70vh",
     initComplete: function () {
       this.api().columns().every( function () {
           var column = this;
@@ -20,16 +20,30 @@ $(document).ready(function () {
   });
 
   $('#heartbeatTabelle').DataTable({
-   "scrollY":"60vh",
-        "ordering": false,
-        "info":     false
+   "scrollY":"70vh",
+
+         "info":     false
+
 
   });
 
   $('#kundenListe').DataTable({
+
          "paging":   false,
         "ordering": false,
         "info":     false
 
   });
+
+
+
+
+
+
+
+
+
+
+
+
 });
