@@ -1,109 +1,112 @@
-html, body{
+
+@import url('https://fonts.googleapis.com/css2?family=Chivo:wght@300;700&display=swap');
+/* Allgemein */
+            body{
+                font-family: 'Chivo', sans-serif;
                 margin: 0;
                 padding: 0;
                 position: relative;
-                font-family: sans-serif;
+                }
+
+            .shadowKasten{
+
+              margin:0 0,5%;
+              border-radius: 25px;
+              padding: 20 50 20 50;
+              box-shadow: 0px 10px 25px 0 #dbe2ef;
+              height: 100%;
+}
+            a, a:hover{
+            text-decoration:none}
+            h1{
+                margin-top: 50px;
+                font-size:24pt;
+                text-align:center;
+                font-weight:700;
+                letter-spacing:0px;
+                color: #29588c;
             }
-            ::selection{
-                background-color: rgb(20,10,70);
-                color: white;
-            }
-            *{
-                outline: none;
-                appearance: none;
-                -webkit-appearance: none;
-            }
-            a:hover{
-                text-decoration: none;
-                color: inherit;
-            }
-            button{
-                appearance: none;
-                border: 1px solid #29588C;
-                border-radius: 20px;
-                padding: 4px 20px;
-                transition-duration: 150ms
-            }
-            h2{
-                margin-bottom:50px;
+
+             h2{
+                margin:50px 0;
                 color: #29588C;
                 font-size:18px;
                 text-align:center;
                 font-weight:500;
-
             }
-            h1{
-                font-size:20pt;
-                text-align:center;
-                font-weight:700;
-                letter-spacing:0px;
-            }
-            .swpaket{
-                color: #29588C;
-                font-size: 1.2em;
-            }
+            h2:after, h2:before{
+            content:"";
+            display:inline-block;
+            width: 20px;
+            height: 2px;
 
-            h2{
-            margin-top: 50px;}
-
-            tfoot th{
-            background-color: white;}
-
-
-            #first,#second,#third{
-                transition-duration: 200ms;
+            background:#29588C;
             }
-            .firstChange{
-                transform: rotate(45deg) translate(5px,5px);
+            h2:after{
+             position:relative;
+            bottom: 5px;
+            left: 5px;
             }
-
-            .secondChange{
-                opacity: 0;
-                transform: translateX(-15px);
-            }
-            .thirdChange{
-                transform: rotate(-45deg) translate(5px,-5px);
-            }
-
-            table th:first-child{
-            border-radius:5px 0 0 5px;
-            }
-
-            table th:last-child{
-            border-radius:0 5px 5px 0;
+            h2:before{
+             position:relative;
+            bottom: 5px;
+            right: 5px;
             }
 
             thead{
             background-color: #29588C;
             color: white;}
 
-            tr{
-                1background-color: #f7f7f7;
+            .dataTables_wrapper .dataTables_paginate .paginate_button {
+
+            margin-top: 40px;
+}
+   input{
+                padding: 10px 10px;
+                border-radius: 20px;
+                color: #29588C;
+                font-weight: 700;
+                border: 1px solid rgb(130,130,130);
+                background: rgb(250,250,250);
+            }
+            i{margin-left:5px;}
+/* buttons */
+
+            button{
+                appearance: none;
+                border: none;
+                border-radius: 5px;
+                padding: 10px 20px;
+                transition-duration: 300ms;
             }
 
-            .softwarekasten tbody tr:hover{
-                background-color: rgb(240,240,240);
-                box-shadow: 0 0 2px 0 rgb(100,100,100);
 
+
+            .anlegen, .anlegen a{
+            background-color:#e30f58;
+            color: #ffffff;
+
+            margin-bottom:20px;
+            }
+/* nav */
+ .navbar {
+
+            background-color:white;
+           box-shadow: 0px 1px 15px 0 #dbe2ef;
             }
 
-            table tr{
-                background-color: none;
-                border-top: none;
-            }
-            1table.table td{
-                border-top: none;
-            }
-
-            #menu li a{
+             #menu li a{
                 text-decoration: none;
                 text-decoration: none;
                 text-align:center;
                 color: #29588C;
+                 opacity: 0.7;
+                transition:300ms;
             }
-            #menu li a:hover{
-                background: #f0f0f0;
+               #menu li a:hover{
+                opacity: 1;
             }
+
             #menu .login-btn{
             border: 2px solid #29588C;
                 text-align: center;
@@ -117,12 +120,6 @@ html, body{
             background-color: #29588C;
             color:white;}
 
-            .bg-light {
-
-            background-color:white;
-           box-shadow: 0px 1px 15px 0 rgb(200,200,200);
-            }
-
             .navbar-toggler:hover{
             background-color: white;}
 
@@ -130,115 +127,20 @@ html, body{
             padding-bottom:10px;
             }
 
-            main{
-                padding: 100px 10% 200px;
-            }
 
-            #panel{
-                padding: 40px;
-                margin: 80px 0 0px;
-            }
 
-            input{
-                appearance: none;
-                -webkit-appearance: none;
-                -moz-appearance: none;
-                padding: 10px 10px;
-                border-radius: 20px;
-                color: #29588C;
-                font-weight: 700;
-                border: 1px solid rgb(130,130,130);
-                background: rgb(250,250,250);
-            }
-            input:focus{
-                borer: 1px solid rgb(660,120,170);
-            }
-            .searchChange{
-                border: 1ßx solid rgb(255,50,70);
-            }
-            select{
-                cursor: pointer;
-                padding: 8px 10px;
-                border-radius: 10px;
-                color: #29588C;
-                font-weight: 700;
-                border: 2px solid #29588C;
-            }
-            .checker{
-                margin: 50px 0 0;
-                width: 100%;
-                text-align: center;
-                border-collapse: collapse;
-            }
-            .checker .header{
-                display: flex;
-                border: 1px solid rgb(180,180,180);
-                box-shadow: 3px 5px 3px -2px rgb(160,160,160);
-                border-radius: 50px;
-                margin: 10px 0;
-                padding: 10px;
-                height: 32px;
-                align-items: center;
-                background: rgb(30,90,150);
-                color: white;
-                height: 50px;
-                text-transform: uppercase;
-            }
-            .checker .results > div{
-                display: flex;
-                border: 1px solid rgb(180,180,180);
-                box-shadow: 3px 5px 3px -2px rgb(160,160,160);
-                border-radius: 50px;
-                margin: 10px 0;
-                padding: 5px;
-                min-height: 30px;
-                align-items: center;
-            }
-            .checker .results > div:nth-child(odd){
-                background: rgb(230,230,230);
-            }
-            .checker > div{
-                display: hidden;
-            }
+/* Lizenzen */
 
-            .results .line{
-                display: flex;
-                transition-duration: 600ms;
-            }
-            .checker .results .line > div, .checker .header > div{
-                flex: 1;
-                border-right: 1px solid rgb(100,100,100);
-            }
-            .checker .header > div{
-                border-right: 1px solid rgb(200,200,200);
-            }
-            .checker .header > div:nth-child(4){
-                border-right: none;
-            }
-            .checker .results .line > div:nth-child(4), .checker .results .line > div:nth-child(5){
-                border-right: none;
-            }
-            .checker button{
-                display: block;
-                margin 0 auto;
-            }
-            footer{
-                background: #d5d9d8;
-                position: absolute;
-                left: 0;
-                right: 0;
-                bottom: 0;
-            }
-            footer p{
-                display: block;
-                padding: 40px 0;
-                text-align: center;
-                margin: 0 auto;
-                color: #434c53;
-                font-size: 0.9em;
-            }
 
-             .pakete button{
+
+/* Updates */
+.pakete, .table {
+            margin-top:60px;}
+.pakete button{
+                height: inherit;
+                margin-top: 10px;
+            }
+     .pakete button{
                 display: inline-block;
                 background: rgb(250,250,250);
                 padding: 8px 0;
@@ -250,166 +152,18 @@ html, body{
                 text-transform: uppercase;
                 transition-duration: 240ms;
             }
-
-
-            #search{
-                padding: 10px 20px;
-                background: #29588C;
-                border-radius: 30px;
-                border: none;
-                color: white;
-                outline: none;
-                appearance: none;
-                -webkit-appearance: none;
-                width:100%;
-            }
-            #search:hover{
-                background: #2968BC;
-            }
-            #search:active, .checker button:active, .pakete button:active, .details:active{
-                background: #2982BC;
-            }
-            button:hover{
-                background: #29588C;
-                color: white;
-            }
-
-
-            .checker td:last-child{
-                border: none;
-                background: rgb(255,255,255);
-                padding: 0 0 0 10px;
-            }
-
-            .pakete, .table {
-            margin-top:60px;}
-
-            .softwarekasten{
-
-               margin:0 0,5%;
-              border-radius: 25px;
-                padding: 20 50 20 50;
-              box-shadow: 4px 4px 9px 0 #e9ecefd4;
-              height: 100%;
-
-            }
-
-
-            .pakete button{
-                height: inherit;
-                margin-top: 10px;
-            }
-            .pakete h4{
-                display: inline-block;
-            }
-              .statusPositiv{
-            width:15px;
-            height:15px;
-
-            background-color:rgb(100,180,30);
-            border-radius:20px;
-            margin-right:10px;}
-
-            .statusNegativ{
-            width:15px;
-            height:15px;
-            background-color:red;
-            border-radius:20px;
-            margin-right:10px;}
-
-
-            ul{
-            list-style-type:none;
-            }
-
-            .pakete .notify{
-                display: inline-block;
-                float: right;
-                position: absolute;
-                top:25px;
-                right:30px;
-                width: 20px;
-                height: 20px;
-                1background: rgb(100,180,30);
-                 background: red;
-                border-radius: 35px;
-            }
-            .pakete .details{
+.pakete .details{
                 background: #29588C;
                 color: white;
             }
             .pakete .details:hover{
                 background: #2968BC;
             }
-            .pakete .more{
-                display: block;
-                transform: rotate(-90deg);
-                font-size: 2em;
-                width: 20px;
-                margin: 0px auto 0;
-                cursor: pointer;
-                transition-duration: 300ms;
-                user-select: none;
-            }
-            .pakete .more:hover{
-                opacity: 0.5;
-            }
-            .pakete .beschreibung{
-                height: 0;
-                margin: 30px 0 0 ;
-                overflow: hidden;
-                transition-duration: 400ms;
-            }
+.pakete{
+padding:20px;}
 
-            .trennblock{
-            height:20px;}
-
-
-   @media only screen and (max-width: 1100px){
-
-                .pakete div{
-                margin-top:50;
-                }
-                .mainNav{
-                    display: none;
-                }
-                #hamburger{
-                    display: block;
-                }
-                nav img{
-                    width: 100px;
-                    margin-left: 10%;
-                }
-            }
-
-            .profil{
-                width: 95%;
-                margin: 0 auto;
-                padding: 40px;
-            }
-
-            .profil .profilfoto{
-                width: 150px;
-                height: 150px;
-                border: 2px solid rgb(100,100,100);
-                border-radius: 100px;
-                background: rgb(240,240,240);
-                margin: 0 0 40px;
-            }
-
-            .profil .stats{
-                display: flex;
-                margin: 20px 0;
-                padding: 20px 20px 20px 30px;
-                border: 1px solid rgb(150,150,150);
-                border-radius: 50px;
-            }
-
-            .profil > div > div{
-                flex: 1;
-            }
-
-            .kundenliste{
+/* Kundenseite */
+ .kundenliste{
                 width: 95%;
                 margin 0 auto;
                 display: flex;
@@ -421,7 +175,7 @@ html, body{
                 flex: 1;
                 border: 0;
                 text-align: center;
-                box-shadow: 4px 4px 9px 0 #e9ecefd4;
+                box-shadow: 4px 4px 9px 0 #dbe2ef;
                 padding: 15px;
                 border-radius: 5px;
                 text-decoration: none;
@@ -432,38 +186,31 @@ html, body{
                 text-align: left;
                 margin: 0 0 100px;
             }
+            #kundenListe td{
+            border:0;}
+
+            #kundenListe thead tr th{
+            border:0;
+            background-color:white;
+            }
             .kunde:hover{
                 background: rgb(240,240,240);
                 transform: scale(1.02);
             }
 
-            .listNav{
-                margin: 50px 0;
+/* Footer */
+
+ footer{
+                background: #d5d9d8;
+                position: relative;
+                margin-top:100px;
+
             }
-            .ln-letters{
-                1border-radius: 200px;
-                1border: 1px solid rgb(140,140,140);
-            }
-            .ln-letters a{
-                1border: 1px solid rgb(140,140,140);
-                padding: 2px 5px;
-                margin: 0 1px;
-                border: 1px solid rgb(120,120,120);
-                border-radius: 2px;
-                min-width: 25px;
+            footer p{
+                display: block;
+                padding: 40px 0;
                 text-align: center;
-                background: rgb(240,240,240);
-                color: black;
+                margin: 0 auto;
+                color: #434c53;
+                font-size: 0.9em;
             }
-            .ln-letters .ln-disabled{
-                color: rgb(160,160,160);
-            }
-
-
-#kundenListe td{
-border:0;}
-
-#kundenListe thead tr th{
-border:0;
-background-color:white;
-}

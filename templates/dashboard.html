@@ -10,7 +10,7 @@
 <h2>Heartbeat-Meldungen</h2>
 <div class="container mt-5">
     <div class="row">
-        <div id="softwarekasten" class="col-md-12 mb-5">
+        <div class="col-md-12 mb-5">
             {% if heartbeats|length == 0 %}
             <p>Keine Hearbeats austehend oder fehlerhaft</p>
             {% else %}
@@ -138,10 +138,10 @@ $(document).ready(function(){
     {% endblock chartJS %}
     {% block chart %}
     <div class="row mb-5 chartReihe">
-        <div class="col-lg-5  col-sm-12 softwarekasten mt-5">
+        <div class="col-lg-5  col-sm-12 shadowKasten mt-5">
             <canvas id="myChart" width="30" height="25"></canvas>
         </div>
-        <div class="col-lg-5  offset-lg-1 col-sm-12 softwarekasten mt-5">
+        <div class="col-lg-5  offset-lg-1 col-sm-12 shadowKasten mt-5">
             <canvas id="softwareChart" width="30" height="25"></canvas>
         </div>
     </div>

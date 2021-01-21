@@ -32,16 +32,4 @@ $(document).ready(function () {
         "info":     false
 
   });
-
-
-
-
-
-
-
-
-
-
-
-
 });
