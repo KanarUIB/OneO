@@ -28,11 +28,9 @@ def searchFiles(dir, zaehler = 0):
     abspathLog = ""
     abspathConfig = ""
 
-    #print(dir[zaehler] + ":/")
-    #print(zaehler)
     for root, dirs, files in os.walk(dir[zaehler] + ":/"):
-        print(files)
-        #print(root)
+        #print(files)
+        print(root)
         if os.path.basename(root) != 'Kundenscripts':
             continue
 
@@ -108,8 +106,6 @@ Sendet den Request an die Heartbeat API
 """
 def directRequest(dir: str):
     PARAMS = readData(dir, "LOG.txt", "config.txt")
-    #print(PARAMS)
-    #print("URL:                   " + URL)
     requests.post(url= URL, data= PARAMS)
 
 
@@ -137,7 +133,6 @@ um darauf basierend zwei verschiedene Wege zu gehen (searchFiles oder directRequ
 """
 def execute():
     drives = get_drives()
-    print(drives)
     try:
         path = open("./path.txt", "r")
         abspathPath = path.read()
@@ -151,14 +146,28 @@ def execute():
         directRequest(abspathPath)
 
 
-time.sleep(10)
-#execute()
+
+
+
+#time.sleep(10)
+execute()
+
+
 
 firstTime = open("initial.txt", "r").read()
 
 if firstTime.lower() == "false":
     subprocess.call([r'.\autostart.bat'])
     open("initial.txt", "w").write("True")
+
+
+
+
+
+
+
+
+
 
 
 #schedule.every(1).seconds.do(execute)

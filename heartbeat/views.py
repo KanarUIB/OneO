@@ -126,11 +126,3 @@ def heartbeat(request):
                              datum=datum)
     return Response(beat["lizenzschluessel"])
 
-
-""""""
-{
-    "lizenzschluessel": "APSDASDQ123123ASDLKA1231",
-    "meldung": "Error: Couldn't fetch data"
-}
-
-""""""
