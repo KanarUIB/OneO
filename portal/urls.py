@@ -35,7 +35,6 @@ urlpatterns = [
     path('register/', user_views.register, name='register'),
     path('updates/', page.updates, name='updates'),
     path('updates/updateChecker', update_views.updateChecker, name='updateChecker'),
-    path('getUser/', page.getUser, name="getUser"),
     path('lizenzen/', page.lizenzen, name='lizenzen'),
     path('update/', page.updates, name='update'),
     path('heartbeat', heartbeat_view.heartbeat, name="heartbeat")

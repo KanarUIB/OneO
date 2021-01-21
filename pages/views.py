@@ -48,6 +48,7 @@ def getLicenseDeltaDays():
 """""""""
 Antwortet auf den Aufruf der Index-Seite mit den im context genannten Informationen und triggert 
 die chechHeartbeat()-Methode, welches prüft, ob es ausstehende Heartbeats gibt.
+@return render Gibt Dashboardseite mit den jeweiligen context Informationen aus.
 """""""""
 
 
