@@ -9,7 +9,8 @@ from django.core.exceptions import ObjectDoesNotExist
 
 
 """""""""
-Returns amount of customers for each software, in the order aurep, ADDS, Werkstattliste and TjeKvik
+Sammelt die Nutzerzahlen für alle vorhandenen Softwares in einer Liste
+@return List Liste aller Software-Nutzerzahlen 
 """""""""
 
 def getAmountUser():
@@ -20,8 +21,10 @@ def getAmountUser():
 
 
 """""""""
-Returns amount of licenses which will expire within 30 days, 90 days and +90 days as a
-List in this order.
+Gibt eine Liste mit der Menge an Lizenzen die in den nächsten 30 Tagen, +30 Tagen oder 90 Tagen ablaufen werden.
+Die Zahlen werden wie in der oben genannten Reihenfolge in die Liste hiznugefügt und wiedergeben.
+
+@return List Menge der bald ablaufenden Lizenzen
 """""""""
 def getLicenseDeltaDays():
     lizenzen = Lizenz.objects.all()
@@ -42,6 +45,11 @@ def getLicenseDeltaDays():
     licenseDeltaDays.append(others)
     return licenseDeltaDays
 
+"""""""""
+Antwortet auf den Aufruf der Index-Seite mit den im context genannten Informationen und triggert 
+die chechHeartbeat()-Methode, welches prüft, ob es ausstehende Heartbeats gibt.
+"""""""""
+
 
 def home(request):
     heartbeat_views.checkHeartbeat()
@@ -55,6 +63,17 @@ def home(request):
     }
     return render(request, "dashboard.html", context)
 
+"""""""""
+Wird bei Aufruf der Kundenprofilseite aufgerufen.
+
+Entnimmt aus dem Request die in der Domain übergebene Kunden ID und sucht in der Datenbank nach dem Kunden und all 
+seinen Standorten.
+Wenn die ID ungültig sein oder kein Kunden-Objekt für diese ID hinterlegt sein wird eine 404-Seite zurück gegeben.
+Bei Erfolg wird durch den context alle Informationen zum Kunden, seinen Standorten, seiner genutzten Softwares und 
+die dazugehörigen Heartbeats weitergegeben.
+
+@return render Gibt die Kundenprofilseite ausgefüllt mit den jeweiligen Kundeninformationen aus.
+"""""""""
 
 def kundenprofil(request):
     id = request.GET.get('id', "-1")
@@ -80,26 +99,13 @@ def kundenprofil(request):
     return render(request, "kundenprofil.html", context)
 
 
+"""""""""
+Wird bei Aufruf der Kundenseite aufgerufen.
+Gibt durch den context alle in der Datenbank aufgefundenen Kunden zurück.
 
+@return render Die Kundenseite mit allen in der Datenbank aufgefunden Kunden
+"""""""""
 
-def getUser(request):
-    kdNr = request.GET.get('kdNr', None)
-
-    kunde = KundeHatSoftware.objects.filter(id=kdNr)
-    kundenliste = []
-    for x in kunde:
-        kundenliste.append({
-            "software": str(x.software),
-            "name": str(x.standort.name),
-        })
-
-    print(kundenliste)
-
-    data = {
-        "kunde": kundenliste
-    }
-
-    return JsonResponse(json.dumps(kundenliste), safe=False)
 
 def kunden(request):
     context = {
@@ -107,13 +113,24 @@ def kunden(request):
     }
     return render(request, "kunden.html", context)
 
+"""""""""
+Wird bei Aufruf der Lizenzseite aufgerufen.
+Gibt durch den context alle in der Datenbank aufgefundenen Linzenzen zurück.
+
+@return render Die Lizenzseite mit allen in der Datenbank aufgefunden Lizenzen
+"""""""""
 def lizenzen(request):
     context = {
         'lizenzen': Lizenz.objects.all(),
     }
     return render(request, "lizenz.html", context)
 
+"""""""""
+Wird bei Aufruf der Updateseite aufgerufen.
+Gibt durch den context alle in der Datenbank aufgefundenen Lizenzen und Softwares zurück.
 
+@return render Die Updateseite mit allen in dem context angegebenen Informationen
+"""""""""
 def updates(request):
     context = {
         'lizenzen': Lizenz.objects.all(),
@@ -122,8 +139,15 @@ def updates(request):
     return render(request, 'updates.html', context)
 
 
-def getStandortSoftware(standorte):
+"""""""""
+Gibt alle Software-Pakete die, der im Parameter übergebenen Standorte, gehören in einer Liste zurück.
 
+@return List Liste aller Software-Pakete eller Standorte aus dem Parameter
+@param standort Ein spezifischer Standort eines Kunden
+"""""""""
+
+
+def getStandortSoftware(standorte):
     softwareVonKunde = []
 
     for standort in standorte:
@@ -132,10 +156,15 @@ def getStandortSoftware(standorte):
 
     return softwareVonKunde
 
+"""""""""
+Gibt alle Heartbeats der im Parameter übergebenen Software-Pakete zurück.
+
+@param softwarePakete
+@return List Liste aller Heartbeats der übergebenen Software-Pakete
+"""""""""
 
 
 def heartbeatHistorie(softwarePakete):
-
     heartbeat_historie = []
 
     for paket in softwarePakete:

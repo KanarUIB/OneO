@@ -135,6 +135,18 @@ def getNegativeHeartbeats():
     return negativeHeartbeats
 
 
+"""""""""
+REST-API die zum Empfangen aller Heartbeat-Requests dient.
+
+Das Heartbeat-Request muss aus dem Lizenzschlüssel und einem Statusbericht der Software bestehen.
+Bei Eingang eines Requests werden anhand des empfangenen Lizenznschlüssels das Lizenz-Objekt aus der Datenbank gefiltert,
+der dazugehörige Software-Paket ermittelt und der aktuelle Zeitpunkt notiert, um mit all diesen Daten den Heartbeat Eintrag
+in der Datenbank erstellen zu können.
+
+Als Response wird der Lizenzschlüssel zurück gegeben.
+"""""""""
+
+
 @api_view(["POST"])
 def heartbeat(request):
     beat = {
@@ -154,4 +166,3 @@ def heartbeat(request):
                              meldung=beat["meldung"],
                              datum=datum)
     return Response(beat["lizenzschluessel"])
-
