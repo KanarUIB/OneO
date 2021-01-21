@@ -14,15 +14,10 @@ Returns amount of customers for each software, in the order aurep, ADDS, Werksta
 
 def getAmountUser():
     softwareUsers = []
-    amountADDS = KundeHatSoftware.objects.filter(software=Software.objects.get(software_name="ADDS"))
-    amountTjeKvik = KundeHatSoftware.objects.filter(software=Software.objects.get(software_name="TjeKvik"))
-    amountWerkstattliste = KundeHatSoftware.objects.filter(software=Software.objects.get(software_name="Werkstattliste"))
-    amountAurep = KundeHatSoftware.objects.filter(software=Software.objects.get(software_name="aurep"))
-    softwareUsers.append(len(amountAurep))
-    softwareUsers.append(len(amountADDS))
-    softwareUsers.append(len(amountWerkstattliste))
-    softwareUsers.append(len(amountTjeKvik))
+    for software in Software.objects.all():
+        softwareUsers.append(len(KundeHatSoftware.objects.filter(software=software)))
     return softwareUsers
+
 
 """""""""
 Returns amount of licenses which will expire within 30 days, 90 days and +90 days as a
@@ -82,11 +77,6 @@ def kundenprofil(request):
             "heartbeatHistorie": heartbeatHistorie(getStandortSoftware(kundenStandorte))
         }
 
-        print("test " + str(context["softwarePakete"]))
-
-        print(getStandortSoftware(kundenStandorte))
-
-
     return render(request, "kundenprofil.html", context)
 
 
@@ -101,8 +91,6 @@ def getUser(request):
         kundenliste.append({
             "software": str(x.software),
             "name": str(x.standort.name),
-            # "lizenz": str(x.lizenz),
-            # "version": str(x.swId.version)
         })
 
     print(kundenliste)
