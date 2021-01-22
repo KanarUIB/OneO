@@ -4,7 +4,7 @@
 
 
 <div class="stats">
-    <div class="ueberschrif">
+    <div class="ueberschrift">
         <h1 id="autohausZeile"> {{ kunde.name }}</h1>
         <h2>VF- Nummer: {{ kunde.vf_nummer }}</h2>
     </div>
@@ -49,21 +49,33 @@
                     <table class="table">
                         <tbody>
                         <tr>
-                            <div class="tabellenHead">Ansprechpartner</div>
-                            <th>Name</th>
                             {% for ansprechpartner in standortBerater %}
                                 {% if ansprechpartner.standort == standort %}
-                                    <td>{{ansprechpartner}}</td>
+                                    <div class="tabellenHead">Ansprechpartner</div>
+                                        <tr>
+                                            <th>Name</th>
+                                            <td>{{ansprechpartner}}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Telefonnummer</th>
+                                            <td>{{ansprechpartner.telefon_nr}}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>E-Mail</th>
+                                            <td>{{ansprechpartner.email}}</td>
+                                        </tr>
+                                {% else %}
+                                    <div class="tabellenHead">kein Ansprechpartner eingetragen</div>
+                                        <tr>
+                                            <th>Telefonnummer</th>
+                                            <td>{{standort.telNr}}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>E-Mail</th>
+                                            <td>{{standort.email}}</td>
+                                        </tr>
                                 {% endif %}
                             {% endfor %}
-                        </tr>
-                        <tr>
-                            <th>Telefonnummer</th>
-                            <td>{{standort.telnr}}</td>
-                        </tr>
-                        <tr>
-                            <th>E-Mail</th>
-                            <td>{{standort.email}}</td>
                         </tr>
                         </tbody>
                     </table>
@@ -84,10 +96,18 @@
                                 <tbody>
                                 {% for pakete in softwarePakete %}
                                     {% if pakete.standort == standort %}
+                                        {% for lizenz in softwareLizenzen %}
+                                            {% if lizenz.KundeHatSoftware == pakete and lizenz.KundeHatSoftware.software == pakete.software %}
                                 <tr>
                                     <td>{{pakete.software}}</td>
                                     <td>{{pakete.software.version}}</td>
+
+                                    <td>{{lizenz.modul}}</td>
+                                    <td>{{lizenz.license_key}}</td>
+                                    <td>{{lizenz.gültig_bis}}</td>
                                 </tr>
+                                            {% endif %}
+                                        {% endfor %}
                                     {% endif %}
                                 {% endfor %}
                                 </tbody>

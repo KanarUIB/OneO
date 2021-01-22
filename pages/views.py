@@ -96,6 +96,7 @@ def kundenprofil(request, id):
             "standorte": kundenStandorte,
             "softwarePakete": getStandortSoftware(kundenStandorte),
             "standortBerater": Ansprechpartner.objects.all(),
+            "softwareLizenzen": Lizenz.objects.all(),
             "heartbeatHistorie": heartbeatHistorie(getStandortSoftware(kundenStandorte))
         }
 
