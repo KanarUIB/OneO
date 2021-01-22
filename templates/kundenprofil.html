@@ -5,8 +5,8 @@
 
 <div class="stats">
     <div class="ueberschrif">
-        <h2 id="autohausZeile"> {{ kunde.name }}</h2>
-        <h2>{{ kunde.vf_nummer }}</h2>
+        <h1 id="autohausZeile"> {{ kunde.name }}</h1>
+        <h2>VF- Nummer: {{ kunde.vf_nummer }}</h2>
     </div>
 
     {% if standorte|length == 0 %}
@@ -16,14 +16,15 @@
     {% else %}
  {% for standort in standorte %}
 <div class="container panel-group" id="accordion">
-    <div class="panel-heading kunde">
+    <div class="panel-heading">
         <div class = "trigger"> {{ standort.name }}
         <i class='fas fa-angle-down', arrowButton></i>
         </div>
+
             <div class = "toggle">
                 <div class="row">
                 <div class="col-md-6">
-                    <table class="table">
+                    <table class="table" >
                         <tbody>
                         <tr>
                             <div class="tabellenHead">Anschrift</div>
@@ -97,7 +98,7 @@
                             <div class="col-md-12">
                                 <h2 id="vergangHb"> vergangene Heartbeats</h2>
                                 <div class="scrolltable">
-                                    <table class="table table-bordered text-center">
+                                    <table class="table text-center" >
                                     <thead>
                                     <tr>
                                         <th>Datum</th>

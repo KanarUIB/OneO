@@ -183,10 +183,7 @@
                 transition-duration: 140ms;
                 color: black;
             }
-            .kundenliste h1{
-                text-align: left;
-                margin: 0 0 100px;
-            }
+
             #kundenListe td{
             border:0;}
 
@@ -217,9 +214,24 @@
             #vergangHb{
 
             }
+            .trigger{
+            text-align:center;}
+            .panel-group{
+
+            margin-bottom: 20px;
+              display: block;
+                width: 100%;
+                text-align: left;
+                box-shadow: 4px 4px 9px 0 #dbe2ef;
+                padding: 15px;
+                border-radius: 5px;
+                text-decoration: none;
+                transition-duration: 140ms;
+                color: black;
+            }
 
             .scrolltable{
-            height: 200px;
+            height: 400px;
             overflow: scroll;
             }
 
