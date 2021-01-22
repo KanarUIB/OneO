@@ -1,6 +1,4 @@
-# Create your views here.
-#   untenstehenden TEST-Befehl auf Kundenseite integrieren in Verbindung mit cronjob im Format */10 * * * * ... (alle 10 Minuten)
-#   curl -X POST -d kdNr=1;mandant=Mercedes_GmbH;software=aurep;lizenz=True localhost:8000/heartbeat
+
 from django.shortcuts import redirect, render
 import asyncio
 import random
@@ -105,24 +103,28 @@ def getNegativeHeartbeats():
     return negativeHeartbeats
 
 
+
+
+"""
+Heartbeat API (Schnitstelle) die nach außen geöffnet ist, um von autorisierten Clients (durch Lizenzschlüssel) 
+HTTP Anfragen zu akzeptieren um entsprechende Heartbeat-Objekte in der Datenbank abzuspeichern
+"""
 @api_view(["POST"])
 def heartbeat(request):
+
+    # Instanziere alle nötigen Attribute für einen Heartbeat
     beat = {
         "lizenzschluessel": request.data["lizenzschluessel"],
         "meldung": request.data["meldung"],
     }
-    print(beat["lizenzschluessel"])
-    print(beat["meldung"])
-    """""""""
-    #Instanziere alle nötigen Attribute für einen Heartbeat
-    """""""""
     license = Lizenz.objects.get(license_key=beat["lizenzschluessel"])
-
     kundeSoftware = license.KundeHatSoftware
-    datum = datetime.datetime.now()
 
+
+    # Erstelle ein Heartbeat-Objekt entsprechend der oben definierten Attribute
     Heartbeat.objects.create(kundeSoftware=kundeSoftware, lizenzschluessel=beat["lizenzschluessel"],
                              meldung=beat["meldung"],
-                             datum=datum)
+                             datum=datetime.datetime.now())
+
     return Response(beat["lizenzschluessel"])
 
