@@ -7,10 +7,10 @@ $(document).ready(function () {
 
     "emptyTable":     "Es sind keine Einträge vorhanden",
     "info":           "_START_ - _END_ von _TOTAL_ Einträgen",
-    "infoEmpty":      "Showing 0 to 0 of 0 entries",
+    "infoEmpty":      "keine Einträge",
     "lengthMenu":     "_MENU_ Einträge anzeigen",
     "search":         "Schnellsuche:",
-    "zeroRecords":    "No matching records found",
+    "zeroRecords":    "Zu Ihrer Suche gibt es leider keine Einträge",
     "paginate": {
 
         "next":       ">",
@@ -41,15 +41,15 @@ $(document).ready(function () {
   $('#heartbeatTabelle').DataTable({
    "scrollY":"50vh",
 
-         "info":     false,
+
             language: {
 
     "emptyTable":     "Es sind keine Einträge vorhanden",
     "info":           "_START_ - _END_ von _TOTAL_ Einträgen",
-    "infoEmpty":      "Showing 0 to 0 of 0 entries",
+    "infoEmpty":      "keine Einträge",
     "lengthMenu":     "_MENU_ Einträge anzeigen",
     "search":         "Schnellsuche:",
-    "zeroRecords":    "No matching records found",
+        "zeroRecords":    "Zu Ihrer Suche gibt es leider keine Einträge",
     "paginate": {
 
         "next":       ">",
