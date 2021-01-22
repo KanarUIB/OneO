@@ -3,7 +3,9 @@
 {% block content %}
 <h1>Updates</h1>
     <div class="text-right container">
+         {% if user.is_authenticated %}
      <button class="anlegen"><a href="kundeAnlegen.html">Neues Update anlegen <i class="fas fa-plus"></i></a></button>
+         {% endif %}
    </div>
 <h2>Übersicht Softwarepakete</h2>
 <div class="container">
