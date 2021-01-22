@@ -6,7 +6,7 @@
 <div class="container mt-5">
       <div class="text-right">
             {% if user.is_authenticated %}
-     <button class="anlegen"><a href="/admin/pages/kunde/add">Neuen Kunden anlegen <i class="fas fa-plus"></i></a></button>
+     <button class="anlegen"><a href="{% url 'create_kunde' %}">Neuen Kunden anlegen <i class="fas fa-plus"></i></a></button>
             {% endif %}
    </div>
     <table class="table table-responsive-lg" id="kundenListe" width="100%">
@@ -25,7 +25,7 @@
             <tr>
 
                   <td>
-                      <a href="/Kunden/Profil?id={{ y.id }} " class="kunde" >{{ y }} </a>
+                      <a href="{% url 'kundenprofil' y.id %} " class="kunde" >{{ y }} </a>
                   </td>
 
             </tr>

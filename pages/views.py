@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 import heartbeat.views as heartbeat_views
 from heartbeat.models import Heartbeat
+from .forms import StandortCreateForms, KundeCreateForms
 from .models import Kunde, KundeHatSoftware, Software, Standort, Lizenz
 from django.http import JsonResponse, HttpResponse
 import json
@@ -76,8 +77,8 @@ die dazugehörigen Heartbeats weitergegeben.
 @return render Gibt die Kundenprofilseite ausgefüllt mit den jeweiligen Kundeninformationen aus.
 """""""""
 
-def kundenprofil(request):
-    id = request.GET.get('id', "-1")
+def kundenprofil(request, id):
+    print("bin drin")
     try:
         kunde = Kunde.objects.get(id=str(id))
         kundenStandorte = Standort.objects.filter(kunde=kunde)
@@ -175,4 +176,24 @@ def heartbeatHistorie(softwarePakete):
     return heartbeat_historie
 
 
+def create_kunde(request):
+    form = KundeCreateForms(request.POST or None)
+    if request.method == 'POST':
+        if form.is_valid():
+            form.save()
+            return redirect('kunden')
+    context = {
+        'form': form
+    }
+    return render(request, 'kunde/create_kunde.html', context)
 
+def create_standort(request):
+    form = StandortCreateForms(request.POST or None)
+    if request.method == 'POST':
+        if form.is_valid():
+            form.save()
+            return redirect('kundenprofil')
+    context = {
+        'form': form
+    }
+    return render(request, 'kunde/create_standort.html', context)

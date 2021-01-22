@@ -80,7 +80,15 @@ class Lizenz(models.Model):
         return self.KundeHatSoftware.__str__() + " - " + self.modul.name
 
 class Kundenlizenz(Lizenz):
-    pass
+    kunde_id = models.ForeignKey('Kunde', on_delete=models.CASCADE)
 
 class Standortlizenz(Lizenz):
-    pass
+    standort_id = models.ForeignKey('Standort', on_delete=models.CASCADE)
+
+
+class Ansprechpartner(models.Model):
+    vorname = models.CharField(max_length=100)
+    nachname = models.CharField(max_length=100)
+    telefon_nr = models.CharField(max_length=50)
+    email = models.EmailField()
+    standort = models.ForeignKey(Standort, on_delete=models.CASCADE)
