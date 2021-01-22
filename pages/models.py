@@ -84,11 +84,3 @@ class Kundenlizenz(Lizenz):
 
 class Standortlizenz(Lizenz):
     standort_id = models.ForeignKey('Standort', on_delete=models.CASCADE)
-
-
-class Ansprechpartner(models.Model):
-    vorname = models.CharField(max_length=100)
-    nachname = models.CharField(max_length=100)
-    telefon_nr = models.CharField(max_length=50)
-    email = models.EmailField()
-    standort = models.ForeignKey(Standort, on_delete=models.CASCADE)

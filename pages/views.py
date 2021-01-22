@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 import heartbeat.views as heartbeat_views
 from heartbeat.models import Heartbeat
 from .forms import StandortCreateForms, KundeCreateForms
-from .models import Kunde, KundeHatSoftware, Software, Standort, Lizenz
+from .models import Kunde, KundeHatSoftware, Software, Standort, Lizenz, Ansprechpartner
 from django.http import JsonResponse, HttpResponse
 import json
 import datetime
@@ -95,6 +95,7 @@ def kundenprofil(request, id):
             "kunde": kunde,
             "standorte": kundenStandorte,
             "softwarePakete": getStandortSoftware(kundenStandorte),
+            "standortBerater": Ansprechpartner.objects.all(),
             "heartbeatHistorie": heartbeatHistorie(getStandortSoftware(kundenStandorte))
         }
 
