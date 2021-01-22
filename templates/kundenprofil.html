@@ -3,50 +3,196 @@
 {% block content %}
 
 
-<div class="container stats">
-    <h2> {{ kunde.name }} <br>
-    {{ kunde.vf_nummer }}</h2>
+<div class="stats">
+    <div class="ueberschrift">
+        <h1 id="autohausZeile"> {{ kunde.name }}</h1>
+        <h2>VF- Nummer: {{ kunde.vf_nummer }}</h2>
+    </div>
 
+    {% if standorte|length == 0 %}
+    <div class="container empty">
+        <h2>Keine Standorte verfügbar</h2>
+    </div>
+    {% else %}
  {% for standort in standorte %}
-<div class="panel-group" id="accordion">
-    <a class="panel-heading kunde">
-        <div class = "trigger"> {{ standort.name }}</div>
-        <ul class = "toggle">
-            <div class="col-lg-4">
-                <div class="col-lg-4">
-                    <div class="col-lg-4">
-                {{ standort.strasse }} {{ standort.hausnr }}</div>
-            <div>{{ standort.plz }} {{ standort.ort }}</div>
-            <div> {{ standort.geschaeftszeiten }}</div>
-            <div> Ansprechpartner</div>
-            <div>{{ standort.telNr }}</div>
-            <div> {{ standort.email }}</div>
+<div class="container panel-group" id="accordion">
+    <div class="panel-heading">
+        <div class = "trigger"> {{ standort.name }}
+        <i class='fas fa-angle-down', arrowButton></i>
+        </div>
 
-            <h3>gebuchte Softwarepakete</h3>
-                    {% for pakete in softwarePakete %}
-                        {% if pakete.standort == standort %}
-                            <div>{{ pakete.software }}</div>
-                        {% endif %}
-                    {% endfor %}
-                                <table>
-                            {% for impuls in heartbeatHistorie %}
-                                {% if impuls.kundeSoftware.standort == standort %}
-                                    <tr>
-                                        <td>
-                                            {{ impuls.meldung }}
-                                        </td>
-                                    </tr>
-                                    {% endif %}
-                                    {% endfor %}
-                                </table>
+            <div class = "toggle">
+                <div class="row">
+                <div class="col-md-6">
+                    <table class="table" >
+                        <tbody>
+                        <tr>
+                            <div class="tabellenHead">Anschrift</div>
+                            <th>Straße</th>
+                            <td>{{standort.strasse}}</td>
+                            <td>{{standort.hausnr}}</td>
+                        </tr>
+                        <tr>
+                            <th>PLZ, Ort</th>
+                            <td>{{standort.plz}}</td>
+                            <td>{{standort.ort}}</td>
+                        </tr>
+                        <tr>
+                            <th>Geschaeftszeiten</th>
+                            <td>Mo-Fr</td>
+                            <td>8:00 Uhr - 18:00 Uhr</td>
+                        </tr>
+                        </tbody>
+                    </table>
                 </div>
-            </div>
-        </ul>
-    </a>
-</div>
-</div>
+                <div class="col-md-6">
+                    <table class="table">
+                        <tbody>
+                        <tr>
+                            {% for ansprechpartner in standortBerater %}
+                                {% if ansprechpartner.standort == standort %}
+                                    <div class="tabellenHead">Ansprechpartner</div>
+                                        <tr>
+                                            <th>Name</th>
+                                            <td>{{ansprechpartner}}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Telefonnummer</th>
+                                            <td>{{ansprechpartner.telefon_nr}}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>E-Mail</th>
+                                            <td>{{ansprechpartner.email}}</td>
+                                        </tr>
+                                {% else %}
+                                    <div class="tabellenHead">kein Ansprechpartner eingetragen</div>
+                                        <tr>
+                                            <th>Telefonnummer</th>
+                                            <td>{{standort.telNr}}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>E-Mail</th>
+                                            <td>{{standort.email}}</td>
+                                        </tr>
+                                {% endif %}
+                            {% endfor %}
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                </div>
+                    <div class="row">
+                    <div class="col-md-12">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th>Softwareprodukt</th>
+                                    <th>Version</th>
+                                    <th>Modul</th>
+                                    <th>Lizenzschlüssel</th>
+                                    <th>Ablaufdatum</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for pakete in softwarePakete %}
+                                    {% if pakete.standort == standort %}
+                                        {% for lizenz in softwareLizenzen %}
+                                            {% if lizenz.KundeHatSoftware == pakete and lizenz.KundeHatSoftware.software == pakete.software %}
+                                <tr>
+                                    <td>{{pakete.software}}</td>
+                                    <td>{{pakete.software.version}}</td>
 
+                                    <td>{{lizenz.modul}}</td>
+                                    <td>{{lizenz.license_key}}</td>
+                                    <td>{{lizenz.gültig_bis}}</td>
+                                </tr>
+                                            {% endif %}
+                                        {% endfor %}
+                                    {% endif %}
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h2 id="vergangHb"> vergangene Heartbeats</h2>
+                                <div class="scrolltable">
+                                    <table class="table text-center" >
+                                    <thead>
+                                    <tr>
+                                        <th>Datum</th>
+                                        <th>Hearbeatmeldung</th>
+                                        <th>Sonstiges</th>
+                                    </tr>
+                                    </thead>
+                                        <tbody>
+                                        {% for impuls in heartbeatHistorie %}
+                                            {% if impuls.kundeSoftware.standort == standort %}
+                                        <tr>
+                                            <td>{{impuls.meldung}}</td>
+                                            <td>Macbook Pro</td>
+                                            <td>amk</td>
+                                        </tr>
+                                            {% endif %}
+                                        {% endfor %}
+                                        </tbody>
+                                </table>
+                        </div>
+
+                </div>
+
+                <!--
+                <div class="row">
+                    <div class="col-md-6">
+                        <div id="Anschrift">Anschrift</div>
+                        <div> {{ standort.strasse }} {{ standort.hausnr }}</div>
+                        <div>{{ standort.plz }} {{ standort.ort }}</div> <br>
+                        <div id="geschaeftszeiten">Geschäftszeiten:</div>
+                        <div> {{ standort.geschaeftszeiten }}</div>
+                    </div>
+                        <div class="col-md-6">
+                            <div> Ansprechpartner</div>
+                            <div> Herr Markus Mill</div>
+                            <div>{{ standort.telNr }}</div>
+                            <div> {{ standort.email }}</div>
+                        </div>
+                </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div id="softwarePakete">Softwarepakete</div>
+                                {% for pakete in softwarePakete %}
+                                    {% if pakete.standort == standort %}
+                                        <div>{{ pakete.software }} {{ pakete.software.version }} </div>
+                                    {% endif %}
+                                {% endfor %}
+                        </div>
+                    </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="hbScroll">
+                                    <div> vergangene Heartbeatmeldungen</div>
+                                    <table>
+                                        {% for impuls in heartbeatHistorie %}
+                                            {% if impuls.kundeSoftware.standort == standort %}
+                                                <tr>
+                                                    <td>
+                                                        {{ impuls.meldung }}
+                                                    </td>
+                                                </tr>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </table>
+                                </div>
+                            </div>
+                     -->   </table>
+            </div>
+                </div>
+    </div>
+</div>
 {% endfor %}
+    {% endif %}
+</div>
 
 
 <script>

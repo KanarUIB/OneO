@@ -5,83 +5,51 @@ html, body{
                 font-family: sans-serif;
             }
             ::selection{
-                background-color: rgb(2,50,70);
+                background-color: rgb(20,10,70);
                 color: white;
             }
-            h1,h2,h3{
+            *{
+                outline: none;
+                appearance: none;
+                -webkit-appearance: none;
+            }
+            a:hover{
+                text-decoration: none;
+                color: inherit;
+            }
+            button{
+                appearance: none;
+                border: 1px solid #29588C;
+                border-radius: 20px;
+                padding: 4px 20px;
+                transition-duration: 150ms
+            }
+            h2{
+                margin-bottom:50px;
                 color: #29588C;
-                text-align: center;;
+                font-size:18px;
+                text-align:center;
+                font-weight:500;
+
+            }
+            h1{
+                font-size:20pt;
+                text-align:center;
+                font-weight:700;
+                letter-spacing:0px;
             }
             .swpaket{
                 color: #29588C;
                 font-size: 1.2em;
             }
+
             h2{
-            }
-            nav{
-                display: block;
-                width: 100%;
-                height: 150px;
-                padding: 15px 0;
-                background: rgba(255,255,255,0.9);
-                box-shadow: 0 0 10px 0 rgba(60,60,60,0.4);
-                display: flex;
-                position: fixed;
-                top: 0;
-                z-index: 10;
-            }
-            nav > div{
-                flex: 1;
-            }
-            ul{
-                display: flex;
-                width: 30%;
-            }
-            li{
-                list-style: none;
-                flex: 1;
-	            text-transform: uppercase;
-	            margin: 0 6px;
-	            font-size: 0.8em;
-            }
-            nav li > a{
-                text-decoration: none;
-	            color: #29588C;
-                padding: 9px 14px;
-                border-radius: 3px;
-                transition-duration: 250ms;
-            }
-            li > a:hover{
-                background: #29588C;
-                color: white;
-            }
-            .login-btn{
-                border: 2px solid #29588C;
-                padding: 9px 14px;
-            }
+            margin-top: 50px;}
 
-            nav img{
-                margin-left: 20%;
-            }
+            tfoot th{
+            background-color: white;}
 
-            #hamburger{
-                position: absolute;
-                top: 18px;
-                right: 30px;
-                width: 40px;
-                height: 50px;
-                display: none;
-                cursor: pointer;
-            }
 
-            #hamburger > span{
-                margin: 6px 0;
-                display: block;
-                width 100%;
-                border-radius: 100px;
-                height: 2px;
-                background: #29588C;
-            }
             #first,#second,#third{
                 transition-duration: 200ms;
             }
@@ -97,49 +65,73 @@ html, body{
                 transform: rotate(-45deg) translate(5px,-5px);
             }
 
-            #menu{
-                position: fixed;
-                width: 0;
-                right: 0;
-                height: 100%;
-                background: white;
-                z-index: 9;
-                padding: 100px 0 0;
-                box-shadow: 0 0 20px 0 rgb(20,20,20);
-                transition-duration: 200ms;
+            table th:first-child{
+            border-radius:5px 0 0 5px;
             }
 
-            #menu ul{
-                display: block;
-                width: 90%;
-                margin: 0 auto;
-                padding: 0;
+            table th:last-child{
+            border-radius:0 5px 5px 0;
             }
-            #menu li{
-                display: block;
+
+            thead{
+            background-color: #29588C;
+            color: white;}
+
+            tr{
+                1background-color: #f7f7f7;
             }
+
+            .softwarekasten tbody tr:hover{
+                background-color: rgb(240,240,240);
+                box-shadow: 0 0 2px 0 rgb(100,100,100);
+
+            }
+
+            table tr{
+                background-color: none;
+                border-top: none;
+            }
+            1table.table td{
+                border-top: none;
+            }
+
             #menu li a{
-                display: block;
                 text-decoration: none;
-                padding: 10px;
+                text-decoration: none;
+                text-align:center;
                 color: #29588C;
             }
             #menu li a:hover{
                 background: #f0f0f0;
             }
             #menu .login-btn{
-                margin-top: 50px;
+            border: 2px solid #29588C;
                 text-align: center;
                 border-radius: 6px;
+                padding:5px 20px 5px;
+                width:100%;
+
             }
 
-            .hamOpen{
-                display: block;
+            #menu .login-btn:hover{
+            background-color: #29588C;
+            color:white;}
+
+            .bg-light {
+
+            background-color:white;
+           box-shadow: 0px 1px 15px 0 rgb(200,200,200);
             }
 
+            .navbar-toggler:hover{
+            background-color: white;}
+
+            .navbar-expand-lg{
+            padding-bottom:10px;
+            }
 
             main{
-                padding: 200px 10%;
+                padding: 100px 10% 200px;
             }
 
             #panel{
@@ -147,17 +139,7 @@ html, body{
                 margin: 80px 0 0px;
             }
 
-            input{
-                appearance: none;
-                -webkit-appearance: none;
-                -moz-appearance: none;
-                padding: 10px 10px;
-                border-radius: 20px;
-                color: #29588C;
-                font-weight: 700;
-                border: 1px solid rgb(130,130,130);
-                background: rgb(250,250,250);
-            }
+
             input:focus{
                 borer: 1px solid rgb(660,120,170);
             }
@@ -198,8 +180,8 @@ html, body{
                 box-shadow: 3px 5px 3px -2px rgb(160,160,160);
                 border-radius: 50px;
                 margin: 10px 0;
-                padding: 10px;
-                height: 32px;
+                padding: 5px;
+                min-height: 30px;
                 align-items: center;
             }
             .checker .results > div:nth-child(odd){
@@ -208,9 +190,7 @@ html, body{
             .checker > div{
                 display: hidden;
             }
-            .checker .header{
-                background: red;
-            }
+
             .results .line{
                 display: flex;
                 transition-duration: 600ms;
@@ -248,22 +228,30 @@ html, body{
                 font-size: 0.9em;
             }
 
-            button{
+             .pakete button{
                 display: inline-block;
                 background: rgb(250,250,250);
                 padding: 8px 0;
                 width: 100%;
                 border: 2px solid #29588C;
-                border-radius: 30px;
+                border-radius: 5px;
                 cursor: pointer;
                 outline: none;
                 text-transform: uppercase;
                 transition-duration: 240ms;
             }
+
+
             #search{
-                padding: 7px 20px;
+                padding: 10px 20px;
                 background: #29588C;
+                border-radius: 30px;
+                border: none;
                 color: white;
+                outline: none;
+                appearance: none;
+                -webkit-appearance: none;
+                width:100%;
             }
             #search:hover{
                 background: #2968BC;
@@ -282,28 +270,16 @@ html, body{
                 background: rgb(255,255,255);
                 padding: 0 0 0 10px;
             }
-            .loginBlock{
-            width:400px;
-            margin: auto;
-            margin-bottom:50px;
-            }
-            .loginBlock >form{
 
+            .pakete, .table {
+            margin-top:60px;}
 
-                text-align:center;
-                box-shadow: 4px 4px 9px 0 rgb(200,200,200);
-                border-radius: 25px;
-                padding:30;
-
-            }
-
-
-            #softwarekasten{
+            .softwarekasten{
 
                margin:0 0,5%;
               border-radius: 25px;
                 padding: 20 50 20 50;
-              box-shadow: 4px 4px 9px 0 rgb(200,200,200);
+              box-shadow: 4px 4px 9px 0 #e9ecefd4;
               height: 100%;
 
             }
@@ -316,16 +292,37 @@ html, body{
             .pakete h4{
                 display: inline-block;
             }
+              .statusPositiv{
+            width:15px;
+            height:15px;
+
+            background-color:rgb(100,180,30);
+            border-radius:20px;
+            margin-right:10px;}
+
+            .statusNegativ{
+            width:15px;
+            height:15px;
+            background-color:red;
+            border-radius:20px;
+            margin-right:10px;}
+
+
+            ul{
+            list-style-type:none;
+            }
+
             .pakete .notify{
                 display: inline-block;
                 float: right;
                 position: absolute;
-                top: 30px;
-                right: 50px;
-                padding: 10px 25px;
-                background: rgb(100,180,30);
-                color: white;
-                border-radius: 25px;
+                top:25px;
+                right:30px;
+                width: 20px;
+                height: 20px;
+                1background: rgb(100,180,30);
+                 background: red;
+                border-radius: 35px;
             }
             .pakete .details{
                 background: #29588C;
@@ -354,6 +351,9 @@ html, body{
                 transition-duration: 400ms;
             }
 
+            .trennblock{
+            height:20px;}
+
 
    @media only screen and (max-width: 1100px){
 
@@ -371,17 +371,6 @@ html, body{
                     margin-left: 10%;
                 }
             }
-
-
-
-
-
-
-
-
-
-
-
 
             .profil{
                 width: 95%;
@@ -418,14 +407,15 @@ html, body{
             }
             .kunde{
                 display: block;
+                witdh: 100%;
                 flex: 1;
-                border: 1px solid rgb(150,150,150);
+                border: 0;
                 text-align: center;
-                margin: 0 0 10px;
+                box-shadow: 4px 4px 9px 0 #e9ecefd4;
                 padding: 15px;
-                border-radius: 50px;
+                border-radius: 5px;
                 text-decoration: none;
-                transition-duration: 200ms;
+                transition-duration: 140ms;
                 color: black;
             }
             .kundenliste h1{
@@ -433,5 +423,37 @@ html, body{
                 margin: 0 0 100px;
             }
             .kunde:hover{
-                background: rgb(220,220,220);
+                background: rgb(240,240,240);
+                transform: scale(1.02);
             }
+
+            .listNav{
+                margin: 50px 0;
+            }
+            .ln-letters{
+                1border-radius: 200px;
+                1border: 1px solid rgb(140,140,140);
+            }
+            .ln-letters a{
+                1border: 1px solid rgb(140,140,140);
+                padding: 2px 5px;
+                margin: 0 1px;
+                border: 1px solid rgb(120,120,120);
+                border-radius: 2px;
+                min-width: 25px;
+                text-align: center;
+                background: rgb(240,240,240);
+                color: black;
+            }
+            .ln-letters .ln-disabled{
+                color: rgb(160,160,160);
+            }
+
+
+#kundenListe td{
+border:0;}
+
+#kundenListe thead tr th{
+border:0;
+background-color:white;
+}

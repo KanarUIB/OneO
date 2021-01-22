@@ -1,4 +1,6 @@
-
+# Create your views here.
+#   untenstehenden TEST-Befehl auf Kundenseite integrieren in Verbindung mit cronjob im Format */10 * * * * ... (alle 10 Minuten)
+#   curl -X POST -d kdNr=1;mandant=Mercedes_GmbH;software=aurep;lizenz=True localhost:8000/heartbeat
 from django.shortcuts import redirect, render
 import asyncio
 import random
@@ -22,8 +24,13 @@ def getLetzteHeartbeat(kundeHatSoftware):
 
 
 """""""""
-Checks if there is a Heartbeat for the specific KundeHatSoftware kundeHatSoftware on that day.
-Return True if there is a Heartbeat object or False if there is no Heartbeat object for kundeHatSoftware.
+Prüft ob ein erfolgreicher Heartbeat für jedes Software-Paket vorhanden ist, wenn das letzte
+erfolgreiche Heartbeat vor über 24 Stunden einkam wird ein ausstehendes Heartbeat-Eintrag in der
+Datenbank erstellt. 
+
+Ist kein Heartbeat für ein Software-Paket vorhanden so wird ein Eintrag 
+mit der Meldung "Heartbeat noch nie eingetroffen" erstellt.
+
 """""""""
 
 
@@ -31,12 +38,29 @@ def checkHeartbeat():
     softwarePakete = KundeHatSoftware.objects.all()
     for paket in softwarePakete:
         letzterHeartbeat = getLetzteHeartbeat(paket)
+
         if letzterHeartbeat is None:
-            heartbeat = Heartbeat.objects.create(kundeSoftware=paket,
-                                                 lizenzschluessel=Lizenz.objects.get(
-                                                     KundeHatSoftware=paket).license_key,
-                                                 meldung="Heartbeat noch nie eingetroffen",
-                                                 datum=datetime.datetime.now())
+            try:
+                lizenz = Lizenz.objects.get(KundeHatSoftware=paket)
+
+            except:
+
+                lizenz = None
+
+            if lizenz is not None:
+                heartbeat = Heartbeat.objects.create(kundeSoftware=paket,
+                                                     lizenzschluessel=lizenz.license_key,
+                                                     meldung="Heartbeat noch nie eingetroffen",
+                                                     datum=datetime.datetime.now())
+            else:
+                heartbeat = Heartbeat.objects.create(kundeSoftware=paket,
+                                                     lizenzschluessel="Lizenzschlüssel konnte nicht gefunden werden",
+                                                     meldung="Heartbeat noch nie eingetroffen",
+                                                     datum=datetime.datetime.now())
+        elif letzterHeartbeat.lizenzschluessel == "Lizenzschlüssel konnte nicht gefunden werden":
+            Heartbeat.objects.filter(kundeSoftware=letzterHeartbeat.kundeSoftware,
+                                     lizenzschluessel=letzterHeartbeat.lizenzschluessel).update(
+                lizenzschluessel=Lizenz.objects.get(KundeHatSoftware=paket).license_key)
         else:
             timedelta = datetime.timedelta(hours=24)
             zeit = current_date - timezone.make_naive(letzterHeartbeat.datum)
@@ -45,8 +69,8 @@ def checkHeartbeat():
 
 
 """""""""
-Creates Database Entries for the missing Heartbeats after checking if there is a heartbeat
-for the specific KundeHatSoftware.
+Erstellt einen Datenbank ausstehenden Heartbeat-Eintrag in der Tabelle Heartbeats für den angegebenen kundeHatSoftware Software-Paket
+mit der Meldung "Heartbeat nicht eingetroffen".
 @param kundeHatSoftware Software-Paket von einem spezifischen Standort/Kunden
 """""""""
 
@@ -59,30 +83,41 @@ def createMissingHeartbeats(kundeHatSoftware):
                                          datum=datetime.datetime.now())
 
 
+"""""""""
+Filtert aus allen Heartbeat-Objekten den aktuellsten Heartbeat-Objekte mit einer Error-Meldunge für den angegebenen softwarePaket heraus.
+@param softwarePaket KundeHatSoftware-Objekt für welches die Error-Heartbeats gesucht werden sollen
+"""""""""
+
+
 def getErrorHeartbeats(softwarePaket):
-        heartbeat = Heartbeat.objects.filter(kundeSoftware=softwarePaket).filter(meldung__icontains="Error").order_by(
-            "datum").last()
-        return heartbeat
+    heartbeat = Heartbeat.objects.filter(kundeSoftware=softwarePaket).filter(meldung__icontains="Error").order_by(
+        "datum").last()
+    return heartbeat
 
 
 """""""""
+Erstellt eine Liste von Heartbeats für die Ausgabe der ausstehenden und Fehlermeldung-Heartbeats auf der Dashboard-Seite
+Hierfür betrachtet man den letzten erfolgreich eingangenen Heartbeat eines Software-Pakets und prüft, ob dessen Eingangsdatum
+über 48 Stunden her ist. Heartbeats mit der Meldung "Noch nie eingetroffen" werden ebenso in die Liste hinzugefügt
 
-@return negativeHeartbeats Alle negativen Heartbeats
+@return negativeHeartbeats Alle negativen & error Heartbeats
 """""""""
+
+
 def getNegativeHeartbeats():
     negativeHeartbeats = []
     softwarePakete = KundeHatSoftware.objects.all()
     for pakete in softwarePakete:
 
-        #Hier werden der negativeHeartbeat-Liste alle Heartbeats die mit einer Error-Meldung hineinkamen
-        #hinzugefügt.
+        # Hier werden der negativeHeartbeat-Liste alle Heartbeats die mit einer Error-Meldung hineinkamen
+        # hinzugefügt.
 
         errorHeartbeats = getErrorHeartbeats(pakete)
         if errorHeartbeats is not None:
             negativeHeartbeats.append(errorHeartbeats)
 
-        #Hier wird geprüft wann der letzter erfolgreiche Heartbeat für diesen jeweiligen Software-Paket
-        #einkam, wenn dieser vor über 48 Stunden hineinkam wird der letzte Fehlende-Heartbeat in die Liste hinzugefügt
+        # Hier wird geprüft wann der letzter erfolgreiche Heartbeat für diesen jeweiligen Software-Paket
+        # einkam, wenn dieser vor über 48 Stunden hineinkam wird der letzte Fehlende-Heartbeat in die Liste hinzugefügt
 
         heartbeat = Heartbeat.objects.filter(kundeSoftware=pakete).exclude(
             meldung="Heartbeat nicht eingetroffen").last()
@@ -91,40 +126,43 @@ def getNegativeHeartbeats():
         else:
             timedelta = datetime.timedelta(hours=48)
             zeit = current_date - timezone.make_naive(heartbeat.datum)
-            print("heartbeat:" + str(heartbeat))
-            print(zeit)
-            print("timedelta " + str(timedelta))
+
             if zeit > timedelta:
                 if getLetzteHeartbeat(pakete) not in negativeHeartbeats:
-                    print("negative:" + str(negativeHeartbeats))
                     negativeHeartbeats.append(getLetzteHeartbeat(pakete))
             elif heartbeat.meldung == "Heartbeat noch nie eingetroffen":
                 negativeHeartbeats.append(heartbeat)
     return negativeHeartbeats
 
 
+"""""""""
+REST-API die zum Empfangen aller Heartbeat-Requests dient.
+
+Das Heartbeat-Request muss aus dem Lizenzschlüssel und einem Statusbericht der Software bestehen.
+Bei Eingang eines Requests werden anhand des empfangenen Lizenznschlüssels das Lizenz-Objekt aus der Datenbank gefiltert,
+der dazugehörige Software-Paket ermittelt und der aktuelle Zeitpunkt notiert, um mit all diesen Daten den Heartbeat Eintrag
+in der Datenbank erstellen zu können.
+
+Als Response wird der Lizenzschlüssel zurück gegeben.
+"""""""""
 
 
-"""
-Heartbeat API (Schnitstelle) die nach außen geöffnet ist, um von autorisierten Clients (durch Lizenzschlüssel) 
-HTTP Anfragen zu akzeptieren um entsprechende Heartbeat-Objekte in der Datenbank abzuspeichern
-"""
 @api_view(["POST"])
 def heartbeat(request):
-
-    # Instanziere alle nötigen Attribute für einen Heartbeat
     beat = {
         "lizenzschluessel": request.data["lizenzschluessel"],
         "meldung": request.data["meldung"],
     }
+
+    """""""""
+    #Instanziere alle nötigen Attribute für einen Heartbeat
+    """""""""
     license = Lizenz.objects.get(license_key=beat["lizenzschluessel"])
+
     kundeSoftware = license.KundeHatSoftware
+    datum = datetime.datetime.now()
 
-
-    # Erstelle ein Heartbeat-Objekt entsprechend der oben definierten Attribute
     Heartbeat.objects.create(kundeSoftware=kundeSoftware, lizenzschluessel=beat["lizenzschluessel"],
                              meldung=beat["meldung"],
-                             datum=datetime.datetime.now())
-
+                             datum=datum)
     return Response(beat["lizenzschluessel"])
-

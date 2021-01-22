@@ -1,10 +1,26 @@
 
 $(document).ready(function () {
   $('#lizenzTabelle').DataTable({
-   "scrollY":"60vh",
+   "scrollY":"50vh",
 
+   language: {
 
+    "emptyTable":     "Es sind keine Einträge vorhanden",
+    "info":           "_START_ - _END_ von _TOTAL_ Einträgen",
+    "infoEmpty":      "keine Einträge",
+    "lengthMenu":     "_MENU_ Einträge anzeigen",
+    "search":         "Schnellsuche:",
+    "zeroRecords":    "Zu Ihrer Suche gibt es leider keine Einträge",
+    "paginate": {
 
+        "next":       ">",
+        "previous":   "<"
+    },
+    "aria": {
+        "sortAscending":  ": activate to sort column ascending",
+        "sortDescending": ": activate to sort column descending"
+    }
+},
     initComplete: function () {
       this.api().columns().every( function () {
           var column = this;
@@ -23,8 +39,45 @@ $(document).ready(function () {
   });
 
   $('#heartbeatTabelle').DataTable({
-   "scrollY":"60vh",
+   "scrollY":"50vh",
+
+
+            language: {
+
+    "emptyTable":     "Es sind keine Einträge vorhanden",
+    "info":           "_START_ - _END_ von _TOTAL_ Einträgen",
+    "infoEmpty":      "keine Einträge",
+    "lengthMenu":     "_MENU_ Einträge anzeigen",
+    "search":         "Schnellsuche:",
+        "zeroRecords":    "Zu Ihrer Suche gibt es leider keine Einträge",
+    "paginate": {
+
+        "next":       ">",
+        "previous":   "<"
+    },
+    "aria": {
+        "sortAscending":  ": activate to sort column ascending",
+        "sortDescending": ": activate to sort column descending"
+    }
+},
+
+
 
 
   });
+
+  $('#kundenListe').DataTable({
+
+         "paging":   false,
+        "ordering": false,
+        "info":     false,
+           language: {
+
+    "emptyTable":     "Es sind keine Einträge vorhanden",
+    "search":         "Schnellsuche:",
+
+},
+
+  });
+
 });

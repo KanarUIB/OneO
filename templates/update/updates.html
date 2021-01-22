@@ -2,14 +2,19 @@
 
 {% block content %}
 <h1>Updates</h1>
+    <div class="text-right container">
+         {% if user.is_authenticated %}
+     <button class="anlegen"><a href="#">Neues Update anlegen <i class="fas fa-plus"></i></a></button>
+         {% endif %}
+   </div>
 <h2>Übersicht Softwarepakete</h2>
 <div class="container">
-    <div class="pakete">
+    <div class="pakete shadowKasten">
         <div class="row">
 
             {% for software in softwares %}
 
-            <div class="col-s col-md Softwarekasten">
+            <div class="col-s col-md">
                 <h4>{{ software }}</h4>
                 <p>Version {{ software.version }}</p>
                 <button class="details">Details anzeigen</button>
@@ -27,7 +32,7 @@
 
 
 </div>
-<hr>
+
 <h2>Softwarestände</h2>
 <div class="container mt-5">
     <table class="table table-responsive-lg" id="lizenzTabelle" width="100%">
@@ -47,7 +52,7 @@
         {% for software in lizenzen %}
         <tr>
 
-            <td>{{ software.KundeHatSoftware.standort.name }}</td>
+            <td>{{ software.KundeHatSoftware.standort}}</td>
             <td>{{ software.KundeHatSoftware.software }}
             <td>{{ software.modul }}</td>
             <td>{{ software.KundeHatSoftware.version }}</td>
