@@ -3,7 +3,6 @@ import time
 from datetime import datetime
 import re
 import os
-import hashlib
 import requests
 import string
 from ctypes import windll
@@ -11,26 +10,29 @@ import subprocess
 
 
 
-
-"""
-Globale Url des Management-Portals mit der subdirectory /heartbeat welche REST (POST) Abfragen bearbeitet
-"""
+# Globale Url des Management-Portals mit der subdirectory /heartbeat welche REST (POST) Abfragen bearbeitet
 URL = "http://localhost:8000/heartbeat"
 
 
 
-"""
-dir: Root Ordner von dem aus angefangen wird nach dem /Kundenscripts subordner zu suchen
-zaehler: Hilfsvariable für rekursiven Methodenaufruf mit anderem Root Ordner
-"""
-def searchFiles(dir, zaehler = 0):
+
+def searchFiles(dir : list[str], zaehler = 0):
+    """ Sucht mithilfe der Liste von Laufwerken nach dem Ordner 'Kundenscripts',
+        in welchem sich die Dateien LOG.txt und congif.txt befinden
+
+    Parameter
+    ---------
+    dir : list[str]
+        Liste aller existierenden Laufwerke des Clients (Bsp.: ['C','D'])
+    zaehler : int
+        Hilfsvariable für rekursiven Methodenaufruf mit anderem Root Ordner aus der dir list
+    """
+
     global URL
     abspathLog = ""
     abspathConfig = ""
 
     for root, dirs, files in os.walk(dir[zaehler] + ":/"):
-        #print(files)
-        print(root)
         if os.path.basename(root) != 'Kundenscripts':
             continue
 
@@ -47,15 +49,11 @@ def searchFiles(dir, zaehler = 0):
             return
         searchFiles(dir, zaehler)
 
-
+    # Speichert die zu sendenden Daten (lizenzschluessel und meldung) in PARAMS durch die Hilfsmethode readData()
     PARAMS = readData(str(os.path.abspath(root)), abspathLog, abspathConfig)
-    print(PARAMS)
 
 
-    #encrypted = hashlib.sha256('1234').hexdigest()
-    #print(encrypted)
-
-
+    # Sendet den Request an die Heartbeat API
     requests.post(url=URL, data=PARAMS)
 
 
@@ -64,19 +62,30 @@ def searchFiles(dir, zaehler = 0):
 
 
 
-"""
-Liest die Daten aus config.txt und LOG.txt aus und speichert sie im PARAMS dict
+def readData(dir: str, abspathLog: str, abspathConfig: str) -> dict:
+    """ Liest die Daten aus config.txt und LOG.txt aus und speichert sie im PARAMS dict
 
-@return dictionary
-"""
-def readData(dir: str, abspathLog: str, abspathConfig: str):
+    Parameter
+    ---------
+    dir : str
+        der absolute Pfad zu dem Root Ordner, in welchem sich der Lizenzschlüssel und die LOG Datei befinden
+    abspathLog : str
+        die LOG (.txt) Datei
+    abspathConfig : str
+        die config (.txt) Datei
+
+    Return
+    ------
+    PARAMS : dict
+        dictionary mit den Key-Value-Paaren lizenzschluessel und meldung mit den dazugehörigen Werten
+    """
+
     if not dir or not abspathLog or not abspathConfig:
         return {}
 
 
     abspathLog = dir + "\\" + abspathLog
     abspathConfig = dir + "\\" + abspathConfig
-    print(abspathLog + "      " + abspathConfig)
 
 
     log = open(abspathLog, "r")
@@ -101,18 +110,29 @@ def readData(dir: str, abspathLog: str, abspathConfig: str):
 
 
 
-"""
-Sendet den Request an die Heartbeat API
-"""
 def directRequest(dir: str):
+    """ Sendet den Request an die Heartbeat API
+
+    Parameter
+    ---------
+    dir : str
+        der absolute Pfad zu dem Root Ordner, in welchem sich der Lizenzschlüssel und die LOG Datei befinden
+    """
+
     PARAMS = readData(dir, "LOG.txt", "config.txt")
     requests.post(url= URL, data= PARAMS)
 
 
-"""
-Findet alle existierenden Laufwerke und speichert diese in drives[]
-"""
-def get_drives():
+
+def get_drives() -> lis[str] :
+    """ Findet alle existierenden Laufwerke und speichert diese in drives[]
+
+    Returns
+    -------
+    drives : list[str]
+        Liste aller existierenden Laufwerke des Clients
+    """
+
     drives = []
     bitmask = windll.kernel32.GetLogicalDrives()
     for letter in string.ascii_uppercase:
@@ -127,11 +147,11 @@ def get_drives():
 
 
 
-"""
-Führt den Heartbeat Request aus und prüft vorher ob path.txt einen Inhalt besitzt (den absoluten Pfad), 
-um darauf basierend zwei verschiedene Wege zu gehen (searchFiles oder directRequest)
-"""
+
 def execute():
+    """ Führt den Heartbeat Request aus und prüft vorher ob path.txt einen Inhalt besitzt (den absoluten Pfad),
+        um darauf basierend zwei verschiedene Wege zu gehen (searchFiles oder directRequest)
+    """
     drives = get_drives()
     try:
         path = open("./path.txt", "r")
@@ -147,9 +167,11 @@ def execute():
 
 
 
+# delay mithilfe einer Zufallsvariable um die Menge an eingehenden Requests zu verteilen (Load Performace)
+zufall = random.uniform(10, 100)
+time.sleep(zufall)
 
-
-#time.sleep(10)
+# Führt den Heartbeat-Request-Prozess aus
 execute()
 
 
@@ -163,15 +185,3 @@ if firstTime.lower() == "false":
 
 
 
-
-
-
-
-
-
-
-#schedule.every(1).seconds.do(execute)
-
-#while True:
-#    schedule.run_pending()
-#    time.sleep(1)
