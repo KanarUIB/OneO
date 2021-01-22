@@ -13,6 +13,7 @@ class Kunde(models.Model):
         return self.mandant == string
 
 
+
 class Standort(models.Model):
     kunde = models.ForeignKey(Kunde, on_delete=models.CASCADE)
     name = models.CharField(max_length=50)
@@ -22,6 +23,7 @@ class Standort(models.Model):
     hausnr = models.CharField(max_length=5)
     plz = models.CharField(max_length=10)
     ort = models.CharField(max_length=50)
+    zeiten = models.CharField(max_length=50, null=True)
 
     def __str__(self):
         return str(self.kunde.name)+" " + str(self.name)
@@ -34,6 +36,8 @@ class Software(models.Model):
 
     def __str__(self):
         return self.software_name
+
+
 
 
 class KundeHatSoftware(models.Model):
@@ -53,6 +57,17 @@ class Modul(models.Model):
         return str(self.name)
 
 
+class Ansprechpartner(models.Model):
+    vorname = models.CharField(max_length=100)
+    nachname = models.CharField(max_length=100)
+    telefon_nr = models.CharField(max_length=50)
+    email = models.EmailField()
+    standort = models.ForeignKey(Standort, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return str(self.vorname) + " " + str(self.nachname)
+
+
 class Lizenz(models.Model):
     KundeHatSoftware = models.ForeignKey(KundeHatSoftware, on_delete=models.CASCADE)
     modul = models.ForeignKey(Modul, on_delete=models.CASCADE)
@@ -69,22 +84,3 @@ class Kundenlizenz(Lizenz):
 
 class Standortlizenz(Lizenz):
     pass
-
-class Ansprechpartner(models.Model):
-    vorname = models.CharField(max_length=100)
-    nachname = models.CharField(max_length=100)
-    telefon_nr = models.CharField(max_length=50)
-    email = models.EmailField()
-    standort = models.ForeignKey(Standort, on_delete=models.CASCADE)
-    zuständige_software = models.ManyToManyField(
-        Software,
-        through='Zuständigkeit',
-        through_fields=('ansprechpartner', 'software'),
-    )
-
-
-class Zuständigkeit(models.Model):
-    ansprechpartner = models.ForeignKey(Ansprechpartner, on_delete=models.SET_NULL,
-                                        blank=True, null=True)
-    software = models.ForeignKey(Software, on_delete=models.SET_NULL,
-                                 blank=True, null=True)

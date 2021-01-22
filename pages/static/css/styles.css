@@ -159,8 +159,9 @@
             .pakete .details:hover{
                 background: #2968BC;
             }
-.pakete{
-padding:20px;}
+
+            .pakete{
+            padding:20px;}
 
 /* Kundenseite */
  .kundenliste{
@@ -197,6 +198,31 @@ padding:20px;}
                 background: rgb(240,240,240);
                 transform: scale(1.02);
             }
+
+            /* Kundenprofil-Seite */
+
+            #autohausZeile{
+            margin-bottom: -45px;
+            }
+
+            .trigger i:activate {
+            transform: rotateZ(-90deg);
+            }
+
+            .tabellenHead{
+            color: lightblue;
+            margin-top: 30px;
+            margin-bottom: -45px;
+            }
+            #vergangHb{
+
+            }
+
+            .scrolltable{
+            height: 200px;
+            overflow: scroll;
+            }
+
 /* Login */
         .loginBlock{
 
