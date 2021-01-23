@@ -215,15 +215,16 @@
             }
 
             .tabellenHead{
-            color: lightblue;
+            color: #29588c;
             margin-top: 30px;
             margin-bottom: -45px;
             }
 
             .trigger{
-            text-align:center;}
-            .panel-group{
+            text-align:center;
+            }
 
+            .panel-group{
             margin-bottom: 20px;
               display: block;
                 width: 100%;

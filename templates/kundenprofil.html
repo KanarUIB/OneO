@@ -121,73 +121,27 @@
                                     <table class="table text-center" >
                                     <thead>
                                     <tr>
-                                        <th>Datum</th>
+                                        <th>Software</th>
                                         <th>Hearbeatmeldung</th>
-                                        <th>Sonstiges</th>
+                                        <th>Datum</th>
                                     </tr>
                                     </thead>
                                         <tbody>
                                         {% for impuls in heartbeatHistorie %}
                                             {% if impuls.kundeSoftware.standort == standort %}
                                         <tr>
+                                            <td>{{impuls.kundeSoftware}}</td>
                                             <td>{{impuls.meldung}}</td>
-                                            <td>Macbook Pro</td>
-                                            <td>amk</td>
+                                            <td>{{impuls.datum}}</td>
                                         </tr>
                                             {% endif %}
                                         {% endfor %}
                                         </tbody>
-                                </table>
-                        </div>
-
-                </div>
-
-                <!--
-                <div class="row">
-                    <div class="col-md-6">
-                        <div id="Anschrift">Anschrift</div>
-                        <div> {{ standort.strasse }} {{ standort.hausnr }}</div>
-                        <div>{{ standort.plz }} {{ standort.ort }}</div> <br>
-                        <div id="geschaeftszeiten">Geschäftszeiten:</div>
-                        <div> {{ standort.geschaeftszeiten }}</div>
-                    </div>
-                        <div class="col-md-6">
-                            <div> Ansprechpartner</div>
-                            <div> Herr Markus Mill</div>
-                            <div>{{ standort.telNr }}</div>
-                            <div> {{ standort.email }}</div>
-                        </div>
-                </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div id="softwarePakete">Softwarepakete</div>
-                                {% for pakete in softwarePakete %}
-                                    {% if pakete.standort == standort %}
-                                        <div>{{ pakete.software }} {{ pakete.software.version }} </div>
-                                    {% endif %}
-                                {% endfor %}
-                        </div>
-                    </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="hbScroll">
-                                    <div> vergangene Heartbeatmeldungen</div>
-                                    <table>
-                                        {% for impuls in heartbeatHistorie %}
-                                            {% if impuls.kundeSoftware.standort == standort %}
-                                                <tr>
-                                                    <td>
-                                                        {{ impuls.meldung }}
-                                                    </td>
-                                                </tr>
-                                            {% endif %}
-                                        {% endfor %}
                                     </table>
                                 </div>
                             </div>
-                     -->   </table>
+                        </div>
             </div>
-                </div>
     </div>
 </div>
 {% endfor %}
