@@ -178,16 +178,60 @@ def heartbeatHistorie(softwarePakete):
     return heartbeat_historie
 
 
+#    def create_kunde(request):
+#        form = KundeCreateForms(request.POST or None)
+#        if request.method == 'POST':
+#            if form.is_valid():
+#                form.save()
+#                return redirect('kunden')
+#        context = {
+#            'form': form
+#        }
+#        return render(request, 'kunde/create_kunde.html', context)
+
 def create_kunde(request):
-    form = KundeCreateForms(request.POST or None)
-    if request.method == 'POST':
-        if form.is_valid():
-            form.save()
-            return redirect('kunden')
-    context = {
-        'form': form
+    print("\n\nTESTTTTTTTTTTTTT\n\n")
+    print(request.POST.get("name"))
+    print(request.POST)
+    dataKunde = {
+        "name": request.POST.get("name"),
+        "vf_nummer": 2,
     }
-    return render(request, 'kunde/create_kunde.html', context)
+
+    formKunde = KundeCreateForms(dataKunde)
+    #formKunde.initial = {"vf_nummer": "2"}
+
+    if request.method == 'POST':
+        print("\n\nDURCHHHHHHHHHHHHHHHHHHH\n\n")
+        if formKunde.is_valid():
+            kunde = formKunde.save()
+            #Kunde.objects.create(name=dataKunde["name"], vf_nummer=dataKunde["vf_nummer"]).save()
+            kunde = Kunde.objects.get(name=dataKunde["name"])
+            print("KUNDE    " + str(kunde))
+            dataStandort = {
+                "kunde": kunde,
+                "name": "Mercedes",
+                "plz": request.POST.get("plz"),
+                "ort": request.POST.get("ort"),
+                "strasse": request.POST.get("strasse"),
+                "hausnr": request.POST.get("hausnr"),
+                "email": request.POST.get("email"),
+                "telNr": request.POST.get("telNr"),
+            }
+            formStandort = StandortCreateForms(dataStandort)
+            print("FORMSTANDORT:             " + str(formStandort))
+        if formStandort.is_valid():
+            #formKunde.cleaned_data["vf_nummer"] == ""
+            print("DRINnnewrweiurhweiurhweiurhwieurhiweurhiweuhr")
+            print("DRINNNNN:  " + str(formKunde.fields["name"]))
+            #formKunde.save()
+            formStandort.save()
+            #return redirect('kunden')
+    context = {
+        'formKunde': formKunde,
+        'formStandort': formStandort
+    }
+    return redirect('kunden')
 
 def create_standort(request):
     form = StandortCreateForms(request.POST or None)

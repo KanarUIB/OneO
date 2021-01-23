@@ -6,7 +6,8 @@
 <div class="container mt-5">
       <div class="text-right">
             {% if user.is_authenticated %}
-     <button class="anlegen"><a href="{% url 'create_kunde' %}">Neuen Kunden anlegen <i class="fas fa-plus"></i></a></button>
+     <!--<button class="anlegen"><a href="{% url 'create_kunde' %}">Neuen Kunden anlegen <i class="fas fa-plus"></i></a></button>-->
+     <button class="anlegen" data-toggle="modal" data-target="#newcustomer">Neuen Kunden anlegen <i class="fas fa-plus"></i></button>
             {% endif %}
    </div>
     <table class="table table-responsive-lg" id="kundenListe" width="100%">
@@ -34,6 +35,43 @@
    </table>
 </div>
 
+
+
+<div class="modal fade" id="newcustomer" style="margin-top: 10%">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Neuen Kunden erstellen</h4>
+                <button type="button" class="close" data-dismiss="modal" style="outline:none">&times;</button>
+            </div>
+            <form action="{% url 'create_kunde' %}" method="post">
+                {% csrf_token %}
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div>
+                        <div>
+                            <input type="text" name="name" placeholder="Kundenname" required>
+                        </div>
+                        <input type="email" name="email" placeholder="E-Mail" required>
+                        <input type="text" name="telNr" placeholder="Tel" required>
+                    </div>
+                    <div>
+                        <input type="text" name="plz" placeholder="PLZ" required>
+                        <input type="text" name="ort" placeholder="Ort" required>
+                        <input type="text" name="strasse" placeholder="Strasse" required>
+                        <input type="text" name="hausnr" placeholder="Hausnr." style="width: 100px" required>
+                    </div>
+                </div>
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button class="anlegen" style="margin: 0">Erstellen</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
 
 
 
