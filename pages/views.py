@@ -178,24 +178,14 @@ def heartbeatHistorie(softwarePakete):
     return heartbeat_historie
 
 
-#    def create_kunde(request):
-#        form = KundeCreateForms(request.POST or None)
-#        if request.method == 'POST':
-#            if form.is_valid():
-#                form.save()
-#                return redirect('kunden')
-#        context = {
-#            'form': form
-#        }
-#        return render(request, 'kunde/create_kunde.html', context)
 
 def create_kunde(request):
+    anz = int(request.POST.get("anzahlStandorte"))
     #arr = []
     #for x in Kunde.objects.all():
     #    arr.append(x.vf_nummer)
     #arr.sort()
 
-    #return HttpResponse(200)
     dataKunde = {
         "name": request.POST.get("name"),
         "vf_nummer": 2,
@@ -208,24 +198,21 @@ def create_kunde(request):
             formKunde.save()
             kunde = Kunde.objects.get(name=dataKunde["name"])
 
+        for z in range(0, anz):
             dataStandort = {
                 "kunde": kunde,
-                "name": request.POST.get("standort"),
-                "plz": request.POST.get("plz"),
-                "ort": request.POST.get("ort"),
-                "strasse": request.POST.get("strasse"),
-                "hausnr": request.POST.get("hausnr"),
-                "email": request.POST.get("email"),
-                "telNr": request.POST.get("telNr"),
+                "name": request.POST.getlist("standort[]")[z],
+                "plz": request.POST.getlist("plz[]")[z],
+                "ort": request.POST.getlist("ort[]")[z],
+                "strasse": request.POST.getlist("strasse[]")[z],
+                "hausnr": request.POST.getlist("hausnr[]")[z],
+                "email": request.POST.getlist("email[]")[z],
+                "telNr": request.POST.getlist("telNr[]")[z],
             }
             formStandort = StandortCreateForms(dataStandort)
-        if formStandort.is_valid():
-            formStandort.save()
-            #return redirect('kunden')
-    #context = {
-    #    'formKunde': formKunde,
-    #    'formStandort': formStandort
-    #}
+            if formStandort.is_valid():
+                formStandort.save()
+
     return redirect('kunden')
 
 def create_standort(request):

@@ -53,8 +53,7 @@
                         <div>
                             <input type="text" name="name" placeholder="Kundenname" required>
                         </div>
-                        <input type="email" name="email" placeholder="E-Mail" required>
-                        <input type="text" name="telNr" placeholder="Tel" required>
+                        <input type="hidden" id="anzahl" name="anzahlStandorte" value="0">
                     </div>
                     <div class="mt-4">
                         <span class="collapseBtn">Standorte hinzufügen</span>
@@ -76,24 +75,30 @@
 <script>
     function setClose(){
         $(".collapseBody .close").click(function(){
-            $(this).parent().parent().parent().hide()
+            $(this).parent().parent().parent().hide();
+            var x = Number($("#anzahl").val());
+            $("#anzahl").val(x-1);
         });
     }
     $(".extraCollapse .add").click(function(){
         $(this).parent().before("<div class='collapseBody p-3'>"
                             + "<div class='row'>"
                             +     "<div class='col-11'>"
-                            +         "<input type='text' name='standort' placeholder='Standortname' required>"
-                            +         "<input type='text' name='plz' placeholder='PLZ' required>"
-                            +         "<input type='text' name='ort' placeholder='Ort' required>"
-                            +         "<input type='text' name='strasse' placeholder='Strasse' required>"
-                            +         "<input type='text' name='hausnr' placeholder='Hausnr.' style='width: 100px' required>"
+                            +         "<input type='email' name='email[]' placeholder='E-Mail' required>"
+                            +         "<input type='text' name='telNr[]' placeholder='Tel' required>"
+                            +         "<input type='text' name='standort[]' placeholder='Standortname' required>"
+                            +         "<input type='text' name='plz[]' placeholder='PLZ' required>"
+                            +         "<input type='text' name='ort[]' placeholder='Ort' required>"
+                            +         "<input type='text' name='strasse[]' placeholder='Strasse' required>"
+                            +         "<input type='text' name='hausnr[]' placeholder='Hausnr.' style='width: 100px' required>"
                             +     "</div>"
                             +     "<div class='col-1'>"
                             +         "<button type='button' class='close' style='outline:none'>&times;</button>"
                             +     "</div>"
                             + "</div></div>");
-        setClose()
+        setClose();
+        var x = Number($("#anzahl").val());
+        $("#anzahl").val(x+1);
     });
 </script>
 

@@ -86,7 +86,7 @@
          .anlegen, .anlegen a{
             background-color:#e30f58;
             color: #ffffff;
-            margin-bottom:20px;
+            margin-bottom: 20px;
          }
 .anlegen:hover{
     background: #ff0f58
@@ -266,15 +266,21 @@
 
 
 
+wrapper{
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    justify-content: space-between
+}
 
 /* Footer */
 
- footer{
-                background: #d5d9d8;
-                position: relative;
-                margin-top:100px;
+footer{
+    background: #d5d9d8;
+    position: relative;
+    margin-top:100px;
 
-            }
+}
             footer p{
                 display: block;
                 padding: 40px 0;

@@ -27,7 +27,9 @@
 
 
 <body>
+<wrapper>
 {% include 'navigation.html' %}
+
 <main>
     {% block content %}{% endblock content %}
     {% block heartbeat%} {% endblock heartbeat%}
@@ -38,7 +40,7 @@
 </main>
 
 {% include "footer.html" %}
-
+</wrapper>
 
 {% block javascripts %}{% endblock javascripts %}
 
