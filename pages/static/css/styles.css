@@ -286,8 +286,9 @@
 
 
             .modal-open .modal {
-                overflow-x: visible;
-                overflow-y: visible;
+                overflow: auto;
+                overflow-x: auto;
+                overflow-y: auto;
             }
             .modal-body > div{
                 1display: block;
@@ -297,3 +298,61 @@
                 border: none;
                 box-shadow: 0 0 28px 0 rgb(70,70,70);
             }
+            .collapseBody{
+                1border-top: 1px solid rgb(200,200,200);
+                border-bottom: 1px solid rgb(220,220,220);
+                transition-duration: 400ms;
+                max-height: 400px;
+            }
+            .collapseBody .close{
+                color: rgb(0,0,0);
+                opacity: 0.9;
+                margin-right: 20px;
+                position: relative;
+                text-shadow: none;
+            }
+            .collapseBody .close:hover{
+                color: rgb(210,0,0);
+                opacity: 1
+            }
+            .collapseBody .close::before{
+                position: absolute;
+                content: "";
+                top: 0;
+                left: 0;
+                transform: translate(-31%,-14%);
+                background: rgb(230,230,230);
+                border-radius: 100px;
+                width: 38px;
+                height: 38px;
+                z-index: -1
+            }
+            .extraCollapse{
+                padding: 20px 0;
+            }
+            .extraCollapse .add{
+                position: relative;
+                font-size: 2rem;
+                background: none;
+                z-index: 0;
+             }
+            .extraCollapse .add:hover{
+                color: #29588c;
+             }
+            .extraCollapse .add::before{
+                position: absolute;
+                content: "";
+                left: 0;
+                right: 0;
+                width: 38px;
+                height: 38px;
+                box-shadow: 0 0 10px 0 rgb(200,200,200);
+                border: 1px solid rgb(200,200,200);
+                transform: translate(29%,20%);
+                z-index: -1;
+                border-radius: 100px;
+                transition-duration: 200ms
+             }
+            .extraCollapse .add:hover.add::before{
+                box-shadow: 0 0 10px 0 rgb(0,140,210);
+             }

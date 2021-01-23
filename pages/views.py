@@ -190,27 +190,27 @@ def heartbeatHistorie(softwarePakete):
 #        return render(request, 'kunde/create_kunde.html', context)
 
 def create_kunde(request):
-    print("\n\nTESTTTTTTTTTTTTT\n\n")
-    print(request.POST.get("name"))
-    print(request.POST)
+    #arr = []
+    #for x in Kunde.objects.all():
+    #    arr.append(x.vf_nummer)
+    #arr.sort()
+
+    #return HttpResponse(200)
     dataKunde = {
         "name": request.POST.get("name"),
         "vf_nummer": 2,
     }
 
     formKunde = KundeCreateForms(dataKunde)
-    #formKunde.initial = {"vf_nummer": "2"}
 
     if request.method == 'POST':
-        print("\n\nDURCHHHHHHHHHHHHHHHHHHH\n\n")
         if formKunde.is_valid():
-            kunde = formKunde.save()
-            #Kunde.objects.create(name=dataKunde["name"], vf_nummer=dataKunde["vf_nummer"]).save()
+            formKunde.save()
             kunde = Kunde.objects.get(name=dataKunde["name"])
-            print("KUNDE    " + str(kunde))
+
             dataStandort = {
                 "kunde": kunde,
-                "name": "Mercedes",
+                "name": request.POST.get("standort"),
                 "plz": request.POST.get("plz"),
                 "ort": request.POST.get("ort"),
                 "strasse": request.POST.get("strasse"),
@@ -219,18 +219,13 @@ def create_kunde(request):
                 "telNr": request.POST.get("telNr"),
             }
             formStandort = StandortCreateForms(dataStandort)
-            print("FORMSTANDORT:             " + str(formStandort))
         if formStandort.is_valid():
-            #formKunde.cleaned_data["vf_nummer"] == ""
-            print("DRINnnewrweiurhweiurhweiurhwieurhiweurhiweuhr")
-            print("DRINNNNN:  " + str(formKunde.fields["name"]))
-            #formKunde.save()
             formStandort.save()
             #return redirect('kunden')
-    context = {
-        'formKunde': formKunde,
-        'formStandort': formStandort
-    }
+    #context = {
+    #    'formKunde': formKunde,
+    #    'formStandort': formStandort
+    #}
     return redirect('kunden')
 
 def create_standort(request):
