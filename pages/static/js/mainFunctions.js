@@ -48,6 +48,7 @@ $(document).ready(function () {
     "info":           "_START_ - _END_ von _TOTAL_ Einträgen",
     "infoEmpty":      "keine Einträge",
     "lengthMenu":     "_MENU_ Einträge anzeigen",
+    "infoFiltered":   "(von _MAX_ Einträgen)",
     "search":         "Schnellsuche:",
         "zeroRecords":    "Zu Ihrer Suche gibt es leider keine Einträge",
     "paginate": {
