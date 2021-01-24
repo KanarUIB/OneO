@@ -15,6 +15,9 @@ from pages.models import Lizenz, KundeHatSoftware
 import datetime
 from django.utils import timezone
 import schedule
+import json
+from django.http import JsonResponse
+from django.core import serializers
 
 current_date = datetime.datetime.now()
 
@@ -166,3 +169,80 @@ def heartbeat(request):
                              meldung=beat["meldung"],
                              datum=datum)
     return Response(beat["lizenzschluessel"])
+
+
+
+@api_view(["POST"])
+def lizenzHeartbeat(request):
+    print("\nDRIN\n")
+    beat = {
+        "lizenzschluessel": request.data["lizenzschluessel"]
+    }
+
+    """""""""
+    #Instanziere alle nötigen Attribute für einen Heartbeat
+    """""""""
+    license = Lizenz.objects.get(license_key=beat["lizenzschluessel"])
+    print("LIZENZ:    " + str(license))
+
+    kundeSoftware = license.KundeHatSoftware
+    print("KUNDESOFTWARE:     " + str(kundeSoftware))
+    datum = datetime.date.today()
+
+
+    #startdate = license.gültig_von
+    enddate = license.gültig_bis
+    print(type(enddate))
+    print(type(datum))
+    print("ENDDATE:  " + str(enddate))
+    #print("ENDDATE:  " + str(startdate))
+    print(license.replace_key.license_key)
+
+    if enddate < datum and license.replace_key:
+        print("11111111111111111")
+        return JsonResponse(json.dumps({"lizenz" : license.replace_key.license_key}), safe=False)
+
+    elif enddate > datum or license.replace_key == None:
+        print("22222222222222222")
+        return JsonResponse({})
+
+    else:
+        exit()
+        try:
+            location_license = license.objects.get(key=beat["key"])
+            print(location_license.key)
+            used_software_product = KundeHatSoftware.objects.get(
+                location = location_license.location,
+                product  = location_license.module.product,
+            )
+            Heartbeat.objects.create(used_product=used_software_product, message=beat["key"], detail=beat["log"])
+        except:
+            try:
+                customer_license = license.objects.get(key=beat["key"])
+                print(customer_license.key)
+                locations = Location.objects.filter(customer = customer_license.customer)
+                for location in locations:
+                    used_software_product = UsedSoftwareProduct.objects.get(
+                        location = location,
+                        product  = customer_license.module.product,
+                    )
+                    break
+                Heartbeat.objects.create(used_product=used_software_product, message=beat["key"], detail=beat["log"], unknown_location = True)
+            except:
+                pass
+
+    Heartbeat.objects.create(kundeSoftware=kundeSoftware, lizenzschluessel=beat["lizenzschluessel"],
+                             meldung=beat["meldung"],
+                             datum=datum)
+    return Response(beat["lizenzschluessel"])
+
+
+
+# API für das überschreiben der Lizenzen
+@api_view(["POST"])
+def lizenzSave(request):
+
+    print(request.data)
+
+    return JsonResponse({})
+
