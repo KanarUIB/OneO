@@ -45,13 +45,14 @@
                 <h4 class="modal-title">Neuen Kunden erstellen</h4>
                 <button type="button" class="close" data-dismiss="modal" style="outline:none">&times;</button>
             </div>
-            <form action="{% url 'create_kunde' %}" method="post">
+            <form action="{% url 'create_kunde' %}" method="POST">
                 {% csrf_token %}
                 <!-- Modal body -->
                 <div class="modal-body">
                     <div>
                         <div>
                             <input type="text" name="name" placeholder="Kundenname" required>
+                            <input type="text" name="vf_nummer" placeholder="VF-Nummer">
                         </div>
                         <input type="hidden" id="anzahl" name="anzahlStandorte" value="0">
                     </div>
@@ -84,9 +85,9 @@
         $(this).parent().before("<div class='collapseBody p-3'>"
                             + "<div class='row'>"
                             +     "<div class='col-11'>"
+                            +         "<input type='text' name='standort[]' placeholder='Standortname' required>"
                             +         "<input type='email' name='email[]' placeholder='E-Mail' required>"
                             +         "<input type='text' name='telNr[]' placeholder='Tel' required>"
-                            +         "<input type='text' name='standort[]' placeholder='Standortname' required>"
                             +         "<input type='text' name='plz[]' placeholder='PLZ' required>"
                             +         "<input type='text' name='ort[]' placeholder='Ort' required>"
                             +         "<input type='text' name='strasse[]' placeholder='Strasse' required>"

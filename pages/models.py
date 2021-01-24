@@ -4,7 +4,7 @@ import datetime
 
 class Kunde(models.Model):
     name = models.CharField(max_length=50)
-    vf_nummer = models.IntegerField()
+    vf_nummer = models.IntegerField(default=None, blank=True, null=True)
 
     def __str__(self):
         return str(self.name)
