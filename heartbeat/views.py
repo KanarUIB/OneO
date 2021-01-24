@@ -192,11 +192,6 @@ def lizenzHeartbeat(request):
 
     #startdate = license.gültig_von
     enddate = license.gültig_bis
-    print(type(enddate))
-    print(type(datum))
-    print("ENDDATE:  " + str(enddate))
-    #print("ENDDATE:  " + str(startdate))
-    print(license.replace_key.license_key)
 
     if enddate < datum and license.replace_key:
         print("11111111111111111")
@@ -241,7 +236,7 @@ def lizenzHeartbeat(request):
 # API für das überschreiben der Lizenzen
 @api_view(["POST"])
 def lizenzSave(request):
-
+    print("DRIN")
     print(request.data)
 
     return JsonResponse({})

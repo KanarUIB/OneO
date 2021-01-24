@@ -39,7 +39,7 @@ urlpatterns = [
     path('update/', page.updates, name='update'),
     path('heartbeat', heartbeat_view.heartbeat, name="heartbeat"),
     path('lizenzheartbeat', heartbeat_view.lizenzHeartbeat, name="lizenzHeartbeat"),
-    path('/lizenzheartbeat/lizenzsave', heartbeat_view.lizenzSave, name="lizenzSave")
+    path('lizenzheartbeat/lizenzsave', heartbeat_view.lizenzSave, name="lizenzSave")
 ]
 
 
