@@ -75,6 +75,7 @@ class Lizenz(models.Model):
     detail = models.TextField()
     gültig_von = models.DateField(auto_now_add=False, auto_now=False, blank=True)
     gültig_bis = models.DateField(auto_now_add=False, auto_now=False, blank=True)
+    replace_key = models.OneToOneField('Lizenz', on_delete=models.CASCADE, null=True, default=None, blank=True)
 
     def __str__(self):
         return self.KundeHatSoftware.__str__() + " - " + self.modul.name

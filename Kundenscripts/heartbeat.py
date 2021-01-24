@@ -7,6 +7,7 @@ import requests
 import string
 from ctypes import windll
 import subprocess
+import random
 
 
 
@@ -16,7 +17,7 @@ URL = "http://localhost:8000/heartbeat"
 
 
 
-def searchFiles(dir : list[str], zaehler = 0):
+def searchFiles(dir : list, zaehler = 0):
     """ Sucht mithilfe der Liste von Laufwerken nach dem Ordner 'Kundenscripts',
         in welchem sich die Dateien LOG.txt und congif.txt befinden
 
@@ -124,7 +125,7 @@ def directRequest(dir: str):
 
 
 
-def get_drives() -> lis[str] :
+def get_drives() -> list :
     """ Findet alle existierenden Laufwerke und speichert diese in drives[]
 
     Returns
