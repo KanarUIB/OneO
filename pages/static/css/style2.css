@@ -1,0 +1,364 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Chivo:wght@300;700&display=swap');
+/* Allgemein */
+            body{
+                font-family: 'Chivo', sans-serif;
+                margin: 0;
+                padding: 0;
+                position: relative;
+                }
+
+            .shadowKasten{
+
+              margin:0 0,5%;
+              border-radius: 25px;
+              padding: 20 50 20 50;
+              box-shadow: 0px 10px 25px 0 #dbe2ef;
+              height: 100%;
+}
+            a, a:hover{
+            text-decoration:none}
+            h1{
+                margin-top: 50px;
+                font-size:24pt;
+                text-align:center;
+                font-weight:700;
+                letter-spacing:0px;
+                color: #29588c;
+            }
+
+             h2{
+                margin:50px 0;
+                color: #29588C;
+                font-size:18px;
+                text-align:center;
+                font-weight:500;
+            }
+            h2:after, h2:before{
+            content:"";
+            display:inline-block;
+            width: 20px;
+            height: 2px;
+
+            background:#29588C;
+            }
+            h2:after{
+             position:relative;
+            bottom: 5px;
+            left: 5px;
+            }
+            h2:before{
+             position:relative;
+            bottom: 5px;
+            right: 5px;
+            }
+
+            thead{
+            background-color: #29588C;
+            color: white;}
+
+            .dataTables_wrapper .dataTables_paginate .paginate_button {
+
+            margin-top: 40px;
+}
+   input{
+        padding: 5px 10px;
+        border-radius: 8px;
+        1color: #29588C;
+        1font-weight: 700;
+        border: 1px solid rgb(130,130,130);
+        1background: rgb(250,250,250);
+        margin: 5px 5px 5px 0;
+   }
+            i{margin-left:5px;}
+/* buttons */
+
+            button{
+                appearance: none;
+                border: none;
+                border-radius: 5px;
+                padding: 10px 20px;
+                transition-duration: 300ms;
+            }
+
+
+
+         .anlegen, .anlegen a{
+            background-color:#e30f58;
+            color: #ffffff;
+            margin-bottom: 20px;
+         }
+.anlegen:hover{
+    background: #ff0f58
+}
+.anlegen:focus{
+    outline: none;
+    1transform: translateY(1px);
+    padding: 12px 20px 8px;
+    box-shadow: inset 0 2px 4px 1px rgb(150,0,0);
+}
+/* nav */
+ .navbar {
+
+            background-color:white;
+           box-shadow: 0px 1px 15px 0 #dbe2ef;
+            }
+
+             #menu li a{
+                text-decoration: none;
+                text-decoration: none;
+                text-align:center;
+                color: #29588C;
+                 opacity: 0.7;
+                transition:300ms;
+            }
+               #menu li a:hover{
+                opacity: 1;
+            }
+
+            #menu .login-btn{
+            border: 2px solid #29588C;
+                text-align: center;
+                border-radius: 6px;
+                padding:5px 20px 5px;
+                width:100%;
+
+            }
+
+            #menu .login-btn:hover{
+            background-color: #29588C;
+            color:white;}
+
+            .navbar-toggler:hover{
+            background-color: white;}
+
+            .navbar-expand-lg{
+            padding-bottom:10px;
+            }
+
+
+
+/* Lizenzen */
+
+
+
+/* Updates */
+.pakete, .table {
+            margin-top:60px;}
+.pakete button{
+                height: inherit;
+                margin-top: 10px;
+            }
+     .pakete button{
+                display: inline-block;
+                background: rgb(250,250,250);
+                padding: 8px 0;
+                width: 100%;
+                border: 2px solid #29588C;
+                border-radius: 5px;
+                cursor: pointer;
+                outline: none;
+                text-transform: uppercase;
+                transition-duration: 240ms;
+            }
+.pakete .details{
+                background: #29588C;
+                color: white;
+            }
+            .pakete .details:hover{
+                background: #2968BC;
+            }
+
+            .pakete{
+            padding:20px;}
+
+/* Kundenseite */
+ .kundenliste{
+                width: 95%;
+                margin 0 auto;
+                display: flex;
+                flex-direction: column;
+            }
+            .kunde{
+                display: block;
+                witdh: 100%;
+                flex: 1;
+                border: 0;
+                text-align: center;
+                box-shadow: 4px 4px 9px 0 #dbe2ef;
+                padding: 15px;
+                border-radius: 5px;
+                text-decoration: none;
+                transition-duration: 140ms;
+                color: black;
+            }
+
+            #kundenListe td{
+            border:0;}
+
+            #kundenListe thead tr th{
+            border:0;
+            background-color:white;
+            }
+            .kunde:hover{
+                background: rgb(245,245,245);
+            }
+
+            /* Kundenprofil-Seite */
+
+            #autohausZeile{
+            margin-bottom: -45px;
+            }
+
+            .trigger i:activate {
+            transform: rotateZ(-90deg);
+            }
+
+            .tabellenHead{
+            color: #29588c;
+            margin-top: 30px;
+            margin-bottom: -45px;
+            }
+
+            .trigger{
+            text-align:center;
+            }
+
+            .panel-group{
+            margin-bottom: 20px;
+              display: block;
+                width: 100%;
+                text-align: left;
+                box-shadow: 4px 4px 9px 0 #dbe2ef;
+                padding: 15px;
+                border-radius: 5px;
+                text-decoration: none;
+                transition-duration: 140ms;
+                color: black;
+            }
+
+            .scrolltable{
+            height: 400px;
+            overflow: scroll;
+            }
+
+/* Login */
+        .loginBlock{
+
+            width:400px;
+            margin: 100px auto;
+
+            }
+            .loginBlock >form{
+                border-radius: 5px;
+                padding: 30px;
+            }
+
+            .loginBlock form fieldset input{
+                border-radius: 5px;
+                padding: 6px;
+                width: 100%;
+
+            }
+
+            .loginBlock .btn-outline-primary{
+            width: 100%;}
+
+
+
+wrapper{
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    justify-content: space-between
+}
+
+/* Footer */
+
+footer{
+    background: #d5d9d8;
+    position: relative;
+    margin-top:100px;
+
+}
+            footer p{
+                display: block;
+                padding: 40px 0;
+                text-align: center;
+                margin: 0 auto;
+                color: #434c53;
+                font-size: 0.9em;
+            }
+
+
+            .modal-open .modal {
+                overflow: auto;
+                overflow-x: auto;
+                overflow-y: auto;
+            }
+            .modal-body > div{
+                1display: block;
+            }
+            .modal-content{
+                border-radius: 8px;
+                border: none;
+                box-shadow: 0 0 28px 0 rgb(70,70,70);
+            }
+            .collapseBody{
+                1border-top: 1px solid rgb(200,200,200);
+                border-bottom: 1px solid rgb(220,220,220);
+                transition-duration: 400ms;
+                max-height: 400px;
+            }
+            .collapseBody .close{
+                color: rgb(0,0,0);
+                opacity: 0.9;
+                margin-right: 20px;
+                position: relative;
+                text-shadow: none;
+            }
+            .collapseBody .close:hover{
+                color: rgb(210,0,0);
+                opacity: 1
+            }
+            .collapseBody .close::before{
+                position: absolute;
+                content: "";
+                top: 0;
+                left: 0;
+                transform: translate(-31%,-14%);
+                background: rgb(230,230,230);
+                border-radius: 100px;
+                width: 38px;
+                height: 38px;
+                z-index: -1
+            }
+            .extraCollapse{
+                padding: 20px 0;
+            }
+            .extraCollapse .add{
+                position: relative;
+                font-size: 2rem;
+                background: none;
+                z-index: 0;
+             }
+            .extraCollapse .add:hover{
+                color: #29588c;
+             }
+            .extraCollapse .add::before{
+                position: absolute;
+                content: "";
+                left: 0;
+                right: 0;
+                width: 38px;
+                height: 38px;
+                box-shadow: 0 0 10px 0 rgb(200,200,200);
+                border: 1px solid rgb(200,200,200);
+                transform: translate(29%,20%);
+                z-index: -1;
+                border-radius: 100px;
+                transition-duration: 200ms
+             }
+            .extraCollapse .add:hover.add::before{
+                box-shadow: 0 0 10px 0 rgb(0,140,210);
+             }
