@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>Aubex Lizenzupdater</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+          type="text/css"/>
+       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
+    <!--    MDBootstrap -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/dataTables.bootstrap4.min.css" type="text/css"/>
+    <link rel="stylesheet" href="https://cdn.datatables.net/select/1.3.1/css/select.dataTables.min.css" type="text/css"/>
+
+    {% load static %}
+    <!-- Chart.JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
+    <script src="http://code.jquery.com/jquery-3.5.1.min.js"
+            integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
+            crossorigin="anonymous"></script>
+
+    <script defer type="text/javascript" src="{% static 'js/mainFunctions.js' %}"></script>
+
+    <link rel="stylesheet" type="text/css" href="{% static 'css/listNavi.css' %}"></link>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}"></link>
+    <link rel="shortcut icon" href="https://www.aubex.de/sites/default/files/favicon.png" type="image/png"/>
+</head>
+
+
+<body>
+<wrapper>
+{% include 'navigation.html' %}
+
+<main>
+    {% block content %}{% endblock content %}
+    {% block heartbeat%} {% endblock heartbeat%}
+    {% block chartJS %} {% endblock chartJS %}
+    {% block chart %}{% endblock chart %}
+    {% block dashboardtabelle %}{% endblock dashboardtabelle %}
+
+</main>
+
+{% include "footer.html" %}
+</wrapper>
+
+{% block javascripts %}{% endblock javascripts %}
+
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+        crossorigin="anonymous"></script>
+
+
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://pagecdn.io/lib/popper/2.4.4/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<!-- MDBootstrap for Datatable -->
+<script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap4.min.js"></script>
+<script src="https://cdn.datatables.net/select/1.3.1/js/dataTables.select.min.js"></script>
+{% load static %}
+
+
+
+</body>
+</html>
