@@ -96,8 +96,9 @@ def directRequest(dir: str):
     PARAMS = readData(dir, "config.txt")
     x = requests.post(url= URL, data= PARAMS)
     save = overwrite(json.loads(x.json())["lizenz"])
+    print(save)
 
-    requests.post(url= "http://localhost:8000/lizenznew", data = save)
+    requests.post(url= "http://localhost:8000/lizenzheartbeat/lizenzsave", data = {"bool": save})
 
 
 def get_drives() -> list:
