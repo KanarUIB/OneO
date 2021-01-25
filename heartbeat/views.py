@@ -237,7 +237,16 @@ def lizenzHeartbeat(request):
 @api_view(["POST"])
 def lizenzSave(request):
     print("DRIN")
-    print(request.data)
+    print(request.data["bool"])
+    print(request.data["old"])
+    print(request.data["new"])
+    if request.data["bool"] == "True":
+        print("IST TRUEEEEEEEEEEEE")
+        Lizenz.objects.get(license_key=request.data["old"]).update(license_key=request.data["new"], replace_key=None)
+        for x in Lizenz.objects.all():
+            print(x.license_key)
+            print(x.replace_key)
+
 
     return JsonResponse({})
 

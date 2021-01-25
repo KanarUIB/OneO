@@ -5,3 +5,4 @@
 [ERROR] Kommunikationsfehler
 	Serververbindung inaktiv 
 	Code: 500
+	APSDASDQ123123ASDLKA1231
