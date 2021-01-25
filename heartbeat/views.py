@@ -38,6 +38,7 @@ mit der Meldung "Heartbeat noch nie eingetroffen" erstellt.
 
 
 def checkHeartbeat():
+    """
     softwarePakete = KundeHatSoftware.objects.all()
     for paket in softwarePakete:
         letzterHeartbeat = getLetzteHeartbeat(paket)
@@ -61,17 +62,16 @@ def checkHeartbeat():
                                                      meldung="Heartbeat noch nie eingetroffen",
                                                      datum=datetime.datetime.now())
         elif letzterHeartbeat.lizenzschluessel == "Lizenzschlüssel konnte nicht gefunden werden":
-            try:
-                newLicenseKey = Lizenz.objects.get(KundeHatSoftware=paket).license_key
-                Heartbeat.objects.get(id=letzterHeartbeat.id).update(
-                    lizenzschluessel=newLicenseKey)
-            except:
-                pass
+            Heartbeat.objects.filter(kundeSoftware=letzterHeartbeat.kundeSoftware,
+                                     lizenzschluessel=letzterHeartbeat.lizenzschluessel).update(
+                lizenzschluessel=Lizenz.objects.get(KundeHatSoftware=paket).license_key)
         else:
             timedelta = datetime.timedelta(hours=24)
             zeit = current_date - timezone.make_naive(letzterHeartbeat.datum)
             if zeit > timedelta:
                 createMissingHeartbeats(letzterHeartbeat.kundeSoftware)
+
+    """
 
 
 """""""""
@@ -177,7 +177,6 @@ def heartbeat(request):
 
 @api_view(["POST"])
 def lizenzHeartbeat(request):
-    print("\nDRIN\n")
     beat = {
         "lizenzschluessel": request.data["lizenzschluessel"]
     }
@@ -186,26 +185,20 @@ def lizenzHeartbeat(request):
     #Instanziere alle nötigen Attribute für einen Heartbeat
     """""""""
     license = Lizenz.objects.get(license_key=beat["lizenzschluessel"])
-    print("LIZENZ:    " + str(license))
 
     kundeSoftware = license.KundeHatSoftware
-    print("KUNDESOFTWARE:     " + str(kundeSoftware))
     datum = datetime.date.today()
-
-
     #startdate = license.gültig_von
     enddate = license.gültig_bis
 
     if enddate < datum and license.replace_key:
-        print("11111111111111111")
-        return JsonResponse(json.dumps({"lizenz" : license.replace_key.license_key}), safe=False)
+        return JsonResponse(json.dumps({"lizenz" : license.replace_key.license_key, "exist": True}), safe=False)
 
     elif enddate > datum or license.replace_key == None:
-        print("22222222222222222")
-        return JsonResponse({})
+        return JsonResponse(json.dumps({"lizenz": "", "exist": False}), safe=False)
 
     else:
-        exit()
+        '''
         try:
             location_license = license.objects.get(key=beat["key"])
             print(location_license.key)
@@ -228,7 +221,7 @@ def lizenzHeartbeat(request):
                 Heartbeat.objects.create(used_product=used_software_product, message=beat["key"], detail=beat["log"], unknown_location = True)
             except:
                 pass
-
+        '''
     Heartbeat.objects.create(kundeSoftware=kundeSoftware, lizenzschluessel=beat["lizenzschluessel"],
                              meldung=beat["meldung"],
                              datum=datum)
@@ -239,16 +232,16 @@ def lizenzHeartbeat(request):
 # API für das überschreiben der Lizenzen
 @api_view(["POST"])
 def lizenzSave(request):
-    print("DRIN")
-    print(request.data["bool"])
-    print(request.data["old"])
-    print(request.data["new"])
+
     if request.data["bool"] == "True":
-        print("IST TRUEEEEEEEEEEEE")
-        Lizenz.objects.get(license_key=request.data["old"]).update(license_key=request.data["new"], replace_key=None)
-        for x in Lizenz.objects.all():
-            print(x.license_key)
-            print(x.replace_key)
+
+        replace = Lizenz.objects.get(license_key=request.data["new"])
+        gueltig_von = replace.gültig_von
+        gueltig_bis = replace.gültig_bis
+
+        Lizenz.objects.get(license_key=request.data["new"], replace_key=None).delete()
+        Lizenz.objects.filter(license_key=request.data["old"]).update(license_key=request.data["new"], gültig_von=gueltig_von, gültig_bis=gueltig_bis, replace_key=None)
+
 
 
     return JsonResponse({})

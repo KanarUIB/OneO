@@ -6,6 +6,7 @@
                 margin: 0;
                 padding: 0;
                 position: relative;
+                transition-duration: 800ms
                 }
 
             .shadowKasten{
@@ -136,6 +137,18 @@
             padding-bottom:10px;
             }
 
+#changeMode{
+    position: absolute;
+    right: 2%;
+    top: 22%;
+    1width: 30px;
+    1height: 30px;
+    padding: 5px 10px;
+    border-radius: 100px;
+    cursor: pointer;
+    background: rgb(40,40,40);
+    color: rgb(200,200,200);
+}
 
 
 /* Lizenzen */
