@@ -15,9 +15,7 @@
         <div class="container">
             <div class="text-right">
                 {% if user.is_authenticated %}
-                <!--<button class="anlegen"><a href="{% url 'create_standort' kunde.id %}"> <i
-                            class="fas fa-plus"></i> Standort hinzufügen</a></button>
-                -->
+
                 <button class="anlegen" data-toggle="modal" data-target="#newstandort">Standort hinzufügen <i
                         class="fas fa-plus"></i></button>
 
@@ -133,7 +131,9 @@
                                 <td>{{lizenz.detail}}</td>
                                 <td>{{lizenz.license_key}}
                                     <input type="hidden" value="{{lizenz.license_key}}">
+                                    {%if user.is_superuser %}
                                     <button data-toggle="modal" data-target="#updateLicense"class="cfgBtn"><i class="fas fa-sync-alt"></i></button>
+                                    {% endif %}
                                 </td>
                                 <td>{{lizenz.gültig_bis}}</td>
                             </tr>
