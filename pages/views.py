@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect
 import heartbeat.views as heartbeat_views
 from heartbeat.models import Heartbeat
-from .forms import StandortCreateForms, KundeCreateForms
-from .models import Kunde, KundeHatSoftware, Software, Standort, Lizenz, Ansprechpartner
+from .forms import StandortCreateForms, KundeCreateForms, SoftwareCreateForm, ModulCreateForm, \
+    StandortlizenzCreateForm
+from .models import Kunde, KundeHatSoftware, Software, Standort, Lizenz, Ansprechpartner, Modul
 from django.http import JsonResponse, HttpResponse
 import json
 import datetime
@@ -83,7 +84,6 @@ die dazugehörigen Heartbeats weitergegeben.
 
 
 def kundenprofil(request, id):
-    print("bin drin")
     try:
         kunde = Kunde.objects.get(id=str(id))
         kundenStandorte = Standort.objects.filter(kunde=kunde)
@@ -101,7 +101,9 @@ def kundenprofil(request, id):
             "softwarePakete": getStandortSoftware(kundenStandorte),
             "standortBerater": Ansprechpartner.objects.all(),
             "softwareLizenzen": Lizenz.objects.all(),
-            "heartbeatHistorie": heartbeatHistorie(getStandortSoftware(kundenStandorte))
+            "heartbeatHistorie": heartbeatHistorie(getStandortSoftware(kundenStandorte)),
+            "softwares": Software.objects.all(),
+            "module": Modul.objects.all(),
         }
 
     return render(request, 'kundenprofil.html', context)
@@ -191,7 +193,6 @@ def heartbeatHistorie(softwarePakete):
 
 def create_kunde(request):
     anz = int(request.POST.get("anzahlStandorte"))
-    print("bin hier")
     dataKunde = {
         "name": request.POST.get("name"),
         "vf_nummer": request.POST.get("vf_nummer"),
@@ -200,9 +201,7 @@ def create_kunde(request):
     formKunde = KundeCreateForms(dataKunde)
 
     if request.method == 'POST':
-        print("bin hier 2")
         if formKunde.is_valid():
-            print("bin hier 3")
             formKunde.save()
             kunde = Kunde.objects.get(name=dataKunde["name"])
             for z in range(0, anz):
@@ -224,7 +223,6 @@ def create_kunde(request):
 
 
 def create_standort(request, id):
-    print(request)
     kunde = Kunde.objects.get(id=id)
     form = StandortCreateForms()
     if request.method == 'POST':
@@ -246,3 +244,46 @@ def create_standort(request, id):
         'form': form,
     }
     return redirect('kundenprofil', id)
+
+
+"""""
+Wird beim hinzufügen von einem 
+
+"""""
+
+
+def create_software(request, id):
+    modul = Modul.objects.get(name=request.POST.get("modul"))
+    if request.method == "POST":
+
+        standort = Standort.objects.get(id=request.POST.get("standort"))
+        softwarePaketData = {
+            "standort": standort,
+            "software": modul.produkt,
+            "version": request.POST.get("version")
+        }
+        softwareForm = SoftwareCreateForm(softwarePaketData)
+        if softwareForm.is_valid():
+
+            softwareForm.save()
+            softwarePaket = KundeHatSoftware.objects.last()
+
+            lizenzData = {
+                "KundeHatSoftware": softwarePaket,
+                "modul": modul,
+                "license_key": request.POST.get("license_key"),
+                "detail": request.POST.get("detail"),
+                "gültig_von": request.POST.get("gültig_von"),
+                "gültig_bis": request.POST.get("gültig_bis"),
+                "standort_id": standort.id,
+            }
+            lizenzForm = StandortlizenzCreateForm(lizenzData)
+            if lizenzForm.is_valid():
+                lizenzForm.save()
+            return redirect('kundenprofil', id)
+    return redirect('kundenprofil', id)
+
+
+
+def update_license(request,id):
+    pass

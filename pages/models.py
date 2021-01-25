@@ -13,7 +13,6 @@ class Kunde(models.Model):
         return self.mandant == string
 
 
-
 class Standort(models.Model):
     kunde = models.ForeignKey(Kunde, on_delete=models.CASCADE)
     name = models.CharField(max_length=50)
@@ -26,7 +25,7 @@ class Standort(models.Model):
     zeiten = models.CharField(max_length=50, null=True)
 
     def __str__(self):
-        return str(self.kunde.name)+" " + str(self.name)
+        return str(self.kunde.name) + " " + str(self.name)
 
 
 class Software(models.Model):
@@ -36,8 +35,6 @@ class Software(models.Model):
 
     def __str__(self):
         return self.software_name
-
-
 
 
 class KundeHatSoftware(models.Model):
@@ -54,7 +51,7 @@ class Modul(models.Model):
     produkt = models.ForeignKey(Software, on_delete=models.CASCADE)
 
     def __str__(self):
-        return str(self.name)
+        return str(self.produkt.software_name) + ": " + str(self.name)
 
 
 class Ansprechpartner(models.Model):
@@ -72,7 +69,7 @@ class Lizenz(models.Model):
     KundeHatSoftware = models.ForeignKey(KundeHatSoftware, on_delete=models.CASCADE)
     modul = models.ForeignKey(Modul, on_delete=models.CASCADE)
     license_key = models.CharField(max_length=300)
-    detail = models.TextField()
+    detail = models.TextField(null=True, default=None, blank=True)
     gültig_von = models.DateField(auto_now_add=False, auto_now=False, blank=True)
     gültig_bis = models.DateField(auto_now_add=False, auto_now=False, blank=True)
     replace_key = models.OneToOneField('Lizenz', on_delete=models.CASCADE, null=True, default=None, blank=True)
@@ -80,8 +77,10 @@ class Lizenz(models.Model):
     def __str__(self):
         return self.KundeHatSoftware.__str__() + " - " + self.modul.name
 
+
 class Kundenlizenz(Lizenz):
     kunde_id = models.ForeignKey('Kunde', on_delete=models.CASCADE)
+
 
 class Standortlizenz(Lizenz):
     standort_id = models.ForeignKey('Standort', on_delete=models.CASCADE)

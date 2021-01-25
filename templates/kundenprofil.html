@@ -6,7 +6,12 @@
 <div class="stats">
     <div class="ueberschrift">
         <h1 id="autohausZeile"> {{ kunde.name }}</h1>
+        {%if kunde.vf_nummer is None %}
+        <h2>VF- Nummer: nicht vergeben </h2>
+        {% else %}
         <h2>VF- Nummer: {{ kunde.vf_nummer }}</h2>
+        {% endif %}
+
         <div class="container">
             <div class="text-right">
                 {% if user.is_authenticated %}
@@ -95,6 +100,15 @@
                 </div>
                 <div class="row">
                     <div class="col-md-12">
+                        {% if user.is_authenticated %}
+                        <!--<button class="anlegen"><a href="{% url 'create_standort' kunde.id %}"> <i
+                                    class="fas fa-plus"></i> Standort hinzufügen</a></button>
+                        -->
+                        <input type="hidden" name="modalStandort" value="{{ standort.id }}">
+                        <button id="softwareModal" class="anlegen softwareBtn" data-toggle="modal" data-target="#newsoftware">Software hinzufügen <i
+                                class="fas fa-plus"></i></button>
+
+                        {% endif %}
                         <table class="table">
                             <thead>
                             <tr>
@@ -109,7 +123,8 @@
                             {% for pakete in softwarePakete %}
                             {% if pakete.standort == standort %}
                             {% for lizenz in softwareLizenzen %}
-                            {% if lizenz.KundeHatSoftware == pakete and lizenz.KundeHatSoftware.software == pakete.software %}
+                            {% if lizenz.KundeHatSoftware == pakete %}
+                            {% if lizenz.KundeHatSoftware.software == pakete.software %}
                             <tr>
                                 <td>{{pakete.software}}</td>
                                 <td>{{pakete.software.version}}</td>
@@ -118,6 +133,7 @@
                                 <td>{{lizenz.license_key}}</td>
                                 <td>{{lizenz.gültig_bis}}</td>
                             </tr>
+                            {% endif %}
                             {% endif %}
                             {% endfor %}
                             {% endif %}
@@ -158,6 +174,48 @@
     </div>
     {% endfor %}
     {% endif %}
+</div>
+
+<div class="modal fade" id="newsoftware" style="margin-top: 10%">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Software hinzufügen</h4>
+                <button type="button" class="close" data-dismiss="modal" style="outline:none">&times;</button>
+            </div>
+            <form action="{% url 'create_software' kunde.id %}" method="post" id="create_software">
+                {% csrf_token %}
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div>
+                        <input type="hidden" id="standort_id_modal" name="standort" value="0">
+                        <label for="modul">Software:</label>
+                        <select name="modul" id="modul" form="create_software">
+                            {% for modul in module %}
+                            <option value="{{ modul.name }}">{{ modul }}</option>
+                            {% endfor %}
+                        </select>
+                        <input class="ml-2" type="text" name="version" placeholder="Software-Version">
+                    </div>
+                    <div>
+                        <input type="text" name="license_key" placeholder="Lizenzschlüssel" requiered>
+                        <br>
+                        <input type="text" name="detail" placeholder="Anmerkung">
+                        <br>
+                        <input type="date" name="gültig_von" required>
+                        <input type="date" name="gültig_bis" required>
+
+                    </div>
+                </div>
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button class="anlegen" style="margin: 0">Hinzufügen</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
 </div>
 
 <div class="modal fade" id="newstandort" style="margin-top: 10%">
@@ -202,6 +260,18 @@ $(".toggle").slideUp();
 $(".trigger").click(function(){
     $(this).next(".toggle").slideToggle("slow");
   });
+
+$(".anlegen.softwareBtn").click(function(){
+    var standortID = Number($(this).prev().val());
+    $("#standort_id_modal").val(standortID);
+});
+
+
+
+
+
+
+
 
 </script>
 
