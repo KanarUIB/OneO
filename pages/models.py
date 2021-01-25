@@ -3,17 +3,49 @@ import datetime
 
 
 class Kunde(models.Model):
+    """
+        Das Modell Kunde bildet den Kunden in der Datenbank ab.
+
+        Attributes:
+            name    (str)   :   Der Name des Kunden.
+            vf_nummer (int) :   VF Nummer ist ein eindeutiger Schlüssel für Kunden die mehrere Standorte besitzen.
+        Methods:
+            __str__(self)   :   Ist eine mit der sich ein Kunden-Instanz selbst beschreibt.
+    """
     name = models.CharField(max_length=50)
     vf_nummer = models.IntegerField(default=None, blank=True, null=True)
 
     def __str__(self):
+        """
+            Beschreibt die angesprochene Instanz.
+
+            Parameters:
+                self:   Die Kundeninstanz selbst.
+            Returns:
+                str (str): Name des angesprochenen Kundeninstanzes
+        """
         return str(self.name)
 
-    def equals(self, string):
-        return self.mandant == string
 
 
 class Standort(models.Model):
+    """
+        Das Modell Standort bildet ein Standort des Kunden in der Datenbank ab.
+
+        Attributes:
+            kunde    (Kunde)   :   Der Kunde, welchem der Standort angehört.
+            name    (str)      :   Der Name des Standorts.
+            telNr   (str)       :   Die Telefonnummer des Standorts.
+            email   (str)       :   Die Email Adresse des Standorts.
+            strasse (str)       :   Die Straße des Standorts.
+            hausnr  (str)       :   Die Hausnummer des Standorts.
+            plz     (str)       :   Die Postleitzahl der Ortschaft des Standorts.
+            ort     (str)       :   Die Ortschaft in der, der Standort seinen Sitz hat.
+            zeiten  (str)       :   Die Geschäftszeiten des Standorts.
+        Methods:
+            __str__(self)   :   Ist eine Methode mit der sich ein Standort-Instanz selbst beschreibt.
+    """
+
     kunde = models.ForeignKey(Kunde, on_delete=models.CASCADE)
     name = models.CharField(max_length=50)
     telNr = models.CharField(max_length=50)
@@ -29,11 +61,29 @@ class Standort(models.Model):
 
 
 class Software(models.Model):
+    """
+        Das Modell Software bildet eine Software in der Datenbank ab.
+
+        Attributes:
+            software_name    (str)   :   Der Name der Software.
+            version    (str)         :   Die aktuelle Version des Softwares.
+            beschreibung   (str)     :   Die Beschreibung des Softwares.
+        Methods:
+            __str__(self)   :   Ist eine Methode mit der sich die Software selbst beschreibt.
+    """
     software_name = models.CharField(max_length=50)
     version = models.CharField(max_length=10, default="NULL")
     beschreibung = models.TextField(default="")
 
     def __str__(self):
+        """
+            Beschreibt die angesprochene Instanz.
+
+            Parameters:
+                self:   Die Softwareinstanz selbst.
+            Returns:
+                str (str): Name der angesprochenen Software.
+        """
         return self.software_name
 
 

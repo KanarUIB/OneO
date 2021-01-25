@@ -12,7 +12,9 @@ from django.core.exceptions import ObjectDoesNotExist
 def getAmountUser():
     """
         Sammelt die Nutzerzahlen für alle vorhandenen Softwares in einer Liste
-        @return List Liste aller Software-Nutzerzahlen
+
+        Returns:
+            softwareUsers (List): Liste aller Software-Nutzerzahlen
     """
 
     softwareUsers = []
@@ -25,8 +27,8 @@ def getLicenseDeltaDays():
     """
         Gibt eine Liste mit der Menge an Lizenzen die in den nächsten 30 Tagen, +30 Tagen oder 90 Tagen ablaufen werden.
         Die Zahlen werden wie in der oben genannten Reihenfolge in die Liste hiznugefügt und wiedergeben.
-
-        @return List Menge der bald ablaufenden Lizenzen
+        Returns:
+           licenseDeltaDays (List):  Menge der bald ablaufenden Lizenzen in der Form: licenseDeltaDays[30,>30,>90]
     """
 
     lizenzen = Lizenz.objects.all()
@@ -53,6 +55,12 @@ def home(request):
         Antwortet auf den Aufruf der Index-Seite mit den im context genannten Informationen und triggert
         die chechHeartbeat()-Methode, welches prüft, ob es ausstehende Heartbeats gibt.
         @return render Gibt Dashboardseite mit den jeweiligen context Informationen aus.
+
+        Parameters:
+            request (WSGIRequest):  "GET"-Befehl die Dashboardseite aufzurufen.
+
+        Returns:
+            render (HttpResponse):  Gibt Dashboardseite mit context-Inhalten aus.
     """
 
     heartbeat_views.checkHeartbeat()
@@ -77,7 +85,12 @@ def kundenprofil(request, id):
         Bei Erfolg wird durch den context alle Informationen zum Kunden, seinen Standorten, seiner genutzten Softwares und
         die dazugehörigen Heartbeats weitergegeben.
 
-        @return render Gibt die Kundenprofilseite ausgefüllt mit den jeweiligen Kundeninformationen aus.
+        Parameters:
+            id (int):                 Kunden ID
+            request (WSGIRequest):    "GET"-Befehl zum Aufruf der Kundenprofil Seite eines Kunden
+
+        Returns:
+            render (HttpResponse):  Gibt die Kundenprofilseite ausgefüllt mit den jeweiligen Kundeninformationen aus.
     """
 
     try:
@@ -110,7 +123,11 @@ def kunden(request):
         Wird bei Aufruf der Kundenseite aufgerufen.
         Gibt durch den context alle in der Datenbank aufgefundenen Kunden zurück.
 
-        @return render Die Kundenseite mit allen in der Datenbank aufgefunden Kunden
+        Parameters:
+            request (WSGIRequest):    "GET"-Befehl zur Kundenseite.
+
+        Returns:
+            render (HttpResponse):  Gibt Kundenseite mit Inhalten aus context aus.
     """
 
     context = {
@@ -124,7 +141,11 @@ def lizenzen(request):
         Wird bei Aufruf der Lizenzseite aufgerufen.
         Gibt durch den context alle in der Datenbank aufgefundenen Linzenzen zurück.
 
-        @return render Die Lizenzseite mit allen in der Datenbank aufgefunden Lizenzen
+        Parameters:
+            request (WSGIRequest):  "GET"-Befehl für die Lizenzseite.
+
+        Returns:
+            render: Die Lizenzseite mit allen in der Datenbank aufgefunden Lizenzen.
     """
 
     context = {
@@ -138,7 +159,11 @@ def updates(request):
         Wird bei Aufruf der Updateseite aufgerufen.
         Gibt durch den context alle in der Datenbank aufgefundenen Lizenzen und Softwares zurück.
 
-        @return render Die Updateseite mit allen in dem context angegebenen Informationen
+        Parameters:
+            request (WSGIRequest):  "GET"-Befehl zur Update-Seite
+
+        Returns:
+            render (HttpResponseRedirect) :        Die Updateseite mit allen in dem context angegebenen Informationen
     """
 
     context = {
@@ -152,8 +177,11 @@ def getStandortSoftware(standorte):
     """
         Gibt alle Software-Pakete die, der im Parameter übergebenen Standorte, gehören in einer Liste zurück.
 
-        @return List Liste aller Software-Pakete eller Standorte aus dem Parameter
-        @param standort Ein spezifischer Standort eines Kunden
+        Parameters:
+            standorte (Standort):   Standorte für die, die KundeHatSoftware-Pakete gesucht werden
+
+        Returns:
+            softwareVonKunde (List):   Alle KundeHatSoftware-Pakete der übergebenen Standorte
     """
 
     softwareVonKunde = []
@@ -169,8 +197,11 @@ def heartbeatHistorie(softwarePakete):
     """
         Gibt alle Heartbeats der im Parameter übergebenen Software-Pakete zurück.
 
-        @param softwarePakete
-        @return List Liste aller Heartbeats der übergebenen Software-Pakete
+        Parameters:
+            softwarePakete (KundeHatSoftware):  KundeHatSoftware-Pakete für die eine Heartbeat-Historie gewünscht ist.
+
+        Returns:
+            heartbeat_historie (List): Liste aller Heartbeats der gewünschten KundeHatSoftware-Pakete
     """
 
     heartbeat_historie = []
@@ -183,6 +214,18 @@ def heartbeatHistorie(softwarePakete):
 
 
 def create_kunde(request):
+    """
+        Wird aufgerufen bei Hinzufügen eines neuen Kunden.
+        Erstellt Kunden-Eintrag und optional weitere dazugehörige Standorte.
+
+
+        Parameters:
+            request (WSGIRequest):  "POST"-Befehl mit Forms Daten zur Erstellung von Kunden und/oder Standort
+
+        Returns:
+            redirect (HttpResponseRedirect):    leitet weiter auf Kundenseite
+    """
+
     anz = int(request.POST.get("anzahlStandorte"))
     dataKunde = {
         "name": request.POST.get("name"),
@@ -214,6 +257,19 @@ def create_kunde(request):
 
 
 def create_standort(request, id):
+    """
+        Wird aufgerufen bei Hinzufügen eines neuen Standorts für einen Kunden.
+        Erstellt Standort-Eintrag für den Kunden mit der übergebenen ID id.
+
+
+        Parameters:
+            request (WSGIRequest):  "POST"-Befehl mit Forms Daten
+            id (int):               ID des Kunden
+
+        Returns:
+            redirect (HttpResponseRedirect):   leitet weiter auf Kundenprofilseite des aktuellen Kunden
+    """
+
     kunde = Kunde.objects.get(id=id)
     form = StandortCreateForms()
     if request.method == 'POST':
@@ -237,13 +293,20 @@ def create_standort(request, id):
     return redirect('kundenprofil', id)
 
 
-"""""
-Wird beim hinzufügen von einem 
-
-"""""
-
-
 def create_software(request, id):
+    """
+        Wird aufgerufen bei Hinzufügen eines neuen Software-Produkts für einen Standort.
+        Erstellt KundeHatSoftware-Eintrag und den dazu gehörigen Standortlizenzen für den übergebenen Standort.
+
+
+        Parameters:
+            request (WSGIRequest):  "POST"-Befehl mit Forms Daten
+            id (int):               ID des aktuellen Kunden
+
+        Returns:
+            redirect (HttpResponseRedirect):    leitet weiter auf Kundenprofilseite des übergebenen Kunden
+    """
+
     modul = Modul.objects.get(name=request.POST.get("modul"))
     if request.method == "POST":
 
@@ -276,6 +339,19 @@ def create_software(request, id):
 
 
 def update_license(request, id):
+    """
+        Wird bei Erstellung einer zu ersetzenden Lizenz aufgerufen.
+
+        Erstellt für die Ersetzung eines veralteten Lizenz eine
+
+        Parameters:
+            request (WSGIRequest):  Request-Befehle
+            id (int):               ID des aktuellen Kunden
+
+        Returns:
+            redirect (HttpResponseRedirect):    leitet User zurück auf den Kundenprofil des Kunden mit der übergebenen id
+    """
+
     alteLizenzObj = Standortlizenz.objects.get(license_key=request.POST.get("alteLizenz"))
     if request.method == "POST":
         lizenzData = {
