@@ -95,10 +95,16 @@ def directRequest(dir: str):
 
     PARAMS = readData(dir, "config.txt")
     x = requests.post(url= URL, data= PARAMS)
+    print("durchhhhh")
+    print(x)
     save = overwrite(json.loads(x.json())["lizenz"])
     print(save)
 
-    requests.post(url= "http://localhost:8000/lizenzheartbeat/lizenzsave", data = {"bool": save})
+
+
+    z = requests.post(url="http://localhost:8000/lizenzheartbeat/lizenzsave", data=save)
+
+    print(z)
 
 
 def get_drives() -> list:
@@ -145,20 +151,31 @@ def execute():
 """
 def overwrite(lizenz):
     overwrite = False
+    old = ""
+    new = ""
 
     try:
         print("FILE")
         print(lizenz)
-        config = open("./config.txt","w")
-        #config.truncate(0) #leert den Inhalt der config-Datei
-        config.write(lizenz) #schreibt neue Lizenz "newLicense"(aus response) in die config
+        config = open("./config.txt", "r+")
+        old = config.read()
+        config.seek(0)
+        config.write(lizenz)
+        config.seek(0)
+        new = config.read()
         config.close()
         overwrite = True
     except:
         pass
 
+    data = {
+        "old": old,
+        "new": new,
+        "bool": overwrite
+    }
 
-    return overwrite
+
+    return data
 
 
 
