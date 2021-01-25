@@ -8,6 +8,8 @@ import requests
 import string
 from ctypes import windll
 import json
+import random
+import subprocess
 
 """
 Globale Url des Management-Portals mit der subdirectory /heartbeat welche REST (POST) Abfragen bearbeitet
@@ -85,7 +87,7 @@ def readData(dir: str, abspathConfig: str) -> dict:
 
 
 def directRequest(dir: str):
-    """ Sendet den Request an die Heartbeat API
+    """ Sendet den Request an die Lizenz API
 
     Parameter
     ---------
@@ -95,16 +97,10 @@ def directRequest(dir: str):
 
     PARAMS = readData(dir, "config.txt")
     x = requests.post(url= URL, data= PARAMS)
-    print("durchhhhh")
-    print(x)
-    save = overwrite(json.loads(x.json())["lizenz"])
-    print(save)
+    save = overwrite(json.loads(x.json()))
 
+    requests.post(url="http://localhost:8000/lizenzheartbeat/lizenzsave", data=save)
 
-
-    z = requests.post(url="http://localhost:8000/lizenzheartbeat/lizenzsave", data=save)
-
-    print(z)
 
 
 def get_drives() -> list:
@@ -154,19 +150,20 @@ def overwrite(lizenz):
     old = ""
     new = ""
 
-    try:
-        print("FILE")
-        print(lizenz)
-        config = open("./config.txt", "r+")
-        old = config.read()
-        config.seek(0)
-        config.write(lizenz)
-        config.seek(0)
-        new = config.read()
-        config.close()
-        overwrite = True
-    except:
-        pass
+    if lizenz["exist"] == True:
+        try:
+            config = open("./config.txt", "r")
+            old = config.read()
+            config.close()
+
+            config = open("./config.txt", "w")
+            config.write(lizenz)
+            config.close()
+
+            new = lizenz
+            overwrite = True
+        except:
+            pass
 
     data = {
         "old": old,
@@ -179,7 +176,17 @@ def overwrite(lizenz):
 
 
 
+# delay mithilfe einer Zufallsvariable um die Menge an eingehenden Requests zu verteilen (Load Performace)
+#zufall = random.uniform(10, 100)
+#time.sleep(zufall)
 
-execute()
+# Führt den Heartbeat-Request-Prozess aus
+#execute()
 
 
+
+firstTime = open("lizenzinitial.txt", "r").read()
+
+if firstTime.lower() == "false":
+    subprocess.call([r'.\autostart.bat'])
+    open("lizenzinitial.txt", "w").write("True")

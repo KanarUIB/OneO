@@ -39,6 +39,33 @@
 
 </main>
 
+    <button id="changeMode">Change Mode</button>
+
+
+    <script>
+        var theme = localStorage.getItem("theme");
+        if(theme == "null"){
+            theme = "light";
+        }
+        $("<link rel='stylesheet' type='text/css' href='{% static "css/dark.css" %}'></link>").appendTo("head");
+        if(theme == "dark"){
+            $("body").addClass("dark");
+        }
+        $("#changeMode").click(function(){
+            if(theme == "dark"){
+                $("body").removeClass("dark");
+                theme = "light";
+            }else if(theme == "light"){
+                $("body").addClass("dark");
+                theme = "dark";
+            }
+            localStorage.setItem("theme", theme);
+
+
+        });
+    </script>
+
+
 {% include "footer.html" %}
 </wrapper>
 
