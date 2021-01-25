@@ -42,10 +42,10 @@
    .dark input{
         padding: 5px 10px;
         border-radius: 8px;
-        1color: #29588C;
+        color: rgb(200,200,200);
         1font-weight: 700;
         border: 1px solid rgb(130,130,130);
-        1background: rgb(250,250,250);
+        background: transparent;
         margin: 5px 5px 5px 0;
    }
 
@@ -69,8 +69,6 @@
     padding: 12px 20px 8px;
     box-shadow: inset 0 2px 4px 1px #285e45;
 }
-.dark .modal-title{
-color: black;}
  .cfgBtn{
             margin-left: 10px;
             border-radius: 10px;
@@ -113,6 +111,10 @@ color: black;}
             background-color: #0000ff00;
             border: 2px solid #adb5bd;
             color: #ffce00;
+}
+
+.dark #changeMode:hover{
+    border: 2px solid rgb(255,255,255);
 }
 
 
@@ -253,11 +255,15 @@ color: #adb5bd;
             }
 
 
-
+.dark .close{
+    color: rgb(210,210,210);
+    text-shadow: none;
+}
             .dark .modal-content{
                 border-radius: 8px;
                 border: none;
                 box-shadow: 0 0 28px 0 #23272aad;
+                background: #363b42;
             }
             .dark .collapseBody{
                 1border-top: 1px solid rgb(200,200,200);
@@ -318,4 +324,11 @@ color: #adb5bd;
                 box-shadow: 0 0 10px 0 rgb(0,140,210);
              }
  .dark .add{
- color:white;}
+ color: white;
+ }
+
+
+
+.dark .fa-moon::before{
+    text-shadow: 0 0 5px rgb(255, 207, 17);
+}

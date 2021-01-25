@@ -6,7 +6,7 @@
                 margin: 0;
                 padding: 0;
                 position: relative;
-                transition-duration: 800ms
+                1transition-duration: 800ms
                 }
 
             .shadowKasten{
@@ -153,6 +153,10 @@ color: black;}
     border-radius: 100px;
     cursor: pointer;
     color:  grey;
+    transition-duration: 200ms;
+}
+#changeMode:hover{
+    border: 2px solid rgb(50,50,50);
 }
 
 
