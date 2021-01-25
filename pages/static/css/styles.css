@@ -146,13 +146,13 @@ color: black;}
     position: absolute;
     right: 2%;
     top: 22%;
-    1width: 30px;
-    1height: 30px;
-    padding: 5px 10px;
+    width: 30px;
+    height: 30px;
+    padding-top: 2px;
+    border: 2px solid  grey;
     border-radius: 100px;
     cursor: pointer;
-    background: rgb(40,40,40);
-    color: rgb(200,200,200);
+    color:  grey;
 }
 
 

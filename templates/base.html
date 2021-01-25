@@ -62,11 +62,11 @@
             if(theme == "dark"){
                 $("body").removeClass("dark");
                 theme = "light";
-                $(this).text("Dark Mode");
+
             }else if(theme == "light"){
                 $("body").addClass("dark");
                 theme = "dark";
-                $(this).text("Dark Mode");
+
             }
             localStorage.setItem("theme", theme);
 
