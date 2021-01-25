@@ -77,7 +77,7 @@ $(document).ready(function () {
     "emptyTable":     "Es sind keine Einträge vorhanden",
     "search":         "Schnellsuche:",
 
-},
+}
 
   });
 

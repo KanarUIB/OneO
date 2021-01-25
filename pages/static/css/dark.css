@@ -163,10 +163,11 @@
             }
 
 
-            .dark #kundenListe thead tr th{
+            .dark #kundenListe thead th{
+
             border:0;
-            background: rgba(0, 0, 0, 0.4);
-            opacity: 0.0;
+            background-color:#2c2f33;
+            }
             }
             .dark .kunde:hover {
                 background:#29588c;
