@@ -125,7 +125,7 @@ class Lizenz(models.Model):
     replace_key = models.OneToOneField('Lizenz', on_delete=models.SET_NULL, null=True, default=None, blank=True)
 
     def __str__(self):
-        return self.KundeHatSoftware.__str__() + " - " + self.modul.name + self.license_key.__str__()
+        return self.KundeHatSoftware.__str__() + " - " + self.modul.name + " - " + self.license_key.__str__()
 
 
 class Kundenlizenz(Lizenz):
