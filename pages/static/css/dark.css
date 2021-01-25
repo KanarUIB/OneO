@@ -10,29 +10,34 @@
 
             .dark .shadowKasten{
               background: #23272a;
-              box-shadow: 0px 10px 25px 0 #7289da;
+              box-shadow: 0px 10px 25px 0 #6c757d36;
 }
+
             .dark h1{
-                color: #7289da;
+
+                color: #adb5bd;
             }
 
             .dark h2{
-                color:#7289da;
+               color: #adb5bd;
             }
             .dark h2:after, .dark h2:before{
             content:"";
             display:inline-block;
             width: 20px;
             height: 2px;
-            background:#29588C;
+             background: #92acbe;
             }
             .dark #heartbeatTabelle{
                 color: white;
             }
             .dark thead{
-            background-color: #7289da;
+            background-color: #29588C;
             color: white;
             }
+
+            .dark table td{
+            color: #adb5bd;}
 
    .dark input{
         padding: 5px 10px;
@@ -67,8 +72,8 @@
 /* nav */
  .dark .navbar {
 
-            background-color:#23272a;
-            box-shadow: 0px 1px 15px 0 #7289da;
+             background-color:#23272a;
+            box-shadow: 0px 1px 15px 0 #6c757d36;
             }
 
              .dark #menu li a{
@@ -128,18 +133,18 @@
 
 /* Kundenseite */
             .dark .kunde{
-                background-color: #23272a;
+                  background-color: #23272a;
                 display: block;
                 witdh: 100%;
                 flex: 1;
                 border: 0;
                 text-align: center;
-                box-shadow: 4px 4px 9px 0 #7289da;
+                box-shadow: 4px 4px 9px 0 #39404559;
                 padding: 15px;
                 border-radius: 5px;
                 text-decoration: none;
                 transition-duration: 140ms;
-                color: #7289da;
+                color: #adb5bd;
             }
 
 
@@ -177,7 +182,7 @@
                 display: block;
                 width: 100%;
                 text-align: left;
-                box-shadow: 4px 4px 9px 0 #7289da;
+              box-shadow: 4px 4px 9px 0 #6c757d36;
                 padding: 15px;
                 border-radius: 5px;
                 text-decoration: none;
@@ -225,11 +230,20 @@
    background-color: #23272a;
 }
 
+.dark .custom-select{
+color: #adb5bd;
+}
+
+.dark .form-control{
+            background-color: #21252900;
+            }
+
+
 
             .dark .modal-content{
                 border-radius: 8px;
                 border: none;
-                box-shadow: 0 0 28px 0 rgb(70,70,70);
+                box-shadow: 0 0 28px 0 #23272aad;
             }
             .dark .collapseBody{
                 1border-top: 1px solid rgb(200,200,200);
@@ -260,6 +274,9 @@
                 height: 38px;
                 z-index: -1
             }
+            .dark .extraCollapse{
+                padding: 20px 0;
+            }
             .dark .extraCollapse .add{
                 position: relative;
                 font-size: 2rem;
@@ -276,7 +293,7 @@
                 right: 0;
                 width: 38px;
                 height: 38px;
-                box-shadow: 0 0 10px 0 rgb(200,200,200);
+                box-shadow: 0 0 10px 0 #6c757d36;
                 border: 1px solid rgb(200,200,200);
                 transform: translate(29%,20%);
                 z-index: -1;
@@ -286,3 +303,5 @@
             .dark .extraCollapse .add:hover.add::before{
                 box-shadow: 0 0 10px 0 rgb(0,140,210);
              }
+ .dark .add{
+ color:white;}
