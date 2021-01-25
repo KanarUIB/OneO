@@ -300,7 +300,7 @@ def update_license(request, id):
         lizenzForm = StandortlizenzCreateForm(lizenzData)
         if lizenzForm.is_valid():
             lizenzForm.save()
-            Standortlizenz.objects.get(license_key=request.POST.get("alteLizenz")).update(
+            Standortlizenz.objects.filter(id=alteLizenzObj.id).update(
                 detail="[Neue Lizenz vorhanden]")
             return redirect('kundenprofil', id)
 

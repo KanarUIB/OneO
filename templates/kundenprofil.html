@@ -115,6 +115,7 @@
                                 <th>Softwareprodukt</th>
                                 <th>Version</th>
                                 <th>Modul</th>
+                                <th>Details</th>
                                 <th>Lizenzschlüssel</th>
                                 <th>Ablaufdatum</th>
                             </tr>
@@ -129,7 +130,8 @@
                                 <td>{{pakete.software}}</td>
                                 <td>{{pakete.software.version}}</td>
 
-                                <td>{{lizenz.modul}}</td>
+                                <td>{{lizenz.modul.name}}</td>
+                                <td>{{lizenz.detail}}</td>
                                 <td>{{lizenz.license_key}}
                                     <input type="hidden" value="{{lizenz.license_key}}">
                                     <button data-toggle="modal" data-target="#updateLicense"class="cfgBtn"><i class="fas fa-wrench"></i></button>
