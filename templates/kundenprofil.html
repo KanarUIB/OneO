@@ -130,7 +130,10 @@
                                 <td>{{pakete.software.version}}</td>
 
                                 <td>{{lizenz.modul}}</td>
-                                <td>{{lizenz.license_key}}</td>
+                                <td>{{lizenz.license_key}}
+                                    <input type="hidden" value="{{lizenz.license_key}}">
+                                    <button data-toggle="modal" data-target="#updateLicense"class="cfgBtn"><i class="fas fa-wrench"></i></button>
+                                </td>
                                 <td>{{lizenz.gültig_bis}}</td>
                             </tr>
                             {% endif %}
@@ -175,6 +178,41 @@
     {% endfor %}
     {% endif %}
 </div>
+
+<div class="modal fade" id="updateLicense" style="margin-top: 10%">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Lizenz aktualisieren</h4>
+                <button type="button" class="close" data-dismiss="modal" style="outline:none">&times;</button>
+            </div>
+            <form action="{% url 'update_license' kunde.id %}" method="post" id="updateLicenseModal">
+                {% csrf_token %}
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div>
+                        <input type="hidden" id="alteLizenz" name="alteLizenz" value="">
+                        <input type="text" name="license_key" placeholder="Neuer Lizenzschlüssel" requiered>
+                        <br>
+                        <input type="text" name="detail" placeholder="Anmerkung">
+                        <br>
+                        <input type="date" name="gültig_von" required>
+                        <input type="date" name="gültig_bis" required>
+
+                    </div>
+                </div>
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button class="btn btn-primary" style="margin: 0">Speichern</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+
 
 <div class="modal fade" id="newsoftware" style="margin-top: 10%">
     <div class="modal-dialog modal-lg">
@@ -264,6 +302,11 @@ $(".trigger").click(function(){
 $(".anlegen.softwareBtn").click(function(){
     var standortID = Number($(this).prev().val());
     $("#standort_id_modal").val(standortID);
+});
+
+$(".cfgBtn").click(function(){
+    var oldLicenseKey = $(this).prev().val();
+    $("#alteLizenz").val(oldLicenseKey);
 });
 
 

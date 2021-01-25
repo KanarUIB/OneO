@@ -43,5 +43,5 @@ class StandortlizenzCreateForm(forms.ModelForm):
 
 class StandortlizenzUpdateForm(forms.ModelForm):
     class Meta:
-        model = Standortlizenz,
+        model = Standortlizenz
         fields = '__all__'

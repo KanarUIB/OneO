@@ -3,7 +3,7 @@ import heartbeat.views as heartbeat_views
 from heartbeat.models import Heartbeat
 from .forms import StandortCreateForms, KundeCreateForms, SoftwareCreateForm, ModulCreateForm, \
     StandortlizenzCreateForm
-from .models import Kunde, KundeHatSoftware, Software, Standort, Lizenz, Ansprechpartner, Modul
+from .models import Kunde, KundeHatSoftware, Software, Standort, Lizenz, Ansprechpartner, Modul, Standortlizenz
 from django.http import JsonResponse, HttpResponse
 import json
 import datetime
@@ -284,6 +284,24 @@ def create_software(request, id):
     return redirect('kundenprofil', id)
 
 
+def update_license(request, id):
+    alteLizenzObj = Standortlizenz.objects.get(license_key=request.POST.get("alteLizenz"))
+    if request.method == "POST":
+        lizenzData = {
+            "KundeHatSoftware": alteLizenzObj.KundeHatSoftware,
+            "modul": alteLizenzObj.modul,
+            "license_key": request.POST.get("license_key"),
+            "detail": request.POST.get("detail"),
+            "gültig_von": request.POST.get("gültig_von"),
+            "gültig_bis": request.POST.get("gültig_bis"),
+            "replace_key": alteLizenzObj,
+            "standort_id": alteLizenzObj.standort_id,
+        }
+        lizenzForm = StandortlizenzCreateForm(lizenzData)
+        if lizenzForm.is_valid():
+            lizenzForm.save()
+            Standortlizenz.objects.get(license_key=request.POST.get("alteLizenz")).update(
+                detail="[Neue Lizenz vorhanden]")
+            return redirect('kundenprofil', id)
 
-def update_license(request,id):
-    pass
+    return redirect('kundenprofil', id)

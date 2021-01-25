@@ -61,9 +61,12 @@ def checkHeartbeat():
                                                      meldung="Heartbeat noch nie eingetroffen",
                                                      datum=datetime.datetime.now())
         elif letzterHeartbeat.lizenzschluessel == "Lizenzschlüssel konnte nicht gefunden werden":
-            Heartbeat.objects.filter(kundeSoftware=letzterHeartbeat.kundeSoftware,
-                                     lizenzschluessel=letzterHeartbeat.lizenzschluessel).update(
-                lizenzschluessel=Lizenz.objects.get(KundeHatSoftware=paket).license_key)
+            try:
+                newLicenseKey = Lizenz.objects.get(KundeHatSoftware=paket).license_key
+                Heartbeat.objects.get(id=letzterHeartbeat.id).update(
+                    lizenzschluessel=newLicenseKey)
+            except:
+                pass
         else:
             timedelta = datetime.timedelta(hours=24)
             zeit = current_date - timezone.make_naive(letzterHeartbeat.datum)
