@@ -6,11 +6,6 @@
 
 <div class="container mt-5">
     <h2>Lizenzübersicht</h2>
-    <div class="text-right">
-              {% if user.is_authenticated %}
-    <button class="anlegen "><a href="/admin/pages/lizenz/add">Neue Lizenz anlegen <i class="fas fa-plus"></i></a></button>
-        {% endif %}
-  </div>
 
    <table class="table table-responsive-lg" id="lizenzTabelle" width="100%">
        <thead>
@@ -19,6 +14,7 @@
                 <th>Kunde</th>
                 <th>Software</th>
                 <th>Modul</th>
+                <th>Details</th>
                 <th>Lizenzschlüssel</th>
                 <th>Gültig von</th>
                 <th>Gültig bis</th>
@@ -32,6 +28,7 @@
                   <td>{{lizenz.KundeHatSoftware.standort }}</td>
                 <td>{{ lizenz.KundeHatSoftware.software }}
                 <td>{{ lizenz.modul }}</td>
+                <td>{{ lizenz.detail }}</td>
                 <td>{{ lizenz.license_key }}</td>
                 <td>{{ lizenz.gültig_von }}</td>
                 <td>{{ lizenz.gültig_bis }}</td>
