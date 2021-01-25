@@ -135,11 +135,11 @@ color: black;}
                 text-transform: uppercase;
                 transition-duration: 240ms;
             }
-.dark .pakete .details{
+.dark .pakete .update{
                 background: #29588C;
                 color: white;
             }
-            .dark .pakete .details:hover{
+            .dark .pakete .update:hover{
                 background: #2968BC;
             }
 
@@ -206,6 +206,12 @@ color: black;}
             .dark .panel-group th,td{
                 color: white;
             }
+
+.dark .collapseBtn{
+color: grey;}
+
+.dark .add{color:grey;}
+
 
 
 /* Login */
@@ -292,6 +298,7 @@ color: #adb5bd;
                 padding: 20px 0;
             }
             .dark .extraCollapse .add{
+            color: grey;
                 position: relative;
                 font-size: 2rem;
                 background: none;
@@ -314,8 +321,31 @@ color: #adb5bd;
                 border-radius: 100px;
                 transition-duration: 200ms
              }
+             .dark #heartbeatTabelle_previous a, .dark #heartbeatTabelle_next a {
+                background-color: #545b62;
+                }
+
+                .dark #lizenzTabelle_previous a, .dark #lizenzTabelle_next a {
+                background-color: #545b62;
+                }
+
+                .dark #heartbeatTabelle_previous a, .dark #heartbeatTabelle_next a {
+                background-color: #545b62;
+                }
+        .dark .page-item.active .page-link{
+             color: white;
+             background-color: #29588c;
+             border-color: white;
+
+             }
+
+             .dark .page-link{
+             color: white;
+             background-color: #545b62;
+             border-color: #adb5bd;
+             }
             .dark .extraCollapse .add:hover.add::before{
-                box-shadow: 0 0 10px 0 rgb(0,140,210);
+                box-shadow: 0 0 10px 0 #29588c99;
              }
  .dark .add{
  color:white;}
