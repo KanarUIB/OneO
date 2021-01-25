@@ -3,70 +3,38 @@
 /* Allgemein */
 
 
-            body{
-                font-family: 'Chivo', sans-serif;
-                margin: 0;
-                padding: 0;
-                position: relative;
+            .dark{
                 background-color:#2c2f33;
                 color: white;
                 }
 
-            .shadowKasten{
+            .dark .shadowKasten{
               background: #23272a;
-              margin:0 0,5%;
-              border-radius: 25px;
-              padding: 20 50 20 50;
               box-shadow: 0px 10px 25px 0 #7289da;
-              height: 100%;
 }
-            a, a:hover{
-            text-decoration:none}
-            h1{
-                margin-top: 50px;
-                font-size:24pt;
-                text-align:center;
-                font-weight:700;
-                letter-spacing:0px;
+            .dark h1{
                 color: #7289da;
             }
 
-             h2{
-                margin:50px 0;
+            .dark h2{
                 color:#7289da;
-                font-size:18px;
-                text-align:center;
-                font-weight:500;
             }
-            h2:after, h2:before{
+            .dark h2:after, .dark h2:before{
             content:"";
             display:inline-block;
             width: 20px;
             height: 2px;
             background:#29588C;
             }
-            h2:after{
-             position:relative;
-            bottom: 5px;
-            left: 5px;
+            .dark #heartbeatTabelle{
+                color: white;
             }
-            h2:before{
-             position:relative;
-            bottom: 5px;
-            right: 5px;
-            }
-            #heartbeatTabelle{
-                color:white;
-            }
-            thead{
+            .dark thead{
             background-color: #7289da;
             color: white;
             }
 
-            .dataTables_wrapper .dataTables_paginate .paginate_button {
-            margin-top: 40px;
-}
-   input{
+   .dark input{
         padding: 5px 10px;
         border-radius: 8px;
         1color: #29588C;
@@ -75,42 +43,35 @@
         1background: rgb(250,250,250);
         margin: 5px 5px 5px 0;
    }
-            i{margin-left:5px;}
+
 /* buttons */
 
-            button{
-                appearance: none;
-                border: none;
-                border-radius: 5px;
-                padding: 10px 20px;
-                transition-duration: 300ms;
-            }
 
 
 
-         .anlegen, .anlegen a{
+         .dark .anlegen, .dark .anlegen a{
             background-color:#43B581;
             color: #ffffff;
             margin-bottom: 20px;
          }
-.anlegen:hover{
+.dark .anlegen:hover{
     background: #38524C;
     color: #43B581;
 }
-.anlegen:focus{
+.dark .anlegen:focus{
     outline: none;
     1transform: translateY(1px);
     padding: 12px 20px 8px;
     box-shadow: inset 0 2px 4px 1px rgb(150,0,0);
 }
 /* nav */
- .navbar {
+ .dark .navbar {
 
             background-color:#23272a;
             box-shadow: 0px 1px 15px 0 #7289da;
             }
 
-             #menu li a{
+             .dark #menu li a{
                 text-decoration: none;
                 text-decoration: none;
                 text-align:center;
@@ -118,47 +79,30 @@
                  opacity: 0.7;
                 transition:300ms;
             }
-               #menu li a:hover{
+            .dark #menu li a:hover{
                 opacity: 1;
                 color: #7289da;
             }
 
-            #menu .login-btn{
-            border: 2px solid #29588C;
-                text-align: center;
-                border-radius: 6px;
-                padding:5px 20px 5px;
-                width:100%;
 
-            }
-
-            #menu .login-btn:hover{
+            .dark #menu .login-btn:hover{
             background-color: #29588C;
             color:white;}
 
-            .navbar-toggler:hover{
+            .dark .navbar-toggler:hover{
             background-color: white;}
 
-            .navbar-expand-lg{
-            padding-bottom:10px;
-            }
 
 
 
 /* Lizenzen */
-#lizenzTabelle{
+.dark #lizenzTabelle{
     color:white;
 }
 
 
 /* Updates */
-.pakete, .table {
-            margin-top:60px;}
-.pakete button{
-                height: inherit;
-                margin-top: 10px;
-            }
-     .pakete button{
+     .dark .pakete button{
                 display: inline-block;
                 background: rgb(250,250,250);
                 padding: 8px 0;
@@ -170,25 +114,17 @@
                 text-transform: uppercase;
                 transition-duration: 240ms;
             }
-.pakete .details{
+.dark .pakete .details{
                 background: #29588C;
                 color: white;
             }
-            .pakete .details:hover{
+            .dark .pakete .details:hover{
                 background: #2968BC;
             }
 
-            .pakete{
-            padding:20px;}
 
 /* Kundenseite */
- .kundenliste{
-                width: 95%;
-                margin 0 auto;
-                display: flex;
-                flex-direction: column;
-            }
-            .kunde{
+            .dark .kunde{
                 background-color: #23272a;
                 display: block;
                 witdh: 100%;
@@ -203,46 +139,36 @@
                 color: #7289da;
             }
 
-            #kundenListe td{
-            border:0;}
 
-            #kundenListe thead tr th{
+            .dark #kundenListe thead tr th{
             border:0;
             background: rgba(0, 0, 0, 0.4);
             opacity: 0.0;
             }
-            .kunde:hover {
+            .dark .kunde:hover {
                 background:#7289da;
                 color:white;
             }
 
             /* Kundenprofil-Seite */
 
-            #autohausZeile{
-            margin-bottom: -45px;
-            }
-
-            .trigger i:activate {
-            transform: rotateZ(-90deg);
-            }
-
-            .tabellenHead{
+            .dark .tabellenHead{
             color: white;
             margin-top: 30px;
             margin-bottom: -45px;
             }
 
-            .trigger{
+            .dark .trigger{
                 text-align:center;
                 color: #7289da;
                 background: #23272a;
             }
-            .trigger:hover{
+            .dark .trigger:hover{
                 text-align:center;
                 color:white;
             }
 
-            .panel-group{
+            .dark .panel-group{
                 background: #23272a;
                 margin-bottom: 20px;
                 display: block;
@@ -255,78 +181,35 @@
                 transition-duration: 140ms;
             }
 
-            .panel-group th,td{
+            .dark .panel-group th,td{
                 color: white;
             }
 
-            .scrolltable{
-            height: 400px;
-            overflow: scroll;
-            }
 
 /* Login */
-        .loginBlock{
 
-            width:400px;
-            margin: 100px auto;
-
-            }
-            .loginBlock >form{
-                border-radius: 5px;
-                padding: 30px;
-            }
-
-            .loginBlock form fieldset input{
-                border-radius: 5px;
-                padding: 6px;
-                width: 100%;
-
-            }
-
-            .loginBlock .btn-outline-primary{
-            width: 100%;}
 
 
 /* Register */
-.registerBlock{
+.dark .registerBlock{
             background: #23272a;
             width:800px;
             height:730px;
             margin: 100px auto;
 
             }
-            .registerBlock >form{
-                border-radius: 5px;
-                padding: 30px;
-            }
 
-            .registerBlock form fieldset input{
-                border-radius: 5px;
-                padding: 6px;
-                width: 100%;
-
-            }
-
-            .registerBlock .btn-outline-primary{
-            width: 100%;}
-
-wrapper{
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    justify-content: space-between
-}
 
 /* Footer */
 
-footer{
+.dark footer{
     background: #23272a;
     position: relative;
     margin-top:100px;
     color: white;
 }
 
- footer p{
+ .dark footer p{
     color: #99aab5;
     display: block;
     padding: 40px 0;
@@ -335,42 +218,34 @@ footer{
     font-size: 0.9em;
 }
 
-.modal-backdrop {
+.dark .modal-backdrop {
    background-color: #23272a;
 }
 
 
-            .modal-open .modal {
-                overflow: auto;
-                overflow-x: auto;
-                overflow-y: auto;
-            }
-            .modal-body > div{
-                1display: block;
-            }
-            .modal-content{
+            .dark .modal-content{
                 border-radius: 8px;
                 border: none;
                 box-shadow: 0 0 28px 0 rgb(70,70,70);
             }
-            .collapseBody{
+            .dark .collapseBody{
                 1border-top: 1px solid rgb(200,200,200);
                 border-bottom: 1px solid rgb(220,220,220);
                 transition-duration: 400ms;
                 max-height: 400px;
             }
-            .collapseBody .close{
+            .dark .collapseBody .close{
                 color: rgb(0,0,0);
                 opacity: 0.9;
                 margin-right: 20px;
                 position: relative;
                 text-shadow: none;
             }
-            .collapseBody .close:hover{
+            .dark .collapseBody .close:hover{
                 color: rgb(210,0,0);
                 opacity: 1
             }
-            .collapseBody .close::before{
+            .dark .collapseBody .close::before{
                 position: absolute;
                 content: "";
                 top: 0;
@@ -382,19 +257,16 @@ footer{
                 height: 38px;
                 z-index: -1
             }
-            .extraCollapse{
-                padding: 20px 0;
-            }
-            .extraCollapse .add{
+            .dark .extraCollapse .add{
                 position: relative;
                 font-size: 2rem;
                 background: none;
                 z-index: 0;
              }
-            .extraCollapse .add:hover{
+            .dark .extraCollapse .add:hover{
                 color: #29588c;
              }
-            .extraCollapse .add::before{
+            .dark .extraCollapse .add::before{
                 position: absolute;
                 content: "";
                 left: 0;
@@ -408,6 +280,6 @@ footer{
                 border-radius: 100px;
                 transition-duration: 200ms
              }
-            .extraCollapse .add:hover.add::before{
+            .dark .extraCollapse .add:hover.add::before{
                 box-shadow: 0 0 10px 0 rgb(0,140,210);
              }
