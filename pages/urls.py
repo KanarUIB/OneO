@@ -8,6 +8,6 @@ urlpatterns = [
     path('Kunden/Profil/<int:id>/', views.kundenprofil, name="kundenprofil"),
     path('Kunden/', views.kunden, name="kunden"),
     path('Kunden/create/', views.create_kunde, name="create_kunde"),
-    path('Kunden/Profil/create_standort/', views.create_standort, name="create_standort"),
+    path('Kunden/Profil/<int:id>/create_standort/', views.create_standort, name="create_standort"),
 
 ]

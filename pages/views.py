@@ -8,11 +8,11 @@ import json
 import datetime
 from django.core.exceptions import ObjectDoesNotExist
 
-
 """""""""
 Sammelt die Nutzerzahlen für alle vorhandenen Softwares in einer Liste
 @return List Liste aller Software-Nutzerzahlen 
 """""""""
+
 
 def getAmountUser():
     softwareUsers = []
@@ -27,11 +27,13 @@ Die Zahlen werden wie in der oben genannten Reihenfolge in die Liste hiznugefüg
 
 @return List Menge der bald ablaufenden Lizenzen
 """""""""
+
+
 def getLicenseDeltaDays():
     lizenzen = Lizenz.objects.all()
     licenseDeltaDays = []
     oneMonth = 0
-    threeMonth=0
+    threeMonth = 0
     others = 0
     for lizenz in lizenzen:
         tage_uebrig = lizenz.gültig_bis - datetime.date.today()
@@ -45,6 +47,7 @@ def getLicenseDeltaDays():
     licenseDeltaDays.append(threeMonth)
     licenseDeltaDays.append(others)
     return licenseDeltaDays
+
 
 """""""""
 Antwortet auf den Aufruf der Index-Seite mit den im context genannten Informationen und triggert 
@@ -65,6 +68,7 @@ def home(request):
     }
     return render(request, "dashboard.html", context)
 
+
 """""""""
 Wird bei Aufruf der Kundenprofilseite aufgerufen.
 
@@ -77,6 +81,7 @@ die dazugehörigen Heartbeats weitergegeben.
 @return render Gibt die Kundenprofilseite ausgefüllt mit den jeweiligen Kundeninformationen aus.
 """""""""
 
+
 def kundenprofil(request, id):
     print("bin drin")
     try:
@@ -84,13 +89,12 @@ def kundenprofil(request, id):
         kundenStandorte = Standort.objects.filter(kunde=kunde)
         print(kundenStandorte)
     except ObjectDoesNotExist:
-        return render(request,"404.html")
+        return render(request, "404.html")
 
     if id is None or not kunde:
         return HttpResponse("404.html")
 
     if id is not None:
-
         context = {
             "kunde": kunde,
             "standorte": kundenStandorte,
@@ -100,7 +104,7 @@ def kundenprofil(request, id):
             "heartbeatHistorie": heartbeatHistorie(getStandortSoftware(kundenStandorte))
         }
 
-    return render(request, "kundenprofil.html", context)
+    return render(request, 'kundenprofil.html', context)
 
 
 """""""""
@@ -117,17 +121,21 @@ def kunden(request):
     }
     return render(request, "kunden.html", context)
 
+
 """""""""
 Wird bei Aufruf der Lizenzseite aufgerufen.
 Gibt durch den context alle in der Datenbank aufgefundenen Linzenzen zurück.
 
 @return render Die Lizenzseite mit allen in der Datenbank aufgefunden Lizenzen
 """""""""
+
+
 def lizenzen(request):
     context = {
         'lizenzen': Lizenz.objects.all(),
     }
     return render(request, "lizenz.html", context)
+
 
 """""""""
 Wird bei Aufruf der Updateseite aufgerufen.
@@ -135,6 +143,8 @@ Gibt durch den context alle in der Datenbank aufgefundenen Lizenzen und Software
 
 @return render Die Updateseite mit allen in dem context angegebenen Informationen
 """""""""
+
+
 def updates(request):
     context = {
         'lizenzen': Lizenz.objects.all(),
@@ -155,10 +165,11 @@ def getStandortSoftware(standorte):
     softwareVonKunde = []
 
     for standort in standorte:
-        for software in KundeHatSoftware.objects.filter(standort = standort):
+        for software in KundeHatSoftware.objects.filter(standort=standort):
             softwareVonKunde.append(software)
 
     return softwareVonKunde
+
 
 """""""""
 Gibt alle Heartbeats der im Parameter übergebenen Software-Pakete zurück.
@@ -178,50 +189,60 @@ def heartbeatHistorie(softwarePakete):
     return heartbeat_historie
 
 
-
 def create_kunde(request):
     anz = int(request.POST.get("anzahlStandorte"))
-    #arr = []
-    #for x in Kunde.objects.all():
-    #    arr.append(x.vf_nummer)
-    #arr.sort()
-
+    print("bin hier")
     dataKunde = {
         "name": request.POST.get("name"),
-        "vf_nummer": 2,
+        "vf_nummer": request.POST.get("vf_nummer"),
     }
 
     formKunde = KundeCreateForms(dataKunde)
 
     if request.method == 'POST':
+        print("bin hier 2")
         if formKunde.is_valid():
+            print("bin hier 3")
             formKunde.save()
             kunde = Kunde.objects.get(name=dataKunde["name"])
-
-        for z in range(0, anz):
-            dataStandort = {
-                "kunde": kunde,
-                "name": request.POST.getlist("standort[]")[z],
-                "plz": request.POST.getlist("plz[]")[z],
-                "ort": request.POST.getlist("ort[]")[z],
-                "strasse": request.POST.getlist("strasse[]")[z],
-                "hausnr": request.POST.getlist("hausnr[]")[z],
-                "email": request.POST.getlist("email[]")[z],
-                "telNr": request.POST.getlist("telNr[]")[z],
-            }
-            formStandort = StandortCreateForms(dataStandort)
-            if formStandort.is_valid():
-                formStandort.save()
+            for z in range(0, anz):
+                dataStandort = {
+                    "kunde": kunde,
+                    "name": request.POST.getlist("standort[]")[z],
+                    "plz": request.POST.getlist("plz[]")[z],
+                    "ort": request.POST.getlist("ort[]")[z],
+                    "strasse": request.POST.getlist("strasse[]")[z],
+                    "hausnr": request.POST.getlist("hausnr[]")[z],
+                    "email": request.POST.getlist("email[]")[z],
+                    "telNr": request.POST.getlist("telNr[]")[z],
+                }
+                formStandort = StandortCreateForms(dataStandort)
+                if formStandort.is_valid():
+                    formStandort.save()
 
     return redirect('kunden')
 
-def create_standort(request):
-    form = StandortCreateForms(request.POST or None)
+
+def create_standort(request, id):
+    print(request)
+    kunde = Kunde.objects.get(id=id)
+    form = StandortCreateForms()
     if request.method == 'POST':
+        formData = {
+            "kunde": kunde,
+            "name": request.POST.get("name"),
+            "plz": request.POST.get("plz"),
+            "ort": request.POST.get("ort"),
+            "strasse": request.POST.get("strasse"),
+            "hausnr": request.POST.get("hausnr"),
+            "email": request.POST.get("email"),
+            "telNr": request.POST.get("telNr"),
+        }
+        form = StandortCreateForms(formData)
         if form.is_valid():
             form.save()
-            return redirect('kundenprofil')
+            return redirect('kundenprofil', id)
     context = {
-        'form': form
+        'form': form,
     }
-    return render(request, 'kunde/create_standort.html', context)
+    return redirect('kundenprofil', id)
