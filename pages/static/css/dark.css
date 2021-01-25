@@ -92,7 +92,10 @@
             .dark .navbar-toggler:hover{
             background-color: white;}
 
-
+.dark #changeMode{
+    background: rgb(50,50,53);
+    color: rgb(200,200,200);
+}
 
 
 /* Lizenzen */

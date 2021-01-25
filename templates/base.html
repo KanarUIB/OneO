@@ -40,15 +40,21 @@
 
 </main>
 
-    <button id="changeMode">Change Mode</button>
 
 
-    <script>
+
+
+
+{% include "footer.html" %}
+</wrapper>
+
+{% block javascripts %}{% endblock javascripts %}
+<script>
         var theme = localStorage.getItem("theme");
         if(theme == "null"){
             theme = "light";
         }
-        //$("<link rel='stylesheet' type='text/css' href='{% static "css/dark.css" %}'></link>").appendTo("head");
+
         if(theme == "dark"){
             $("body").addClass("dark");
         }
@@ -56,22 +62,17 @@
             if(theme == "dark"){
                 $("body").removeClass("dark");
                 theme = "light";
+                $(this).text("Dark Mode");
             }else if(theme == "light"){
                 $("body").addClass("dark");
                 theme = "dark";
+                $(this).text("Dark Mode");
             }
             localStorage.setItem("theme", theme);
 
 
         });
-    </script>
-
-
-{% include "footer.html" %}
-</wrapper>
-
-{% block javascripts %}{% endblock javascripts %}
-
+</script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
         integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
         crossorigin="anonymous"></script>
