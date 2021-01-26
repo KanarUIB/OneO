@@ -209,6 +209,9 @@ def lizenzHeartbeat(request):
     elif enddate > datum or license.replace_key == None:
         return JsonResponse(json.dumps({"lizenz": "", "exist": False}), safe=False)
 
+    else:
+        print("WRONG")
+
 
     Heartbeat.objects.create(kundeSoftware=kundeSoftware, lizenzschluessel=beat["lizenzschluessel"],
                              meldung=beat["meldung"],
@@ -241,7 +244,6 @@ def lizenzSave(request):
         replace = Lizenz.objects.get(license_key=request.data["new"])
         gueltig_von = replace.gültig_von
         gueltig_bis = replace.gültig_bis
-
         Lizenz.objects.get(license_key=request.data["new"], replace_key=None).delete()
         Lizenz.objects.filter(license_key=request.data["old"]).update(license_key=request.data["new"], gültig_von=gueltig_von, gültig_bis=gueltig_bis, replace_key=None)
 

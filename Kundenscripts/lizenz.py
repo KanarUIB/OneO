@@ -157,10 +157,10 @@ def overwrite(lizenz):
             config.close()
 
             config = open("./config.txt", "w")
-            config.write(lizenz)
+            config.write(lizenz["lizenz"])
             config.close()
 
-            new = lizenz
+            new = lizenz["lizenz"]
             overwrite = True
         except:
             pass
@@ -181,12 +181,13 @@ def overwrite(lizenz):
 #time.sleep(zufall)
 
 # Führt den Heartbeat-Request-Prozess aus
-#execute()
+execute()
 
 
 
 firstTime = open("lizenzinitial.txt", "r").read()
+firstTime.replace("\n", "")
 
 if firstTime.lower() == "false":
-    subprocess.call([r'.\autostart.bat'])
+    subprocess.call([r'.\autostartlizenz.bat'])
     open("lizenzinitial.txt", "w").write("True")
