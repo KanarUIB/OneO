@@ -163,7 +163,7 @@ def updates(request):
             request (WSGIRequest):  "GET"-Befehl zur Update-Seite
 
         Returns:
-            render (HttpResponseRedirect) :        Die Updateseite mit allen in dem context angegebenen Informationen
+            render (HttpResponse) :        Die Updateseite mit allen in dem context angegebenen Informationen
     """
 
     context = {
