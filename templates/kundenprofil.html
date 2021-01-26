@@ -199,7 +199,7 @@
                         <input type="text" name="detail" placeholder="Anmerkung">
                         <br>
                         <input type="date" name="gültig_von" required>
-                        <input type="date" name="gültig_bis" required>
+                        <input type="date" id="gültig_bisLizenz" name="gültig_bis" min="" required>
 
                     </div>
                 </div>
@@ -243,7 +243,7 @@
                         <input type="text" name="detail" placeholder="Anmerkung">
                         <br>
                         <input type="date" name="gültig_von" required>
-                        <input type="date" name="gültig_bis" required>
+                        <input type="date" id="gültig_bisSoftware" name="gültig_bis" min="" required>
 
                     </div>
                 </div>
@@ -292,33 +292,6 @@
         </div>
     </div>
 </div>
-
-
-<script>
-$(".toggle").slideUp();
-$(".trigger").click(function(){
-    $(this).next(".toggle").slideToggle("slow");
-  });
-
-$(".anlegen.softwareBtn").click(function(){
-    var standortID = Number($(this).prev().val());
-    $("#standort_id_modal").val(standortID);
-});
-
-$(".cfgBtn").click(function(){
-    var oldLicenseKey = $(this).prev().val();
-    $("#alteLizenz").val(oldLicenseKey);
-});
-
-
-
-
-
-
-
-
-</script>
-
 
 {% endblock content %}
 
