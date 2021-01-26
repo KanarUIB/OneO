@@ -85,13 +85,11 @@ $(document).ready(function () {
 
 $("#gültig_bisSoftware").click(function(){
 var gültigVon = $(this).prev().val();
-console.log(gültigVon);
 $("#gültig_bisSoftware").attr("min",gültigVon);
 });
 
 $("#gültig_bisLizenz").click(function(){
 var gültigVonLizenz = $(this).prev().val();
-console.log(gültigVonLizenz);
 $("#gültig_bisLizenz").attr("min",gültigVonLizenz);
 });
 
