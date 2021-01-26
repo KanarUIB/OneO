@@ -1,6 +1,4 @@
-import schedule
 import time
-from datetime import datetime
 import re
 import os
 import requests
@@ -18,15 +16,13 @@ URL = "http://localhost:8000/heartbeat"
 
 
 def searchFiles(dir : list, zaehler = 0):
-    """ Sucht mithilfe der Liste von Laufwerken nach dem Ordner 'Kundenscripts',
-        in welchem sich die Dateien LOG.txt und congif.txt befinden
+    """
+    Sucht mithilfe der Liste von Laufwerken nach dem Ordner 'Kundenscripts',
+    in welchem sich die Dateien LOG.txt und congif.txt befinden
 
-    Parameter
-    ---------
-    dir : list[str]
-        Liste aller existierenden Laufwerke des Clients (Bsp.: ['C','D'])
-    zaehler : int
-        Hilfsvariable für rekursiven Methodenaufruf mit anderem Root Ordner aus der dir list
+    Parameters:
+        dir list:                           Liste aller existierenden Laufwerke des Clients (Bsp.: ['C','D'])
+        zaehler int:                        Hilfsvariable für rekursiven Methodenaufruf mit anderem Root Ordner aus der dir list
     """
 
     global URL
@@ -39,7 +35,7 @@ def searchFiles(dir : list, zaehler = 0):
 
         abspathLog = str(files[files.index('LOG.txt')])
         abspathConfig = str(files[files.index('config.txt')])
-        path = open("./path.txt", "w")
+        path = open("path.txt", "w")
         path.write(os.path.abspath(root))
         path.close()
         break
@@ -64,21 +60,16 @@ def searchFiles(dir : list, zaehler = 0):
 
 
 def readData(dir: str, abspathLog: str, abspathConfig: str) -> dict:
-    """ Liest die Daten aus config.txt und LOG.txt aus und speichert sie im PARAMS dict
+    """
+    Liest die Daten aus config.txt und LOG.txt aus und speichert sie im PARAMS dict
 
-    Parameter
-    ---------
-    dir : str
-        der absolute Pfad zu dem Root Ordner, in welchem sich der Lizenzschlüssel und die LOG Datei befinden
-    abspathLog : str
-        die LOG (.txt) Datei
-    abspathConfig : str
-        die config (.txt) Datei
+    Parameters:
+        dir str:                           der absolute Pfad zu dem Root Ordner, in welchem sich der Lizenzschlüssel und die LOG Datei befinden
+        abspathLog : str                   die LOG (.txt) Datei
+        abspathConfig str:                 die config (.txt) Datei
 
-    Return
-    ------
-    PARAMS : dict
-        dictionary mit den Key-Value-Paaren lizenzschluessel und meldung mit den dazugehörigen Werten
+    Returns:
+        PARAMS dict:                       dictionary mit den Key-Value-Paaren lizenzschluessel und meldung mit den dazugehörigen Werten
     """
 
     if not dir or not abspathLog or not abspathConfig:
@@ -114,10 +105,8 @@ def readData(dir: str, abspathLog: str, abspathConfig: str) -> dict:
 def directRequest(dir: str):
     """ Sendet den Request an die Heartbeat API
 
-    Parameter
-    ---------
-    dir : str
-        der absolute Pfad zu dem Root Ordner, in welchem sich der Lizenzschlüssel und die LOG Datei befinden
+    Parameters:
+        dir str:                       der absolute Pfad zu dem Root Ordner, in welchem sich der Lizenzschlüssel und die LOG Datei befinden
     """
 
     PARAMS = readData(dir, "LOG.txt", "config.txt")
@@ -126,12 +115,11 @@ def directRequest(dir: str):
 
 
 def get_drives() -> list :
-    """ Findet alle existierenden Laufwerke und speichert diese in drives[]
+    """
+    Findet alle existierenden Laufwerke und speichert diese in drives[]
 
-    Returns
-    -------
-    drives : list[str]
-        Liste aller existierenden Laufwerke des Clients
+    Returns:
+        drives list:                  Liste aller existierenden Laufwerke des Clients
     """
 
     drives = []
@@ -155,7 +143,7 @@ def execute():
     """
     drives = get_drives()
     try:
-        path = open("./path.txt", "r")
+        path = open("path.txt", "r")
         abspathPath = path.read()
         path.close()
     except FileNotFoundError:
@@ -176,9 +164,9 @@ time.sleep(zufall)
 execute()
 
 
-
+#Fürt die autostart.bat Datei aus um den Windows Task Scheduler zu registrieren (nur einmalig mithilfe des initial.txt)
 firstTime = open("initial.txt", "r").read()
-
+firstTime.replace("\n", "")
 if firstTime.lower() == "false":
     subprocess.call([r'.\autostart.bat'])
     open("initial.txt", "w").write("True")

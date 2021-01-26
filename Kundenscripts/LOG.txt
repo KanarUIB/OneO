@@ -3,6 +3,4 @@
 [SUCCESS] Keine Fehler
 15:50 04.12.2020
 [ERROR] Kommunikationsfehler
-	Serververbindung inaktiv 
-	Code: 500
-	APSDASDQ123123ASDLKA1231
+	Serververbindung inaktiv

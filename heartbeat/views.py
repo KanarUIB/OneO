@@ -1,23 +1,11 @@
-# Create your views here.
-#   untenstehenden TEST-Befehl auf Kundenseite integrieren in Verbindung mit cronjob im Format */10 * * * * ... (alle 10 Minuten)
-#   curl -X POST -d kdNr=1;mandant=Mercedes_GmbH;software=aurep;lizenz=True localhost:8000/heartbeat
-from django.shortcuts import redirect, render
-import asyncio
-import random
-import pathlib
-import ssl
-import websockets
-
 from .models import Heartbeat
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from pages.models import Lizenz, KundeHatSoftware
 import datetime
 from django.utils import timezone
-import schedule
 import json
 from django.http import JsonResponse
-from django.core import serializers
 
 current_date = datetime.datetime.now()
 
@@ -26,18 +14,18 @@ def getLetzteHeartbeat(kundeHatSoftware):
     return Heartbeat.objects.filter(kundeSoftware=kundeHatSoftware).order_by('datum').last()
 
 
-"""""""""
-Prüft ob ein erfolgreicher Heartbeat für jedes Software-Paket vorhanden ist, wenn das letzte
-erfolgreiche Heartbeat vor über 24 Stunden einkam wird ein ausstehendes Heartbeat-Eintrag in der
-Datenbank erstellt. 
 
-Ist kein Heartbeat für ein Software-Paket vorhanden so wird ein Eintrag 
-mit der Meldung "Heartbeat noch nie eingetroffen" erstellt.
-
-"""""""""
 
 
 def checkHeartbeat():
+    """
+    Prüft ob ein erfolgreicher Heartbeat für jedes Software-Paket vorhanden ist, wenn das letzte
+    erfolgreiche Heartbeat vor über 24 Stunden einkam wird ein ausstehendes Heartbeat-Eintrag in der
+    Datenbank erstellt.
+
+    Ist kein Heartbeat für ein Software-Paket vorhanden so wird ein Eintrag
+    mit der Meldung "Heartbeat noch nie eingetroffen" erstellt.
+    """
     softwarePakete = KundeHatSoftware.objects.all()
     for paket in softwarePakete:
         letzterHeartbeat = getLetzteHeartbeat(paket)
@@ -51,12 +39,12 @@ def checkHeartbeat():
                 lizenz = None
 
             if lizenz is not None:
-                heartbeat = Heartbeat.objects.create(kundeSoftware=paket,
+                Heartbeat.objects.create(kundeSoftware=paket,
                                                      lizenzschluessel=lizenz.license_key,
                                                      meldung="Heartbeat noch nie eingetroffen",
                                                      datum=datetime.datetime.now())
             else:
-                heartbeat = Heartbeat.objects.create(kundeSoftware=paket,
+                Heartbeat.objects.create(kundeSoftware=paket,
                                                      lizenzschluessel="Lizenzschlüssel konnte nicht gefunden werden",
                                                      meldung="Heartbeat noch nie eingetroffen",
                                                      datum=datetime.datetime.now())
@@ -67,14 +55,17 @@ def checkHeartbeat():
                 createMissingHeartbeats(letzterHeartbeat.kundeSoftware)
 
 
-"""""""""
-Erstellt einen Datenbank ausstehenden Heartbeat-Eintrag in der Tabelle Heartbeats für den angegebenen kundeHatSoftware Software-Paket
-mit der Meldung "Heartbeat nicht eingetroffen".
-@param kundeHatSoftware Software-Paket von einem spezifischen Standort/Kunden
-"""""""""
+
 
 
 def createMissingHeartbeats(kundeHatSoftware):
+    """
+    Erstellt einen Datenbank ausstehenden Heartbeat-Eintrag in der Tabelle Heartbeats für den angegebenen kundeHatSoftware Software-Paket
+    mit der Meldung "Heartbeat nicht eingetroffen".
+
+    Parameters:
+        kundeHatSoftware:                    Software-Paket von einem spezifischen Standort/Kunden
+    """
     heartbeat = Heartbeat.objects.create(kundeSoftware=kundeHatSoftware,
                                          lizenzschluessel=Lizenz.objects.get(
                                              KundeHatSoftware=kundeHatSoftware).license_key,
@@ -82,28 +73,36 @@ def createMissingHeartbeats(kundeHatSoftware):
                                          datum=datetime.datetime.now())
 
 
-"""""""""
-Filtert aus allen Heartbeat-Objekten den aktuellsten Heartbeat-Objekte mit einer Error-Meldunge für den angegebenen softwarePaket heraus.
-@param softwarePaket KundeHatSoftware-Objekt für welches die Error-Heartbeats gesucht werden sollen
-"""""""""
+
 
 
 def getErrorHeartbeats(softwarePaket):
+    """"
+    Filtert aus allen Heartbeat-Objekten den aktuellsten Heartbeat-Objekte mit einer Error-Meldunge für den angegebenen softwarePaket heraus.
+
+    Parameters:
+        softwarePaket (QuerySet):           KundeHatSoftware-Objekt für welches die Error-Heartbeats gesucht werden sollen
+
+    Return:
+        heartbeat (Queryset):
+    """
     heartbeat = Heartbeat.objects.filter(kundeSoftware=softwarePaket).filter(meldung__icontains="Error").order_by(
         "datum").last()
     return heartbeat
 
 
-"""""""""
-Erstellt eine Liste von Heartbeats für die Ausgabe der ausstehenden und Fehlermeldung-Heartbeats auf der Dashboard-Seite
-Hierfür betrachtet man den letzten erfolgreich eingangenen Heartbeat eines Software-Pakets und prüft, ob dessen Eingangsdatum
-über 48 Stunden her ist. Heartbeats mit der Meldung "Noch nie eingetroffen" werden ebenso in die Liste hinzugefügt
 
-@return negativeHeartbeats Alle negativen & error Heartbeats
-"""""""""
 
 
 def getNegativeHeartbeats():
+    """
+    Erstellt eine Liste von Heartbeats für die Ausgabe der ausstehenden und Fehlermeldung-Heartbeats auf der Dashboard-Seite
+    Hierfür betrachtet man den letzten erfolgreich eingangenen Heartbeat eines Software-Pakets und prüft, ob dessen Eingangsdatum
+    über 48 Stunden her ist. Heartbeats mit der Meldung "Noch nie eingetroffen" werden ebenso in die Liste hinzugefügt
+
+    Returns:
+        negativeHeartbeats (list):                 Alle negativen & error Heartbeats
+    """
     negativeHeartbeats = []
     softwarePakete = KundeHatSoftware.objects.all()
     for pakete in softwarePakete:
@@ -134,28 +133,34 @@ def getNegativeHeartbeats():
     return negativeHeartbeats
 
 
-"""""""""
-REST-API die zum Empfangen aller Heartbeat-Requests dient.
 
-Das Heartbeat-Request muss aus dem Lizenzschlüssel und einem Statusbericht der Software bestehen.
-Bei Eingang eines Requests werden anhand des empfangenen Lizenznschlüssels das Lizenz-Objekt aus der Datenbank gefiltert,
-der dazugehörige Software-Paket ermittelt und der aktuelle Zeitpunkt notiert, um mit all diesen Daten den Heartbeat Eintrag
-in der Datenbank erstellen zu können.
-
-Als Response wird der Lizenzschlüssel zurück gegeben.
-"""""""""
 
 
 @api_view(["POST"])
 def heartbeat(request):
+    """
+    REST-API die zum Empfangen aller Heartbeat-Requests dient.
+
+    Das Heartbeat-Request muss aus dem Lizenzschlüssel und einem Statusbericht der Software bestehen.
+    Bei Eingang eines Requests werden anhand des empfangenen Lizenznschlüssels das Lizenz-Objekt aus der Datenbank gefiltert,
+    der dazugehörige Software-Paket ermittelt und der aktuelle Zeitpunkt notiert, um mit all diesen Daten den Heartbeat Eintrag
+    in der Datenbank erstellen zu können.
+
+    Als Response wird der Lizenzschlüssel zurück gegeben.
+
+    Parameters:
+        request (JSON):                Der HTTP Request des Clients in welchem sich der lizenzschluessel und die meldung befinden
+
+    Returns:
+        Response (dict):                Der Lizenzschlüssel wird im Response zurückgesendet (keine weiteren Auswirkungen)
+    """
     beat = {
         "lizenzschluessel": request.data["lizenzschluessel"],
         "meldung": request.data["meldung"],
     }
 
-    """""""""
+
     #Instanziere alle nötigen Attribute für einen Heartbeat
-    """""""""
     license = Lizenz.objects.get(license_key=beat["lizenzschluessel"])
 
     kundeSoftware = license.KundeHatSoftware
@@ -170,18 +175,32 @@ def heartbeat(request):
 
 @api_view(["POST"])
 def lizenzHeartbeat(request):
+    """
+    REST-API die zum Empfangen aller Lizenz-Requests dient.
+
+    Das Lizenz-Request muss aus dem Lizenzschlüssel der Software bestehen.
+    Bei Eingang eines Requests werden anhand des empfangenen Lizenznschlüssels das Lizenz-Objekt aus der Datenbank gefiltert,
+    der dazugehörige Software-Paket ermittelt und der aktuelle sowie der neue Lizenzschlüssel unter dem Attribut replace_key notiert,
+    um mit all diesen Daten den neuen Lizenzschlüssel an den Client zu senden.
+
+    Als Response wird der neue Lizenzschlüssel zurück gegeben.
+
+    Parameters:
+        request (JSON):                Der HTTP Request des Clients in welchem sich der lizenzschluessel befindet
+
+    Returns:
+        Response (JSON):                Der neue Lizenzschlüssel wird im Response zurückgesendet
+    """
     beat = {
         "lizenzschluessel": request.data["lizenzschluessel"]
     }
 
-    """""""""
+
     #Instanziere alle nötigen Attribute für einen Heartbeat
-    """""""""
     license = Lizenz.objects.get(license_key=beat["lizenzschluessel"])
 
     kundeSoftware = license.KundeHatSoftware
     datum = datetime.date.today()
-    #startdate = license.gültig_von
     enddate = license.gültig_bis
 
     if enddate < datum and license.replace_key:
@@ -190,31 +209,7 @@ def lizenzHeartbeat(request):
     elif enddate > datum or license.replace_key == None:
         return JsonResponse(json.dumps({"lizenz": "", "exist": False}), safe=False)
 
-    else:
-        '''
-        try:
-            location_license = license.objects.get(key=beat["key"])
-            print(location_license.key)
-            used_software_product = KundeHatSoftware.objects.get(
-                location = location_license.location,
-                product  = location_license.module.product,
-            )
-            Heartbeat.objects.create(used_product=used_software_product, message=beat["key"], detail=beat["log"])
-        except:
-            try:
-                customer_license = license.objects.get(key=beat["key"])
-                print(customer_license.key)
-                locations = Location.objects.filter(customer = customer_license.customer)
-                for location in locations:
-                    used_software_product = UsedSoftwareProduct.objects.get(
-                        location = location,
-                        product  = customer_license.module.product,
-                    )
-                    break
-                Heartbeat.objects.create(used_product=used_software_product, message=beat["key"], detail=beat["log"], unknown_location = True)
-            except:
-                pass
-        '''
+
     Heartbeat.objects.create(kundeSoftware=kundeSoftware, lizenzschluessel=beat["lizenzschluessel"],
                              meldung=beat["meldung"],
                              datum=datum)
@@ -225,6 +220,21 @@ def lizenzHeartbeat(request):
 # API für das überschreiben der Lizenzen
 @api_view(["POST"])
 def lizenzSave(request):
+    """
+    REST-API die zum Empfangen aller Lizenzüberschreibungsbestätigung dient.
+
+    In dem Request stehen Informationen über den neuen und alten Lizenzschlüssel sowie eine Hilfsvariable (bool),
+    die Aufschluss darüber gibt, ob der Cliet erfolgreich den Lizenzschlüssel aktualisiert hat oder nicht.
+    Je nachdem werden auf Managment-Portal-Seite die Daten des Kunden aktualisiert.
+
+    Als Response wird ein leeres dict zurück gegeben.
+
+    Parameters:
+        request (JSON):                Der HTTP Request des Clients in welchem sich der neue und alte lizenzschluessel und eine Hilfsvariable befinden
+
+    Returns:
+        Response (dict):                Leeres dict
+    """
 
     if request.data["bool"] == "True":
 

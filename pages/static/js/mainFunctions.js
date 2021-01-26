@@ -93,7 +93,6 @@ var gültigVonLizenz = $(this).prev().val();
 $("#gültig_bisLizenz").attr("min",gültigVonLizenz);
 });
 
-$(".toggle").slideUp();
 $(".trigger").click(function(){
     $(this).next(".toggle").slideToggle("slow");
   });
