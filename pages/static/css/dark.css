@@ -353,12 +353,13 @@ color: #adb5bd;
             .dark .extraCollapse .add:hover.add::before{
                 box-shadow: 0 0 10px 0 #29588c99;
              }
- .dark .add{
+.dark .add{
  color: white;
- }
+}
 
 
 
 .dark .fa-moon::before{
     text-shadow: 0 0 5px rgb(255, 207, 17);
 }
+

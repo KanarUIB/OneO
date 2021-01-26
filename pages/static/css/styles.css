@@ -6,7 +6,7 @@
                 margin: 0;
                 padding: 0;
                 position: relative;
-                1transition-duration: 800ms
+                transition-duration: 400ms
                 }
 
             .shadowKasten{
@@ -55,8 +55,10 @@
             }
 
             thead{
-            background-color: #29588C;
-            color: white;}
+            1background-color: #29588C;
+            background: linear-gradient(0deg,rgb(33, 58, 94),rgb(0,90,140));
+            color: white;
+            }
 
             .dataTables_wrapper .dataTables_paginate .paginate_button {
 
