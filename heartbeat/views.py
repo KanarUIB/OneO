@@ -11,10 +11,15 @@ current_date = datetime.datetime.now()
 
 
 def getLetzteHeartbeat(kundeHatSoftware):
+    """
+
+    Parameters:
+        kundeHatSoftware    (KundeHatSoftware)  :   Software-Paket von dem, der letzte Heartbeat-Eintrag eingeholt wird.
+    Returns:
+        Heartbeat (Heartbeat)                   :   Der letzte Heartbeat des Software-Paktes.
+    """
+
     return Heartbeat.objects.filter(kundeSoftware=kundeHatSoftware).order_by('datum').last()
-
-
-
 
 
 def checkHeartbeat():
@@ -40,22 +45,19 @@ def checkHeartbeat():
 
             if lizenz is not None:
                 Heartbeat.objects.create(kundeSoftware=paket,
-                                                     lizenzschluessel=lizenz.license_key,
-                                                     meldung="Heartbeat noch nie eingetroffen",
-                                                     datum=datetime.datetime.now())
+                                         lizenzschluessel=lizenz.license_key,
+                                         meldung="Heartbeat noch nie eingetroffen",
+                                         datum=datetime.datetime.now())
             else:
                 Heartbeat.objects.create(kundeSoftware=paket,
-                                                     lizenzschluessel="Lizenzschlüssel konnte nicht gefunden werden",
-                                                     meldung="Heartbeat noch nie eingetroffen",
-                                                     datum=datetime.datetime.now())
+                                         lizenzschluessel="Lizenzschlüssel konnte nicht gefunden werden",
+                                         meldung="Heartbeat noch nie eingetroffen",
+                                         datum=datetime.datetime.now())
         else:
             timedelta = datetime.timedelta(hours=24)
             zeit = current_date - timezone.make_naive(letzterHeartbeat.datum)
             if zeit > timedelta:
                 createMissingHeartbeats(letzterHeartbeat.kundeSoftware)
-
-
-
 
 
 def createMissingHeartbeats(kundeHatSoftware):
@@ -73,9 +75,6 @@ def createMissingHeartbeats(kundeHatSoftware):
                                          datum=datetime.datetime.now())
 
 
-
-
-
 def getErrorHeartbeats(softwarePaket):
     """"
     Filtert aus allen Heartbeat-Objekten den aktuellsten Heartbeat-Objekte mit einer Error-Meldunge für den angegebenen softwarePaket heraus.
@@ -89,9 +88,6 @@ def getErrorHeartbeats(softwarePaket):
     heartbeat = Heartbeat.objects.filter(kundeSoftware=softwarePaket).filter(meldung__icontains="Error").order_by(
         "datum").last()
     return heartbeat
-
-
-
 
 
 def getNegativeHeartbeats():
@@ -133,9 +129,6 @@ def getNegativeHeartbeats():
     return negativeHeartbeats
 
 
-
-
-
 @api_view(["POST"])
 def heartbeat(request):
     """
@@ -159,8 +152,7 @@ def heartbeat(request):
         "meldung": request.data["meldung"],
     }
 
-
-    #Instanziere alle nötigen Attribute für einen Heartbeat
+    # Instanziere alle nötigen Attribute für einen Heartbeat
     license = Lizenz.objects.get(license_key=beat["lizenzschluessel"])
 
     kundeSoftware = license.KundeHatSoftware
@@ -170,7 +162,6 @@ def heartbeat(request):
                              meldung=beat["meldung"],
                              datum=datum)
     return Response(beat["lizenzschluessel"])
-
 
 
 @api_view(["POST"])
@@ -195,8 +186,7 @@ def lizenzHeartbeat(request):
         "lizenzschluessel": request.data["lizenzschluessel"]
     }
 
-
-    #Instanziere alle nötigen Attribute für einen Heartbeat
+    # Instanziere alle nötigen Attribute für einen Heartbeat
     license = Lizenz.objects.get(license_key=beat["lizenzschluessel"])
 
     kundeSoftware = license.KundeHatSoftware
@@ -204,7 +194,7 @@ def lizenzHeartbeat(request):
     enddate = license.gültig_bis
 
     if enddate < datum and license.replace_key:
-        return JsonResponse(json.dumps({"lizenz" : license.replace_key.license_key, "exist": True}), safe=False)
+        return JsonResponse(json.dumps({"lizenz": license.replace_key.license_key, "exist": True}), safe=False)
 
     elif enddate > datum or license.replace_key == None:
         return JsonResponse(json.dumps({"lizenz": "", "exist": False}), safe=False)
@@ -212,12 +202,10 @@ def lizenzHeartbeat(request):
     else:
         print("WRONG")
 
-
     Heartbeat.objects.create(kundeSoftware=kundeSoftware, lizenzschluessel=beat["lizenzschluessel"],
                              meldung=beat["meldung"],
                              datum=datum)
     return Response(beat["lizenzschluessel"])
-
 
 
 # API für das überschreiben der Lizenzen
@@ -240,14 +228,12 @@ def lizenzSave(request):
     """
 
     if request.data["bool"] == "True":
-
         replace = Lizenz.objects.get(license_key=request.data["new"])
         gueltig_von = replace.gültig_von
         gueltig_bis = replace.gültig_bis
         Lizenz.objects.get(license_key=request.data["new"], replace_key=None).delete()
-        Lizenz.objects.filter(license_key=request.data["old"]).update(license_key=request.data["new"], gültig_von=gueltig_von, gültig_bis=gueltig_bis, replace_key=None)
-
-
+        Lizenz.objects.filter(license_key=request.data["old"]).update(license_key=request.data["new"],
+                                                                      gültig_von=gueltig_von, gültig_bis=gueltig_bis,
+                                                                      replace_key=None)
 
     return JsonResponse({})
-
