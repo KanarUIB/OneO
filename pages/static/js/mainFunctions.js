@@ -77,8 +77,35 @@ $(document).ready(function () {
     "emptyTable":     "Es sind keine Einträge vorhanden",
     "search":         "Schnellsuche:",
 
-},
+}
 
   });
 
 });
+
+$("#gültig_bisSoftware").click(function(){
+var gültigVon = $(this).prev().val();
+$("#gültig_bisSoftware").attr("min",gültigVon);
+});
+
+$("#gültig_bisLizenz").click(function(){
+var gültigVonLizenz = $(this).prev().val();
+$("#gültig_bisLizenz").attr("min",gültigVonLizenz);
+});
+
+$(".toggle").slideUp();
+$(".trigger").click(function(){
+    $(this).next(".toggle").slideToggle("slow");
+  });
+
+$(".anlegen.softwareBtn").click(function(){
+    var standortID = Number($(this).prev().val());
+    $("#standort_id_modal").val(standortID);
+});
+
+$(".cfgBtn").click(function(){
+    var oldLicenseKey = $(this).prev().val();
+    $("#alteLizenz").val(oldLicenseKey);
+});
+
+

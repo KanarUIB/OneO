@@ -27,7 +27,6 @@ class Kunde(models.Model):
         return str(self.name)
 
 
-
 class Standort(models.Model):
     """
         Das Modell Standort bildet ein Standort des Kunden in der Datenbank ab.
@@ -88,23 +87,75 @@ class Software(models.Model):
 
 
 class KundeHatSoftware(models.Model):
+    """
+        Das Modell KundeHatSoftware bildet einen Software-Paket welches vom Kunden genutzt wird, in der Datenbank ab.
+
+        Attributes:
+            standort   (Standort)    :    Das Standort, welches dieses Software-Paket nutzt.
+            software   (Software)    :   Die Software die genutzt wird.
+            version   (str)          :   Die Software-Version die bei dem Kunden vorliegt.
+        Methods:
+            __str__(self)   :   Ist eine Methode mit der sich die KundeHatSoftware selbst beschreibt.
+    """
+
     standort = models.ForeignKey(Standort, on_delete=models.CASCADE)
     software = models.ForeignKey(Software, on_delete=models.CASCADE)
     version = models.CharField(max_length=10)
 
     def __str__(self):
+        """
+            Beschreibt die angesprochene Instanz.
+
+            Parameters:
+                self:   Die KundeHatSoftwareinstanz selbst.
+            Returns:
+                str (str): Name des Kunden konkateniert mit der Ortschaft des Standorts und der genutzten Software.
+        """
+
         return self.standort.kunde.name + " - " + self.standort.ort + ": " + self.software.software_name
 
 
 class Modul(models.Model):
+    """
+        Das Modell KundeHatSoftware bildet einen Software-Paket welches vom Kunden genutzt wird, in der Datenbank ab.
+
+        Attributes:
+            name       (Standort)    :    Der Name des Moduls.
+            produkt    (Software)   :    Die Software der, das Modul angehört.
+        Methods:
+            __str__(self)   :   Ist eine Methode mit der sich die KundeHatSoftware selbst beschreibt.
+    """
+
     name = models.CharField(max_length=50)
     produkt = models.ForeignKey(Software, on_delete=models.CASCADE)
 
     def __str__(self):
+        """
+            Beschreibt die angesprochene Instanz.
+
+            Parameters:
+                self:   Das Modulinstanz selbst.
+            Returns:
+                str (str): Der Name der Software konkateniert mit dem Namen des Moduls.
+        """
+
         return str(self.produkt.software_name) + ": " + str(self.name)
 
 
 class Ansprechpartner(models.Model):
+    """
+        Das Modell Ansprechpartner bildet einen Ansprechner eines Kunden, in der Datenbank ab.
+
+        Attributes:
+            vorname   (Standort)    :    Der Vorname des Ansprechpartners.
+            nachname   (Software)   :    Der Nachname des Ansprechpartners.
+            telefon_nr  (str)       :    Die Telefonnummer des Ansprechpartners.
+            email       (Email)     :    Die Email-Adresse des Ansprechpartners
+            standort    (Standort)  :    Der Standort, den der Ansprechpartner vertritt.
+        Methods:
+            __str__(self)   :   Ist eine Methode mit der sich die KundeHatSoftware selbst beschreibt.
+    """
+
     vorname = models.CharField(max_length=100)
     nachname = models.CharField(max_length=100)
     telefon_nr = models.CharField(max_length=50)
@@ -112,10 +163,34 @@ class Ansprechpartner(models.Model):
     standort = models.ForeignKey(Standort, on_delete=models.CASCADE)
 
     def __str__(self):
+        """
+            Beschreibt die angesprochene Ansprechpartner Instanz.
+
+            Parameters:
+                self:   Das Ansprechpartnerinstanz selbst.
+            Returns:
+                str (str): Der volle Name des Ansprechpartners.
+        """
+
         return str(self.vorname) + " " + str(self.nachname)
 
 
 class Lizenz(models.Model):
+    """
+        Das Modell Lizenz bildet die Lizenz eines Software-Produkts, in der Datenbank ab.
+
+        Attributes:
+            KundeHatSoftware    (KundeHatSoftware)  :   Das Software-Paket für welches die Lizenz gültig ist.
+            license_key         (str)               :   Der Lizenzschlüssel der Software.
+            detail              (str)               :   Eine Beschreibung zur Lizenz.
+            gültig_von          (date)              :   Das Datum ab dem die Lizenz gültig ist.
+            gültig_bis          (date)              :   Das Datum ab dem die Lizenz gültig ist.
+            replace_key         (Lizenz)            :   Das Lizenz-Objekt, welches von dem aktuellen Lizenz
+                                                        nach Ablauf der Gültigkeit ersetzt werden soll.
+        Methods:
+            __str__(self)   :   Ist eine Methode mit der sich die Lizenz selbst beschreibt.
+    """
+
     KundeHatSoftware = models.ForeignKey(KundeHatSoftware, on_delete=models.CASCADE)
     modul = models.ForeignKey(Modul, on_delete=models.CASCADE)
     license_key = models.CharField(max_length=300)
@@ -125,12 +200,38 @@ class Lizenz(models.Model):
     replace_key = models.OneToOneField('Lizenz', on_delete=models.SET_NULL, null=True, default=None, blank=True)
 
     def __str__(self):
-        return self.KundeHatSoftware.__str__() + " - " + self.modul.name + " - " + self.license_key.__str__()
+        """
+            Beschreibt die angesprochene Lizenz Instanz.
+
+            Parameters:
+                self:   Das Lizenzinstanz selbst.
+            Returns:
+                str (str): Software-Produkt-Name konkateniert mit dem Modulnamen und das Lizenzschlüssel.
+        """
+        return self.KundeHatSoftware.__str__() + " - " + self.modul.name + self.license_key.__str__()
 
 
 class Kundenlizenz(Lizenz):
+    """
+        Das Modell Kundenlizenz ist eine Vererbung des Lizenz-Models und bildet eine globale Lizenz eines Kunden ab.
+        Es erbt alle Attribute und Methoden des Lizenzen-Models.
+        Diese Lizenz kann von allen Standorten des Kunden genutzt werden.
+
+        Attributes:
+            kunde_id    (Kunde) :   Der Kunde, dem dieser Kundenlizenz gehört.
+    """
+
     kunde_id = models.ForeignKey('Kunde', on_delete=models.CASCADE)
 
 
 class Standortlizenz(Lizenz):
+    """
+        Das Modell Standortlizenz ist eine Vererbung des Lizenz-Models und bildet eine Lizenz eines spezifischen Standorts ab.
+        Es erbt alle Attribute und Methoden des Lizenzen-Models.
+        Diese Lizenz kann nur von diesem einen Standort genutzt werden.
+
+        Attributes:
+            standort_id    (Standort) :   Der Standort, dem dieser Standortlizenz gehört.
+    """
+
     standort_id = models.ForeignKey('Standort', on_delete=models.CASCADE)
