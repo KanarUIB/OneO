@@ -271,11 +271,8 @@ def create_standort(request, id):
     """
 
     kunde = Kunde.objects.get(id=id)
-    print("kunde:")
-    print(kunde)
     form = StandortCreateForms()
     if request.method == 'POST':
-        print("bin drin")
         formData = {
             "kunde": kunde,
             "name": request.POST.get("name"),
@@ -287,9 +284,7 @@ def create_standort(request, id):
             "telNr": request.POST.get("telNr"),
         }
         form = StandortCreateForms(formData)
-        print(form.is_valid())
         if form.is_valid():
-            print("kam rein")
             form.save()
             return redirect('kundenprofil', id)
     context = {
