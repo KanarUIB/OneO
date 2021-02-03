@@ -53,7 +53,7 @@ class Standort(models.Model):
     hausnr = models.CharField(max_length=5)
     plz = models.CharField(max_length=10)
     ort = models.CharField(max_length=50)
-    zeiten = models.CharField(max_length=50, null=True)
+    zeiten = models.CharField(max_length=50, null=True, blank=True, default="")
 
     def __str__(self):
         return str(self.kunde.name) + " " + str(self.name)
