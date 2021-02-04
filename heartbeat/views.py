@@ -68,9 +68,13 @@ def createMissingHeartbeats(kundeHatSoftware):
     Parameters:
         kundeHatSoftware:                    Software-Paket von einem spezifischen Standort/Kunden
     """
+    try:
+        lizenz = Lizenz.objects.get(KundeHatSoftware=kundeHatSoftware).license_key
+    except:
+        lizenz = None
+
     heartbeat = Heartbeat.objects.create(kundeSoftware=kundeHatSoftware,
-                                         lizenzschluessel=Lizenz.objects.get(
-                                             KundeHatSoftware=kundeHatSoftware).license_key,
+                                         lizenzschluessel=lizenz,
                                          meldung="Heartbeat nicht eingetroffen",
                                          datum=datetime.datetime.now())
 
